@@ -6,6 +6,7 @@
 #include "Textures.h"
 #include "Game.h"
 #include "GameObject.h"
+#include "Camera.h"
 #include "Sprites.h"
 
 CGameObject::CGameObject()
@@ -129,7 +130,9 @@ void CGameObject::RenderBoundingBox()
 	rect.right = (int)r - (int)l;
 	rect.bottom = (int)b - (int)t;
 
-	CGame::GetInstance()->Draw(x, y, bbox, rect.left, rect.top, rect.right, rect.bottom, 32);
+	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
+
+	CGame::GetInstance()->Draw(x - camera->GetCamPosX(), y - camera->GetCamPosY(), bbox, rect.left, rect.top, rect.right, rect.bottom, 32);
 }
 
 

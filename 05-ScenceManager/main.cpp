@@ -159,8 +159,8 @@ int Run()
 		{
 			frameStart = now;
 
-			game->ProcessKeyboard();
-			
+			KeyHanler::GetInstance()->ProcessKeyboard();
+
 			Update(dt);
 			Render();
 		}
@@ -177,8 +177,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	game = CGame::GetInstance();
 	game->Init(hWnd);
-	game->InitKeyboard();
-
+	KeyHanler::GetInstance()->InitKeyboard(hWnd);
 	game->Load(L"mario-sample.txt");
 
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH*2, SCREEN_HEIGHT*2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);

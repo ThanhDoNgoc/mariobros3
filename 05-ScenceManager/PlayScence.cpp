@@ -12,7 +12,6 @@ using namespace std;
 CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 	CScene(id, filePath)
 {
-	key_handler = new CPlayScenceKeyHandler(this);
 }
 
 /*
@@ -180,6 +179,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 void CPlayScene::Load()
 {
+
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", sceneFilePath);
 
 	ifstream f;
@@ -223,6 +223,11 @@ void CPlayScene::Load()
 
 	CTextures::GetInstance()->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 
+	this->camera = new Camera();
+	this->camera->SetCamPos(0, 0);
+	this->camera->SetCamSize(320, 240);
+	this->camera->SetCamTarget(player);
+
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
 
@@ -245,15 +250,11 @@ void CPlayScene::Update(DWORD dt)
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
 	if (player == NULL) return; 
 
-	// Update camera to follow mario
-	float cx, cy;
-	player->GetPosition(cx, cy);
+	if (camera != NULL)
+	{
+		camera->Update();
+	}
 
-	CGame *game = CGame::GetInstance();
-	cx -= game->GetScreenWidth() / 2;
-	cy -= game->GetScreenHeight() / 2;
-
-	CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
 }
 
 void CPlayScene::Render()
@@ -276,33 +277,12 @@ void CPlayScene::Unload()
 	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
 }
 
-void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
+void CPlayScene::OnKeyUp(int KeyCode)
 {
-	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
-
-	CMario *mario = ((CPlayScene*)scence)->GetPlayer();
-	switch (KeyCode)
-	{
-	case DIK_SPACE:
-		mario->SetState(MARIO_STATE_JUMP);
-		break;
-	case DIK_A: 
-		mario->Reset();
-		break;
-	}
+	player->OnKeyUp(KeyCode);
 }
 
-void CPlayScenceKeyHandler::KeyState(BYTE *states)
+void CPlayScene::OnKeyDown(int KeyCode)
 {
-	CGame *game = CGame::GetInstance();
-	CMario *mario = ((CPlayScene*)scence)->GetPlayer();
-
-	// disable control key when Mario die 
-	if (mario->GetState() == MARIO_STATE_DIE) return;
-	if (game->IsKeyDown(DIK_RIGHT))
-		mario->SetState(MARIO_STATE_WALKING_RIGHT);
-	else if (game->IsKeyDown(DIK_LEFT))
-		mario->SetState(MARIO_STATE_WALKING_LEFT);
-	else
-		mario->SetState(MARIO_STATE_IDLE);
+	player->OnKeyDown(KeyCode);
 }

@@ -1,4 +1,6 @@
 #include "Koopas.h"
+#include "Game.h"
+#include "Camera.h"
 
 CKoopas::CKoopas()
 {
@@ -46,7 +48,9 @@ void CKoopas::Render()
 	else if (vx > 0) ani = KOOPAS_ANI_WALKING_RIGHT;
 	else if (vx <= 0) ani = KOOPAS_ANI_WALKING_LEFT;
 
-	animation_set->at(ani)->Render(x, y);
+	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
+
+	animation_set->at(ani)->Render(x - camera->GetCamPosX(), y - camera->GetCamPosY());
 
 	RenderBoundingBox();
 }

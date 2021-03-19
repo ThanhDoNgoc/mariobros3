@@ -1,4 +1,7 @@
 #include "Goomba.h"
+#include "Game.h"
+#include "Camera.h"
+
 CGoomba::CGoomba()
 {
 	SetState(GOOMBA_STATE_WALKING);
@@ -43,7 +46,9 @@ void CGoomba::Render()
 		ani = GOOMBA_ANI_DIE;
 	}
 
-	animation_set->at(ani)->Render(x,y);
+	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
+
+	animation_set->at(ani)->Render(x - camera->GetCamPosX(), y - camera->GetCamPosY());
 
 	//RenderBoundingBox();
 }

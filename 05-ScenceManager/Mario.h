@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "KeyHanler.h"
 
 #define MARIO_WALKING_SPEED		0.15f 
 //0.1f
@@ -56,6 +57,9 @@ public:
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 
 	void Reset();
+
+	void OnKeyUp(int KeyCode);
+	void OnKeyDown(int KeyCode);
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 };

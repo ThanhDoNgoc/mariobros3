@@ -4,6 +4,7 @@
 
 #include "Mario.h"
 #include "Game.h"
+#include "Camera.h"
 
 #include "Goomba.h"
 #include "Portal.h"
@@ -22,6 +23,16 @@ CMario::CMario(float x, float y) : CGameObject()
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
+	CGame* game = CGame::GetInstance();
+
+	// disable control key when Mario die 
+	if (GetState() == MARIO_STATE_DIE) return;
+	if (KeyHanler::GetInstance()->IsKeyDown(DIK_RIGHT))
+		SetState(MARIO_STATE_WALKING_RIGHT);
+	else if (KeyHanler::GetInstance()->IsKeyDown(DIK_LEFT))
+		SetState(MARIO_STATE_WALKING_LEFT);
+	else
+		SetState(MARIO_STATE_IDLE);
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
@@ -152,7 +163,9 @@ void CMario::Render()
 	int alpha = 255;
 	if (untouchable) alpha = 128;
 
-	animation_set->at(ani)->Render(x, y, alpha);
+	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
+
+	animation_set->at(ani)->Render(x - camera->GetCamPosX(), y - camera->GetCamPosY(), alpha);
 
 	RenderBoundingBox();
 }
@@ -210,5 +223,23 @@ void CMario::Reset()
 	SetLevel(MARIO_LEVEL_BIG);
 	SetPosition(start_x, start_y);
 	SetSpeed(0, 0);
+}
+
+void CMario::OnKeyUp(int KeyCode)
+{
+}
+
+
+void CMario::OnKeyDown(int KeyCode)
+{
+	switch (KeyCode)
+	{
+	case DIK_SPACE:
+		SetState(MARIO_STATE_JUMP);
+		break;
+	case DIK_A:
+		Reset();
+		break;
+	}
 }
 

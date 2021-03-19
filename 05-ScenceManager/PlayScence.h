@@ -3,10 +3,13 @@
 #include "Textures.h"
 #include "Scence.h"
 #include "GameObject.h"
+#include "Camera.h"
+
 #include "Brick.h"
 #include "Mario.h"
 #include "Goomba.h"
 #include "Koopas.h"
+#include "KeyHanler.h"
 
 
 class CPlayScene: public CScene
@@ -31,17 +34,10 @@ public:
 	virtual void Render();
 	virtual void Unload();
 
+	virtual void OnKeyUp(int KeyCode) override;
+	virtual void OnKeyDown(int KeyCode) override;
+
 	CMario * GetPlayer() { return player; } 
 
 	//friend class CPlayScenceKeyHandler;
 };
-
-class CPlayScenceKeyHandler : public CScenceKeyHandler
-{
-public: 
-	virtual void KeyState(BYTE *states);
-	virtual void OnKeyDown(int KeyCode);
-	virtual void OnKeyUp(int KeyCode) {};
-	CPlayScenceKeyHandler(CScene *s) :CScenceKeyHandler(s) {};
-};
-
