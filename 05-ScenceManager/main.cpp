@@ -25,6 +25,7 @@
 #include "Goomba.h"
 
 #include "PlayScence.h"
+#include "AniMaganer.h"
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"SAMPLE 05 - SCENCE MANAGER"
@@ -178,6 +179,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	game = CGame::GetInstance();
 	game->Init(hWnd);
 	KeyHanler::GetInstance()->InitKeyboard(hWnd);
+	AniMaganer::GetInstance()->LoadResource();
+
 	game->Load(L"mario-sample.txt");
 
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH*2, SCREEN_HEIGHT*2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);

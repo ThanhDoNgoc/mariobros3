@@ -114,6 +114,14 @@ void CGameObject::FilterCollision(
 	if (min_iy>=0) coEventsResult.push_back(coEvents[min_iy]);
 }
 
+void CGameObject::AddAnimation(int aniID)
+{
+	LPANIMATION ani = CAnimations::GetInstance()->Get(aniID);
+	animation_set.push_back(ani);
+	//animation_set->push_back(ani);
+	DebugOut(L"ADD ANIMATION: %d \n ", aniID);
+}
+
 
 void CGameObject::RenderBoundingBox()
 {

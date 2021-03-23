@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "KeyHanler.h"
+#include "defineAni.h"
 
 #define MARIO_WALKING_SPEED		0.15f 
 //0.1f

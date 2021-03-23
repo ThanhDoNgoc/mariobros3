@@ -11,6 +11,16 @@
 
 CMario::CMario(float x, float y) : CGameObject()
 {
+	AddAnimation(ID_ANI_BIG_MARIO_IDLE_RIGHT);
+	AddAnimation(ID_ANI_BIG_MARIO_IDLE_LEFT);
+	AddAnimation(ID_ANI_SMALL_MARIO_IDLE_RIGHT);
+	AddAnimation(ID_ANI_SMALL_MARIO_IDLE_LEFT);
+	AddAnimation(ID_ANI_BIG_MARIO_WALK_RIGHT);
+	AddAnimation(ID_ANI_BIG_MARIO_WALK_LEFT);
+	AddAnimation(ID_ANI_SMALL_MARIO_WALK_RIGHT);
+	AddAnimation(ID_ANI_SMALL_MARIO_WALK_LEFT);
+	AddAnimation(ID_ANI_SMALL_MARIO_DIE);
+
 	level = MARIO_LEVEL_BIG;
 	untouchable = 0;
 	SetState(MARIO_STATE_IDLE);
@@ -165,7 +175,8 @@ void CMario::Render()
 
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 
-	animation_set->at(ani)->Render(x - camera->GetCamPosX(), y - camera->GetCamPosY(), alpha);
+	//animation_set->at(ani)->Render(x - camera->GetCamPosX(), y - camera->GetCamPosY(), alpha);
+	animation_set[ani]->Render(x - camera->GetCamPosX(), y - camera->GetCamPosY(), alpha);
 
 	RenderBoundingBox();
 }

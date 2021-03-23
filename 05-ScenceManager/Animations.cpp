@@ -1,5 +1,6 @@
 #include "Animations.h"
 #include "Utils.h"
+#include "Scence.h"
 
 CAnimationSets * CAnimationSets::__instance = NULL;
 
@@ -53,6 +54,7 @@ CAnimations * CAnimations::GetInstance()
 void CAnimations::Add(int id, LPANIMATION ani)
 {
 	animations[id] = ani;
+	DebugOut(L"AnimationAdded: %d\n", id);
 }
 
 LPANIMATION CAnimations::Get(int id)

@@ -60,7 +60,8 @@ public:
 
 	DWORD dt; 
 
-	LPANIMATION_SET animation_set;
+	//LPANIMATION_SET animation_set;
+	vector<LPANIMATION> animation_set;
 
 public: 
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
@@ -72,7 +73,7 @@ public:
 
 	void RenderBoundingBox();
 
-	void SetAnimationSet(LPANIMATION_SET ani_set) { animation_set = ani_set; }
+	//void SetAnimationSet(LPANIMATION_SET ani_set) { animation_set = ani_set; }
 
 	LPCOLLISIONEVENT SweptAABBEx(LPGAMEOBJECT coO);
 	void CalcPotentialCollisions(vector<LPGAMEOBJECT> *coObjects, vector<LPCOLLISIONEVENT> &coEvents);
@@ -85,6 +86,8 @@ public:
 		float &ny, 
 		float &rdx, 
 		float &rdy);
+
+	void AddAnimation(int aniID);
 
 	CGameObject();
 

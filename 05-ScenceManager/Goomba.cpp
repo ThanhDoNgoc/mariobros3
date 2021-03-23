@@ -48,7 +48,7 @@ void CGoomba::Render()
 
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 
-	animation_set->at(ani)->Render(x - camera->GetCamPosX(), y - camera->GetCamPosY());
+	//animation_set->at(ani)->Render(x - camera->GetCamPosX(), y - camera->GetCamPosY());
 
 	//RenderBoundingBox();
 }

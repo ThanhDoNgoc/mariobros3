@@ -4,10 +4,10 @@
 
 void CBrick::Render()
 {
-	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
+	//Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 
-	animation_set->at(0)->Render(x - camera->GetCamPosX(), y - camera->GetCamPosY());
-	//RenderBoundingBox();
+	//animation_set->at(0)->Render(x - camera->GetCamPosX(), y - camera->GetCamPosY());
+	RenderBoundingBox();
 }
 
 void CBrick::GetBoundingBox(float &l, float &t, float &r, float &b)

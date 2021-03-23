@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Animations">
-      <UniqueIdentifier>{a134e526-baab-4502-94c8-f0ea4a49a016}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObjects">
       <UniqueIdentifier>{9addb561-0cda-4215-b46d-b07093c344be}</UniqueIdentifier>
     </Filter>
@@ -43,17 +40,20 @@
     <Filter Include="Camera">
       <UniqueIdentifier>{77be2d97-d01b-4044-849a-52c2b9373d1c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Animations">
+      <UniqueIdentifier>{a134e526-baab-4502-94c8-f0ea4a49a016}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animations\Sprites">
+      <UniqueIdentifier>{3c3989f2-7ea3-476e-a9bd-412d8625c363}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animations\Animations">
+      <UniqueIdentifier>{35a47d9a-17b8-49c9-a3c5-5c807a45d38a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animations\Textures">
+      <UniqueIdentifier>{8310b88c-9a9b-48c1-990c-61cdc74e27c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Animations.cpp">
-      <Filter>Animations</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprites.cpp">
-      <Filter>Animations</Filter>
-    </ClCompile>
-    <ClCompile Include="Textures.cpp">
-      <Filter>Animations</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
@@ -89,17 +89,20 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
+    <ClCompile Include="Sprites.cpp">
+      <Filter>Animations\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="AniMaganer.cpp">
+      <Filter>Animations\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="Animations.cpp">
+      <Filter>Animations\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="Textures.cpp">
+      <Filter>Animations\Textures</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Animations.h">
-      <Filter>Animations</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprites.h">
-      <Filter>Animations</Filter>
-    </ClInclude>
-    <ClInclude Include="Textures.h">
-      <Filter>Animations</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
@@ -133,6 +136,21 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprites.h">
+      <Filter>Animations\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="AniMaganer.h">
+      <Filter>Animations\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="Animations.h">
+      <Filter>Animations\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="defineAni.h">
+      <Filter>Animations\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="Textures.h">
+      <Filter>Animations\Textures</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
