@@ -65,19 +65,4 @@ LPDIRECT3DTEXTURE9 CTextures::Get(unsigned int id)
 	return textures[id];
 }
 
-/*
-	Clear all loaded textures
-*/
-void CTextures::Clear()
-{
-	for (auto x : textures)
-	{
-		LPDIRECT3DTEXTURE9 tex = x.second; 
-		if (tex!=NULL) tex->Release();
-	}
-	
-	textures.clear();
-}
-
-
 

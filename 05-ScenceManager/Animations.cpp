@@ -21,7 +21,7 @@ void CAnimation::Add(int spriteId, DWORD time)
 }
 
 // NOTE: sometimes Animation object is NULL ??? HOW ??? 
-void CAnimation::Render(float x, float y, int alpha)
+void CAnimation::Render(float x, float y, D3DXVECTOR2 direction, int alpha)
 {
 	DWORD now = GetTickCount();
 	if (currentFrame == -1)
@@ -40,7 +40,7 @@ void CAnimation::Render(float x, float y, int alpha)
 		}
 	}
 
-	frames[currentFrame]->GetSprite()->Draw(x, y, alpha);
+	frames[currentFrame]->GetSprite()->Draw(x, y,direction , alpha);
 }
 
 CAnimations * CAnimations::__instance = NULL;

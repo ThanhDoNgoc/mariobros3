@@ -16,7 +16,7 @@ CMario::CMario(float x, float y) : CGameObject()
 	AddAnimation(ID_ANI_SMALL_MARIO_IDLE_RIGHT);
 	AddAnimation(ID_ANI_SMALL_MARIO_IDLE_LEFT);
 	AddAnimation(ID_ANI_BIG_MARIO_WALK_RIGHT);
-	AddAnimation(ID_ANI_BIG_MARIO_WALK_LEFT);
+	AddAnimation(ID_ANI_BIG_MARIO_WALK_RIGHT);
 	AddAnimation(ID_ANI_SMALL_MARIO_WALK_RIGHT);
 	AddAnimation(ID_ANI_SMALL_MARIO_WALK_LEFT);
 	AddAnimation(ID_ANI_SMALL_MARIO_DIE);
@@ -176,7 +176,7 @@ void CMario::Render()
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 
 	//animation_set->at(ani)->Render(x - camera->GetCamPosX(), y - camera->GetCamPosY(), alpha);
-	animation_set[ani]->Render(x - camera->GetCamPosX(), y - camera->GetCamPosY(), alpha);
+	animation_set[ani]->Render(x - camera->GetCamPosX(), y - camera->GetCamPosY(),direction, alpha);
 
 	RenderBoundingBox();
 }
@@ -250,6 +250,14 @@ void CMario::OnKeyDown(int KeyCode)
 		break;
 	case DIK_A:
 		Reset();
+		break;
+	case DIK_RIGHT:
+		direction.x = 1.0f;
+		direction.y = 1.0f;
+		break;
+	case DIK_LEFT:
+		direction.x = -1.0f;
+		direction.y = -1.0f;
 		break;
 	}
 }

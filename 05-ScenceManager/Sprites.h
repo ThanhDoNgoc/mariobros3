@@ -13,12 +13,13 @@ class CSprite
 	int top;
 	int right;
 	int bottom;
+	D3DXVECTOR2 direction;
 
 	LPDIRECT3DTEXTURE9 texture;
 public: 
 	CSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
 
-	void Draw(float x, float y, int alpha = 255);
+	void Draw(float x, float y,D3DXVECTOR2 direction, int alpha = 255);
 };
 
 typedef CSprite * LPSPRITE;
@@ -35,7 +36,6 @@ class CSprites
 public:
 	void Add(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
 	LPSPRITE Get(int id);
-	void CSprites::Clear();
 
 	static CSprites * GetInstance();
 };
