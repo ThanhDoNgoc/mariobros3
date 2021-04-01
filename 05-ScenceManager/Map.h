@@ -28,6 +28,7 @@ public:
 	void AddTileMap(LPTILEMAP tilemap);
 
 	void LoadMap(const char* filePath, const char* path);
+	void Render(Camera* camera);
 
 };
 

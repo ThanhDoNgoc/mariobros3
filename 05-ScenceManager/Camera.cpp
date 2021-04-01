@@ -51,6 +51,6 @@ void Camera::Update()
 	cy -= CamHeight / 2;
 
 	CamPosX = cx;
-	CamPosY = 0.0f;
+	CamPosY = cy;
 
 }

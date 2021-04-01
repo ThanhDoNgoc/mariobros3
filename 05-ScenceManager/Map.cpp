@@ -52,3 +52,26 @@ void Map::LoadMap(const char* filePath, const char* path)
 		DebugOut(L"[ERROR] failed to load map \n");
 	}
 }
+
+void Map::Render(Camera* camera)
+{
+	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f, 1.0f);
+	for (int i = 0; i < mapWidth; i++)
+	{
+		for (int j = 0; j < mapHeight; j++)
+		{
+			int x = i * tileWidth;
+			int y = j * tileHeight;
+			for (LPTILEMAP tile : tileMaps)
+			{
+				int id = tile->GetMapData(i, j);
+				if (id != 0)
+				{
+					tileSets->Draw(id, x, y);
+				}
+			}
+		}
+	}
+	DebugOut(L"RENDER MAPP \n");
+
+}

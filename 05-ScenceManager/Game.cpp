@@ -91,6 +91,12 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top
 	spriteHandler->SetTransform(&mPre);
 }
 
+void CGame::DrawTileMap(float x, float y, LPDIRECT3DTEXTURE9 texture, RECT* Rect)
+{
+	D3DXVECTOR3 p(x, y, 0);
+	spriteHandler->Draw(texture, Rect, NULL, &p, D3DCOLOR_XRGB(255, 255, 255));
+}
+
 LPDIRECT3DTEXTURE9 CGame::LoadTexture(LPCWSTR texturePath, D3DCOLOR TransColor)
 {
 	D3DXIMAGE_INFO info;

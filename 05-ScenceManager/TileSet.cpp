@@ -17,7 +17,7 @@ TileSet::TileSet(TiXmlElement* TMXtileset, std::string Path)
 	TMXimage->QueryIntAttribute("height", &this->imageHeight);
 
 	this->mapTexture = CGame::GetInstance()->LoadTexture(ToLPCWSTR(imagepath), NULL);
-	int index = 0;
+	int index = 1;
 	for (int i = 0; i < imageHeight / tileHeight; i++)
 	{
 		for (int j = 0; j < imageWidth / tileWidth; j++, index++)
@@ -31,7 +31,7 @@ TileSet::TileSet(TiXmlElement* TMXtileset, std::string Path)
 
 			this->cells[index] = rect;
 
-			//DebugOut(L"rect %d: %d %d %d %d \n",index, rect->left, rect->top, rect->right, rect->bottom);
+			DebugOut(L"rect %d: %d %d %d %d \n",index, rect->left, rect->top, rect->right, rect->bottom);
 		}
 	}
 }
@@ -69,6 +69,13 @@ LPDIRECT3DTEXTURE9 TileSet::GetMapTexture()
 {
 	return this->mapTexture;
 }
+
+void TileSet::Draw(int id, float x, float y)
+{
+	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
+	CGame::GetInstance()->DrawTileMap(x - camera->GetCamPosX(), y - camera->GetCamPosY(), mapTexture, cells[id]);
+}
+
 
 void TileSet::ClearMapTexture()
 {

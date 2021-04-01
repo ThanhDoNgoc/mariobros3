@@ -25,6 +25,7 @@ public:
 	int GetTileHeight();
 	LPDIRECT3DTEXTURE9 GetMapTexture();
 
+	void Draw(int id, float x, float y);
 	void ClearMapTexture();
 
 };

@@ -106,7 +106,6 @@ void CPlayScene::_ParseSection_MAP(string line)
 
 void CPlayScene::Load()
 {
-
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", sceneFilePath);
 
 	ifstream f;
@@ -180,6 +179,7 @@ void CPlayScene::Update(DWORD dt)
 
 void CPlayScene::Render()
 {
+	maps->Render(camera);
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 }
