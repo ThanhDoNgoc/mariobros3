@@ -12,6 +12,7 @@
 #include "KeyHanler.h"
 #include "Camera.h"
 
+
 #include "Scence.h"
 
 using namespace std;
@@ -40,6 +41,8 @@ class CGame
 public:
 	void Init(HWND hWnd);
 	void Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, D3DXVECTOR2 flip = D3DXVECTOR2(1.0f, 1.0f) , int alpha = 255);
+
+	LPDIRECT3DTEXTURE9 LoadTexture(LPCWSTR texturePath, D3DCOLOR TransColor);
 
 	void Load(LPCWSTR gameFile);
 	LPSCENE GetCurrentScene() { return scenes[current_scene]; }

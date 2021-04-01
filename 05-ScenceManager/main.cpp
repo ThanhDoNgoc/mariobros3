@@ -19,6 +19,7 @@
 #include "Game.h"
 #include "GameObject.h"
 #include "Textures.h"
+#include "Map.h"
 
 #include "Mario.h"
 #include "Brick.h"
@@ -180,7 +181,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	game->Init(hWnd);
 	KeyHanler::GetInstance()->InitKeyboard(hWnd);
 	AniMaganer::GetInstance()->LoadResource();
-
 	game->Load(L"mario-sample.txt");
 
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH*2, SCREEN_HEIGHT*2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);

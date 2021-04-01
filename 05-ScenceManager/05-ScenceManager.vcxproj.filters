@@ -40,20 +40,32 @@
     <Filter Include="Camera">
       <UniqueIdentifier>{77be2d97-d01b-4044-849a-52c2b9373d1c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Animations">
-      <UniqueIdentifier>{a134e526-baab-4502-94c8-f0ea4a49a016}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Animations\Sprites">
-      <UniqueIdentifier>{3c3989f2-7ea3-476e-a9bd-412d8625c363}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Animations\Animations">
-      <UniqueIdentifier>{35a47d9a-17b8-49c9-a3c5-5c807a45d38a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Animations\Textures">
-      <UniqueIdentifier>{8310b88c-9a9b-48c1-990c-61cdc74e27c0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Map">
       <UniqueIdentifier>{d1762661-5e80-4e2e-8327-f6c4f205cff4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Map\TileSet">
+      <UniqueIdentifier>{42e04e2b-faba-44aa-8d7e-e20d84c75999}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{a134e526-baab-4502-94c8-f0ea4a49a016}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Sprites">
+      <UniqueIdentifier>{3c3989f2-7ea3-476e-a9bd-412d8625c363}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Animations">
+      <UniqueIdentifier>{35a47d9a-17b8-49c9-a3c5-5c807a45d38a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Textures">
+      <UniqueIdentifier>{8310b88c-9a9b-48c1-990c-61cdc74e27c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Map">
+      <UniqueIdentifier>{21c4a897-756d-4a60-b2ba-0a231af07499}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Map\TileMap">
+      <UniqueIdentifier>{a1888dc2-21f7-490c-a05c-aaa54edbd2d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tinyXML">
+      <UniqueIdentifier>{7cc15f94-7666-4201-b0ac-d06ad9e38f87}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -93,18 +105,36 @@
       <Filter>Camera</Filter>
     </ClCompile>
     <ClCompile Include="Sprites.cpp">
-      <Filter>Animations\Sprites</Filter>
+      <Filter>Graphics\Sprites</Filter>
     </ClCompile>
     <ClCompile Include="AniMaganer.cpp">
-      <Filter>Animations\Animations</Filter>
+      <Filter>Graphics\Animations</Filter>
     </ClCompile>
     <ClCompile Include="Animations.cpp">
-      <Filter>Animations\Animations</Filter>
+      <Filter>Graphics\Animations</Filter>
     </ClCompile>
     <ClCompile Include="Textures.cpp">
-      <Filter>Animations\Textures</Filter>
+      <Filter>Graphics\Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="TileSet.cpp">
+      <Filter>Map\TileSet</Filter>
     </ClCompile>
     <ClCompile Include="TileMap.cpp">
+      <Filter>Map\TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyXML\tinyxml\tinystr.cpp">
+      <Filter>tinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyXML\tinyxml\tinyxml.cpp">
+      <Filter>tinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyXML\tinyxml\tinyxmlerror.cpp">
+      <Filter>tinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyXML\tinyxml\tinyxmlparser.cpp">
+      <Filter>tinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
       <Filter>Map</Filter>
     </ClCompile>
   </ItemGroup>
@@ -144,21 +174,33 @@
       <Filter>Camera</Filter>
     </ClInclude>
     <ClInclude Include="Sprites.h">
-      <Filter>Animations\Sprites</Filter>
+      <Filter>Graphics\Sprites</Filter>
     </ClInclude>
     <ClInclude Include="AniMaganer.h">
-      <Filter>Animations\Animations</Filter>
+      <Filter>Graphics\Animations</Filter>
     </ClInclude>
     <ClInclude Include="Animations.h">
-      <Filter>Animations\Animations</Filter>
+      <Filter>Graphics\Animations</Filter>
     </ClInclude>
     <ClInclude Include="defineAni.h">
-      <Filter>Animations\Animations</Filter>
+      <Filter>Graphics\Animations</Filter>
     </ClInclude>
     <ClInclude Include="Textures.h">
-      <Filter>Animations\Textures</Filter>
+      <Filter>Graphics\Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="TileSet.h">
+      <Filter>Map\TileSet</Filter>
     </ClInclude>
     <ClInclude Include="TileMap.h">
+      <Filter>Map\TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyXML\tinyxml\tinystr.h">
+      <Filter>tinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyXML\tinyxml\tinyxml.h">
+      <Filter>tinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
       <Filter>Map</Filter>
     </ClInclude>
   </ItemGroup>

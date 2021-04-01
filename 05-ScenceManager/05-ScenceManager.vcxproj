@@ -130,8 +130,14 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="KeyHanler.cpp" />
     <ClCompile Include="Koopas.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="TileSet.cpp" />
+    <ClCompile Include="tinyXML\tinyxml\tinystr.cpp" />
+    <ClCompile Include="tinyXML\tinyxml\tinyxml.cpp" />
+    <ClCompile Include="tinyXML\tinyxml\tinyxmlerror.cpp" />
+    <ClCompile Include="tinyXML\tinyxml\tinyxmlparser.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -151,8 +157,12 @@
     <ClInclude Include="defineAni.h" />
     <ClInclude Include="KeyHanler.h" />
     <ClInclude Include="Koopas.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="TileMap.h" />
+    <ClInclude Include="TileSet.h" />
+    <ClInclude Include="tinyXML\tinyxml\tinystr.h" />
+    <ClInclude Include="tinyXML\tinyxml\tinyxml.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
