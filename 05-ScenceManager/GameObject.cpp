@@ -141,9 +141,8 @@ void CGameObject::RenderBoundingBox()
 
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 
-	CGame::GetInstance()->Draw(x - camera->GetCamPosX(), y - camera->GetCamPosY(), bbox, rect.left, rect.top, rect.right, rect.bottom, direction, 32);
+	CGame::GetInstance()->Draw(x - camera->GetCamPosX() + (rect.right - rect.left)/2, y - camera->GetCamPosY() + (rect.bottom - rect.top) / 2, (rect.right - rect.left)/2, (rect.bottom-rect.top)/2, bbox, rect.left, rect.top, rect.right, rect.bottom, direction, 32);
 }
-
 
 CGameObject::~CGameObject()
 {

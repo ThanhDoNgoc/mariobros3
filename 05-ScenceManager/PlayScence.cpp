@@ -31,6 +31,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 #define OBJECT_TYPE_BRICK	1
 #define OBJECT_TYPE_GOOMBA	2
 #define OBJECT_TYPE_KOOPAS	3
+#define OBJECT_TYPE_GROUND	4
 
 #define OBJECT_TYPE_PORTAL	50
 
@@ -73,6 +74,13 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
 	case OBJECT_TYPE_KOOPAS: obj = new CKoopas(); break;
+	case OBJECT_TYPE_GROUND: 
+		{
+		int w = atoi(tokens[4].c_str());
+		int h = atoi(tokens[5].c_str());
+		obj = new Ground(w, h);
+		}
+		break;
 	case OBJECT_TYPE_PORTAL:
 		{	
 			float r = atof(tokens[4].c_str());
@@ -145,7 +153,7 @@ void CPlayScene::Load()
 
 	this->camera = new Camera();
 	this->camera->SetCamPos(0, 0);
-	this->camera->SetCamSize(320, 240);
+	this->camera->SetCamSize(480, 360);
 	this->camera->SetCamTarget(player);
 
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);

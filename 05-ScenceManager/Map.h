@@ -28,6 +28,7 @@ public:
 	void AddTileMap(LPTILEMAP tilemap);
 
 	void LoadMap(const char* filePath, const char* path);
+	void AddObject(TiXmlElement* RootElement);
 	void Render(Camera* camera);
 
 };

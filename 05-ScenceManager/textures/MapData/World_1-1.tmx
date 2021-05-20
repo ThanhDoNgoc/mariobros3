@@ -1,29 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="35">
- <tileset firstgid="1" name="world-1-1" tilewidth="16" tileheight="16" tilecount="870" columns="29">
-  <image source="world-1-1.png" width="464" height="480"/>
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="7" nextobjectid="127">
+ <tileset firstgid="1" name="world-1-1" tilewidth="48" tileheight="48" tilecount="870" columns="29">
+  <image source="world-1-1.png" width="1392" height="1440"/>
  </tileset>
- <objectgroup id="3" name="Object">
-  <object id="10" name="ground" x="0" y="416" width="624" height="16"/>
-  <object id="11" x="358.667" y="312"/>
-  <object id="14" name="ground" x="624" y="400" width="464" height="32"/>
-  <object id="15" name="ground" x="1152" y="416" width="336" height="16"/>
-  <object id="16" name="ground" x="1488" y="336" width="32" height="16"/>
-  <object id="21" name="ground" x="1520" y="416" width="80" height="16"/>
-  <object id="22" name="ground" x="1552" y="400" width="48" height="16"/>
-  <object id="23" name="ground" x="1568" y="384" width="32" height="16"/>
-  <object id="24" name="ground" x="1584" y="368" width="16" height="16"/>
-  <object id="25" name="ground" x="1648" y="368" width="16" height="16"/>
-  <object id="26" name="ground" x="1648" y="384" width="32" height="16"/>
-  <object id="27" name="ground" x="1648" y="400" width="48" height="16"/>
-  <object id="28" name="ground" x="1648" y="416" width="576" height="16"/>
-  <object id="29" name="ground" x="1472" y="176" width="208" height="16"/>
-  <object id="30" name="ground" x="1392" y="192" width="64" height="16"/>
-  <object id="31" name="ground" x="2240" y="416" width="576" height="16"/>
-  <object id="32" name="ground" x="2240" y="160" width="32" height="176"/>
-  <object id="33" name="ground" x="2240" y="368" width="32" height="48"/>
-  <object id="34" name="ground" x="2304" y="384" width="32" height="32"/>
- </objectgroup>
  <layer id="1" name="Background" width="176" height="41">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,94,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,
@@ -114,4 +93,40 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="6" name="Object">
+  <object id="80" name="ground" x="0" y="1248" width="1872" height="48"/>
+  <object id="81" name="ground" x="1056" y="1104" width="96" height="144"/>
+  <object id="82" name="ground" x="1872" y="1200" width="1392" height="96"/>
+  <object id="83" name="ground" x="3456" y="1248" width="1008" height="48"/>
+  <object id="84" name="ground" x="4176" y="576" width="192" height="48"/>
+  <object id="85" name="ground" x="4416" y="528" width="624" height="48"/>
+  <object id="86" name="ground" x="4464" y="1008" width="96" height="48"/>
+  <object id="87" name="ground" x="4560" y="1248" width="240" height="48"/>
+  <object id="89" name="ground" x="4656" y="1200" width="144" height="48"/>
+  <object id="90" name="ground" x="4704" y="1152" width="96" height="48"/>
+  <object id="91" name="ground" x="4752" y="1104" width="48" height="48"/>
+  <object id="92" name="ground" x="4944" y="1104" width="48" height="48"/>
+  <object id="93" name="ground" x="4944" y="1152" width="96" height="48"/>
+  <object id="94" name="ground" x="4944" y="1200" width="144" height="48"/>
+  <object id="95" name="ground" x="4944" y="1248" width="1728" height="48"/>
+  <object id="96" name="ground" x="5328" y="1152" width="96" height="96"/>
+  <object id="97" name="ground" x="5520" y="1104" width="96" height="144"/>
+  <object id="98" name="ground" x="6720" y="480" width="96" height="528"/>
+  <object id="99" name="ground" x="6720" y="1104" width="96" height="144"/>
+  <object id="100" name="ground" x="6720" y="1248" width="1728" height="48"/>
+  <object id="102" name="ground" x="6912" y="1152" width="96" height="96"/>
+  <object id="104" name="ground" x="6336" y="1392" width="384" height="576"/>
+  <object id="105" name="ground" x="6720" y="1872" width="768" height="96"/>
+  <object id="107" name="ground" x="7488" y="1392" width="384" height="576"/>
+  <object id="108" name="ground" x="7344" y="1584" width="144" height="288"/>
+  <object id="109" name="ground" x="7296" y="1632" width="48" height="240"/>
+  <object id="110" name="ground" x="7248" y="1680" width="48" height="192"/>
+  <object id="111" name="ground" x="7200" y="1728" width="48" height="144"/>
+  <object id="112" name="ground" x="7152" y="1776" width="48" height="96"/>
+  <object id="113" name="ground" x="7104" y="1824" width="48" height="48"/>
+  <object id="115" name="ground" x="6816" y="1392" width="576" height="48"/>
+  <object id="121" name="ground" x="8449" y="0" width="48" height="1296" visible="0"/>
+  <object id="124" name="ground" x="8448" y="0" width="48" height="1296"/>
+  <object id="126" name="ground" x="-48" y="0" width="48" height="1296"/>
+ </objectgroup>
 </map>

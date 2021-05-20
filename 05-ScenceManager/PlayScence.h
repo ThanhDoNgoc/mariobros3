@@ -9,6 +9,8 @@
 #include "Mario.h"
 #include "Goomba.h"
 #include "Koopas.h"
+#include "Ground.h"
+
 #include "KeyHanler.h"
 #include "Map.h"
 

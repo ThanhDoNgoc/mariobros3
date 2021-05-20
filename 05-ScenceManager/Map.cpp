@@ -53,6 +53,10 @@ void Map::LoadMap(const char* filePath, const char* path)
 	}
 }
 
+void Map::AddObject(TiXmlElement* RootElement)
+{
+}
+
 void Map::Render(Camera* camera)
 {
 	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f, 1.0f);
@@ -72,6 +76,6 @@ void Map::Render(Camera* camera)
 			}
 		}
 	}
-	DebugOut(L"RENDER MAPP \n");
+	//DebugOut(L"[INFO] RENDER MAPP \n");
 
 }

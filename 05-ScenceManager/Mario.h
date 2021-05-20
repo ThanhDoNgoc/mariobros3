@@ -2,67 +2,63 @@
 #include "GameObject.h"
 #include "KeyHanler.h"
 #include "defineAni.h"
+#include "defineMario.h"
 
-#define MARIO_WALKING_SPEED		0.15f 
-//0.1f
-#define MARIO_JUMP_SPEED_Y		0.5f
-#define MARIO_JUMP_DEFLECT_SPEED 0.2f
-#define MARIO_GRAVITY			0.002f
-#define MARIO_DIE_DEFLECT_SPEED	 0.5f
+#include "PlayerState.h"
+#include "PlayerStateIdle.h"
+#include "PlayerStateWalk.h"
+#include "PlayerStateRun.h"
 
-#define MARIO_STATE_IDLE			0
-#define MARIO_STATE_WALKING_RIGHT	100
-#define MARIO_STATE_WALKING_LEFT	200
-#define MARIO_STATE_JUMP			300
-#define MARIO_STATE_DIE				400
+#include "MarioLevel.h"
+#include "MarioLevelSmall.h"
+#include "MarioLevelBig.h"
+#include "MarioLevelFire.h"
+#include "MarioLevelRaccoon.h"
 
-#define MARIO_ANI_BIG_IDLE_RIGHT		0
-#define MARIO_ANI_BIG_IDLE_LEFT			1
-#define MARIO_ANI_SMALL_IDLE_RIGHT		2
-#define MARIO_ANI_SMALL_IDLE_LEFT			3
-
-#define MARIO_ANI_BIG_WALKING_RIGHT			4
-#define MARIO_ANI_BIG_WALKING_LEFT			5
-#define MARIO_ANI_SMALL_WALKING_RIGHT		6
-#define MARIO_ANI_SMALL_WALKING_LEFT		7
-
-#define MARIO_ANI_DIE				8
-
-#define	MARIO_LEVEL_SMALL	1
-#define	MARIO_LEVEL_BIG		2
-
-#define MARIO_BIG_BBOX_WIDTH  15
-#define MARIO_BIG_BBOX_HEIGHT 27
-
-#define MARIO_SMALL_BBOX_WIDTH  13
-#define MARIO_SMALL_BBOX_HEIGHT 15
-
-#define MARIO_UNTOUCHABLE_TIME 5000
-
+#define __Mario CMario::GetInstance()
 
 class CMario : public CGameObject
 {
-	int level;
 	int untouchable;
-	DWORD untouchable_start;
+	DWORD untouchable_start, on_max_charge_start;
+
+	static CMario* __instance;
 
 	float start_x;			// initial position of Mario at scene
 	float start_y; 
+	
 
-	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f,1.0f);
+	//D3DXVECTOR2 direction = D3DXVECTOR2(1.0f,1.0f);
+
 public: 
+	int ani = -1;
+	int level;
+	bool isOnGround, isMaxCharge;
+
+	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f, 1.0f);
+
+	PlayerState* _playerState;
+
+	MarioLevel* _marioLevel;
+
 	CMario(float x = 0.0f, float y = 0.0f);
+	static CMario* GetInstance();
+
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void Render();
 
-	void SetState(int state);
-	void SetLevel(int l) { level = l; }
+	//void SetState(int state);
+	void SetState(PlayerState* newState);
+	void SetLevel(int lvl);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
+	void StartOnMaxCharge() { this->isMaxCharge = true; on_max_charge_start = GetTickCount(); }
 
 	void Reset();
+	void GetAnimation(int new_ani);
 
 	void OnKeyUp(int KeyCode);
 	void OnKeyDown(int KeyCode);
+
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 };

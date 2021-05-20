@@ -1,0 +1,46 @@
+#include "PlayerStateSlowFall.h"
+#include "Mario.h"
+#include "PlayerStateFall.h"
+PlayerStateSlowFall::PlayerStateSlowFall()
+{
+	__Mario->vy = MARIO_SLOW_FALL_SPEED;
+	StartSlowFall();
+}
+
+void PlayerStateSlowFall::Update()
+{
+	if (KeyHanler::GetInstance()->IsKeyDown(DIK_RIGHT))
+	{
+		__Mario->direction.x = 1.0f;
+		__Mario->vx = MARIO_MAX_WALKING_SPEED * __Mario->direction.x;
+	}
+	else if (KeyHanler::GetInstance()->IsKeyDown(DIK_LEFT))
+	{
+		__Mario->direction.x = -1.0f;
+		__Mario->vx = MARIO_MAX_WALKING_SPEED * __Mario->direction.x;
+	}
+
+	if (GetTickCount() - slowFallTimeStart > MARIO_FLY_TIME)
+		__Mario->SetState(new PlayerStateFall());
+
+	if (__Mario->isOnGround)
+		__Mario->SetState(new PlayerStateIdle());
+}
+
+void PlayerStateSlowFall::SetAnimation()
+{
+	__Mario->ani = MARIO_ANI_SPECIAL_1;
+}
+
+void PlayerStateSlowFall::OnKeyDown(int KeyCode)
+{
+	switch (KeyCode)
+	{
+	case DIK_S:
+		if (__Mario->level == MARIO_LEVEL_RACCOON)
+		{
+			__Mario->SetState(new PlayerStateSlowFall());
+		}
+		break;
+	}
+}

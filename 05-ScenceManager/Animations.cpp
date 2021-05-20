@@ -40,7 +40,7 @@ void CAnimation::Render(float x, float y, D3DXVECTOR2 direction, int alpha)
 		}
 	}
 
-	frames[currentFrame]->GetSprite()->Draw(x, y,direction , alpha);
+	frames[currentFrame]->GetSprite()->Draw(x, y, direction , alpha);
 }
 
 CAnimations * CAnimations::__instance = NULL;

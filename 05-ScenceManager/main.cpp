@@ -31,9 +31,9 @@
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"SAMPLE 05 - SCENCE MANAGER"
 
-#define BACKGROUND_COLOR D3DCOLOR_XRGB(255, 255, 200)
-#define SCREEN_WIDTH 320
-#define SCREEN_HEIGHT 240
+#define BACKGROUND_COLOR D3DCOLOR_XRGB(181, 235, 242)
+#define SCREEN_WIDTH 768
+#define SCREEN_HEIGHT 720
 
 #define MAX_FRAME_RATE 120
 
@@ -182,8 +182,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	KeyHanler::GetInstance()->InitKeyboard(hWnd);
 	AniMaganer::GetInstance()->LoadResource();
 	game->Load(L"mario-sample.txt");
-
-	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH*2, SCREEN_HEIGHT*2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 
 	Run();
 

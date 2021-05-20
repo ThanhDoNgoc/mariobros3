@@ -63,9 +63,11 @@ void CGame::Init(HWND hWnd)
 /*
 	Utility function to wrap LPD3DXSPRITE::Draw 
 */
-void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, D3DXVECTOR2 flip, int alpha)
+void CGame::Draw(float x, float y, float cx, float cy, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, D3DXVECTOR2 flip, int alpha)
 {
-	D3DXVECTOR3 p(x, y, 0);
+	D3DXVECTOR3 p(x , y , 0);
+	D3DXVECTOR3 center(cx ,cy, 0);
+
 	RECT r; 
 	r.left = left;
 	r.top = top;
@@ -77,24 +79,25 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top
 
 	spriteHandler->GetTransform(&mPre);
 	spriteHandler->GetTransform(&mFlip);
-	D3DXMatrixScaling(&mFlip, flip.x, flip.y, .0f);
+	D3DXMatrixScaling(&mFlip, flip.x, flip.y, 0.0f);
 	spriteHandler->SetTransform(&mFlip);
 	if (flip.x < 0)
 	{
-		p.x = -p.x - (right - left);
+		p.x = -p.x;
 	}
 	if (flip.y < 0)
 	{
-		p.y = -p.y - (bottom - top);
+		p.y = -p.y;
 	}
-	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	spriteHandler->Draw(texture, &r, &center, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 	spriteHandler->SetTransform(&mPre);
 }
 
-void CGame::DrawTileMap(float x, float y, LPDIRECT3DTEXTURE9 texture, RECT* Rect)
+void CGame::DrawTileMap(float x, float y, int width, int height, LPDIRECT3DTEXTURE9 texture, RECT* Rect)
 {
-	D3DXVECTOR3 p(x, y, 0);
-	spriteHandler->Draw(texture, Rect, NULL, &p, D3DCOLOR_XRGB(255, 255, 255));
+	D3DXVECTOR3 p(x + width/2, y + height/2, 0);
+	D3DXVECTOR3 center(width/2, height/2, 0);
+	spriteHandler->Draw(texture, Rect, &center, &p, D3DCOLOR_XRGB(255, 255, 255));
 }
 
 LPDIRECT3DTEXTURE9 CGame::LoadTexture(LPCWSTR texturePath, D3DCOLOR TransColor)

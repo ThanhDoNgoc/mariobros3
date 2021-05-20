@@ -47,10 +47,10 @@ void Camera::Update()
 	target->GetPosition(cx, cy);
 
 	CGame* game = CGame::GetInstance();
-	cx -= CamWidth / 2;
-	cy -= CamHeight / 2;
+	cx -= CamWidth ;
+	cy -= CamHeight;
 
+	//update cam pos -> player (1:1)
 	CamPosX = cx;
 	CamPosY = cy;
-
 }

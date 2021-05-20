@@ -73,7 +73,7 @@ LPDIRECT3DTEXTURE9 TileSet::GetMapTexture()
 void TileSet::Draw(int id, float x, float y)
 {
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
-	CGame::GetInstance()->DrawTileMap(x - camera->GetCamPosX(), y - camera->GetCamPosY(), mapTexture, cells[id]);
+	CGame::GetInstance()->DrawTileMap(x - camera->GetCamPosX(), y - camera->GetCamPosY(),tileWidth, tileHeight, mapTexture, cells[id]);
 }
 
 

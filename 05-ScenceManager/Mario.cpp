@@ -9,45 +9,54 @@
 #include "Goomba.h"
 #include "Portal.h"
 
+#include "PlayerState.h"
+#include "PlayerStateIdle.h"
+#include "PlayerStateWalk.h"
+#include "PlayerStateRun.h"
+#include "PlayerStateJump.h"
+
+CMario* CMario::__instance = NULL;
+
 CMario::CMario(float x, float y) : CGameObject()
 {
-	AddAnimation(ID_ANI_BIG_MARIO_IDLE_RIGHT);
-	AddAnimation(ID_ANI_BIG_MARIO_IDLE_LEFT);
-	AddAnimation(ID_ANI_SMALL_MARIO_IDLE_RIGHT);
-	AddAnimation(ID_ANI_SMALL_MARIO_IDLE_LEFT);
-	AddAnimation(ID_ANI_BIG_MARIO_WALK_RIGHT);
-	AddAnimation(ID_ANI_BIG_MARIO_WALK_RIGHT);
-	AddAnimation(ID_ANI_SMALL_MARIO_WALK_RIGHT);
-	AddAnimation(ID_ANI_SMALL_MARIO_WALK_LEFT);
-	AddAnimation(ID_ANI_SMALL_MARIO_DIE);
+	this->__instance = this;
+	this->_marioLevel = new MarioLevelSmall();
 
-	level = MARIO_LEVEL_BIG;
+
 	untouchable = 0;
-	SetState(MARIO_STATE_IDLE);
+	DebugOut(L"[INFO] create new IDLE");
+	this->SetState(new PlayerStateIdle());
 
 	start_x = x; 
 	start_y = y; 
 	this->x = x; 
 	this->y = y; 
+
+}
+
+CMario* CMario::GetInstance()
+{
+	if (__instance == NULL)
+	{
+		__instance = new CMario();
+	}
+	return __instance;
 }
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
+
+	_playerState->Update();
+	//vx = _playerState->getVelocity();
+	
 	CGame* game = CGame::GetInstance();
 
-	// disable control key when Mario die 
-	if (GetState() == MARIO_STATE_DIE) return;
-	if (KeyHanler::GetInstance()->IsKeyDown(DIK_RIGHT))
-		SetState(MARIO_STATE_WALKING_RIGHT);
-	else if (KeyHanler::GetInstance()->IsKeyDown(DIK_LEFT))
-		SetState(MARIO_STATE_WALKING_LEFT);
-	else
-		SetState(MARIO_STATE_IDLE);
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
+	//playerState->Update(*this);
 	// Simple fall down
-	//vy += MARIO_GRAVITY*dt;
+	vy += MARIO_GRAVITY*dt;
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -55,7 +64,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	coEvents.clear();
 
 	// turn off collision when die 
-	if (state!=MARIO_STATE_DIE)
+	//if (state!=MARIO_STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
 
 	// reset untouchable timer if untouchable time has passed
@@ -63,6 +72,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		untouchable_start = 0;
 		untouchable = 0;
+	}
+	if (GetTickCount() - on_max_charge_start > MARIO_MAX_CHARGE_TIME)
+	{
+		this->isMaxCharge = false;
 	}
 
 	// No collision occured, proceed normally
@@ -89,7 +102,11 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		y += min_ty*dy + ny*0.4f;
 
 		if (nx!=0) vx = 0;
-		if (ny!=0) vy = 0;
+		if (ny != 0)
+		{
+			vy = 0;
+			isOnGround = true;
+		}
 
 
 		//
@@ -118,13 +135,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					{
 						if (goomba->GetState()!=GOOMBA_STATE_DIE)
 						{
-							if (level > MARIO_LEVEL_SMALL)
-							{
-								level = MARIO_LEVEL_SMALL;
-								StartUntouchable();
-							}
-							else 
-								SetState(MARIO_STATE_DIE);
+							_marioLevel->LevelDown();
 						}
 					}
 				}
@@ -139,90 +150,44 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+
+	DebugOut(L" velocity y: %f \n ", vy);
 }
 
 void CMario::Render()
 {
-	int ani = -1;
-	if (state == MARIO_STATE_DIE)
-		ani = MARIO_ANI_DIE;
-	else
-	if (level == MARIO_LEVEL_BIG)
-	{
-		if (vx == 0)
-		{
-			if (nx>0) ani = MARIO_ANI_BIG_IDLE_RIGHT;
-			else ani = MARIO_ANI_BIG_IDLE_LEFT;
-		}
-		else if (vx > 0) 
-			ani = MARIO_ANI_BIG_WALKING_RIGHT; 
-		else ani = MARIO_ANI_BIG_WALKING_LEFT;
-	}
-	else if (level == MARIO_LEVEL_SMALL)
-	{
-		if (vx == 0)
-		{
-			if (nx>0) ani = MARIO_ANI_SMALL_IDLE_RIGHT;
-			else ani = MARIO_ANI_SMALL_IDLE_LEFT;
-		}
-		else if (vx > 0)
-			ani = MARIO_ANI_SMALL_WALKING_RIGHT;
-		else ani = MARIO_ANI_SMALL_WALKING_LEFT;
-	}
 
+	_playerState->SetAnimation();
 	int alpha = 255;
 	if (untouchable) alpha = 128;
 
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 
 	//animation_set->at(ani)->Render(x - camera->GetCamPosX(), y - camera->GetCamPosY(), alpha);
-	animation_set[ani]->Render(x - camera->GetCamPosX(), y - camera->GetCamPosY(),direction, alpha);
+	animation_set[ani]->Render(x - camera->GetCamPosX() + _marioLevel->width/2  , y - camera->GetCamPosY() + _marioLevel->height/2 , direction, alpha);
 
 	RenderBoundingBox();
 }
 
-void CMario::SetState(int state)
+void CMario::SetState(PlayerState* newState)
 {
-	CGameObject::SetState(state);
-
-	switch (state)
-	{
-	case MARIO_STATE_WALKING_RIGHT:
-		vx = MARIO_WALKING_SPEED;
-		nx = 1;
-		break;
-	case MARIO_STATE_WALKING_LEFT: 
-		vx = -MARIO_WALKING_SPEED;
-		nx = -1;
-		break;
-	case MARIO_STATE_JUMP:
-		// TODO: need to check if Mario is *current* on a platform before allowing to jump again
-		vy = -MARIO_JUMP_SPEED_Y;
-		break; 
-	case MARIO_STATE_IDLE: 
-		vx = 0;
-		break;
-	case MARIO_STATE_DIE:
-		vy = -MARIO_DIE_DEFLECT_SPEED;
-		break;
-	}
+	delete _playerState;
+	_playerState = newState;
 }
+
+void CMario::SetLevel(int lvl)
+{
+	//this->level = lvl;
+}
+
 
 void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
 	left = x;
 	top = y; 
+	right = x + _marioLevel->width;
+	bottom = y + _marioLevel->height;
 
-	if (level==MARIO_LEVEL_BIG)
-	{
-		right = x + MARIO_BIG_BBOX_WIDTH;
-		bottom = y + MARIO_BIG_BBOX_HEIGHT;
-	}
-	else
-	{
-		right = x + MARIO_SMALL_BBOX_WIDTH;
-		bottom = y + MARIO_SMALL_BBOX_HEIGHT;
-	}
 }
 
 /*
@@ -230,10 +195,15 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 */
 void CMario::Reset()
 {
-	SetState(MARIO_STATE_IDLE);
-	SetLevel(MARIO_LEVEL_BIG);
+	SetState(new PlayerStateIdle());
+	this->_marioLevel = new MarioLevelSmall();
 	SetPosition(start_x, start_y);
 	SetSpeed(0, 0);
+}
+
+void CMario::GetAnimation(int new_ani)
+{
+	ani = new_ani;
 }
 
 void CMario::OnKeyUp(int KeyCode)
@@ -243,22 +213,29 @@ void CMario::OnKeyUp(int KeyCode)
 
 void CMario::OnKeyDown(int KeyCode)
 {
+	this->_playerState->OnKeyDown(KeyCode);
+
 	switch (KeyCode)
 	{
-	case DIK_SPACE:
-		SetState(MARIO_STATE_JUMP);
-		break;
-	case DIK_A:
+	case DIK_0:
 		Reset();
 		break;
-	case DIK_RIGHT:
-		direction.x = 1.0f;
-		direction.y = 1.0f;
+	case DIK_1:
+		this->_marioLevel = new MarioLevelSmall();
 		break;
-	case DIK_LEFT:
-		direction.x = -1.0f;
-		direction.y = -1.0f;
+	case DIK_2:
+		this->_marioLevel = new MarioLevelBig();
+		break;
+	case DIK_3:
+		this->_marioLevel = new MarioLevelFire();
+		break;
+	case DIK_4:
+		this->_marioLevel = new MarioLevelRaccoon();
+		break;
+	case DIK_9:
+		_marioLevel->LevelDown();
 		break;
 	}
 }
+
 

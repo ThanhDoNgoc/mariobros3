@@ -58,14 +58,26 @@
     <Filter Include="Graphics\Textures">
       <UniqueIdentifier>{8310b88c-9a9b-48c1-990c-61cdc74e27c0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphics\Map">
-      <UniqueIdentifier>{21c4a897-756d-4a60-b2ba-0a231af07499}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Map\TileMap">
       <UniqueIdentifier>{a1888dc2-21f7-490c-a05c-aaa54edbd2d7}</UniqueIdentifier>
     </Filter>
     <Filter Include="tinyXML">
       <UniqueIdentifier>{7cc15f94-7666-4201-b0ac-d06ad9e38f87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Player\StateMachine">
+      <UniqueIdentifier>{d25bd30a-66ef-42ae-b4d2-cf00d9669995}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Player\StateMachine\PlayerFSM">
+      <UniqueIdentifier>{2accd24b-1dad-4f1a-969c-bccf279a59d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Ground">
+      <UniqueIdentifier>{6bb2cd9a-b7ec-4b55-9a5f-b327dc2c5670}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Player\MarioLevel">
+      <UniqueIdentifier>{59ca8066-0e29-445c-9d7a-f16c772d7a57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Player\MarioLevel\MarioLevel">
+      <UniqueIdentifier>{a619230d-fa0f-4b01-b2fa-0f3469a6f59f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -137,6 +149,45 @@
     <ClCompile Include="Map.cpp">
       <Filter>Map</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerStateIdle.cpp">
+      <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateWalk.cpp">
+      <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateRun.cpp">
+      <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="Ground.cpp">
+      <Filter>GameObjects\Ground</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioLevelSmall.cpp">
+      <Filter>GameObjects\Player\MarioLevel\MarioLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioLevelBig.cpp">
+      <Filter>GameObjects\Player\MarioLevel\MarioLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioLevelFire.cpp">
+      <Filter>GameObjects\Player\MarioLevel\MarioLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateJump.cpp">
+      <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateFall.cpp">
+      <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioLevelRaccoon.cpp">
+      <Filter>GameObjects\Player\MarioLevel\MarioLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateFly.cpp">
+      <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioFireBall.cpp">
+      <Filter>GameObjects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateSlowFall.cpp">
+      <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -202,6 +253,54 @@
     </ClInclude>
     <ClInclude Include="Map.h">
       <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>GameObjects\Player\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateIdle.h">
+      <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateWalk.h">
+      <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateRun.h">
+      <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>GameObjects\Ground</Filter>
+    </ClInclude>
+    <ClInclude Include="defineMario.h">
+      <Filter>GameObjects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioLevel.h">
+      <Filter>GameObjects\Player\MarioLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioLevelSmall.h">
+      <Filter>GameObjects\Player\MarioLevel\MarioLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioLevelBig.h">
+      <Filter>GameObjects\Player\MarioLevel\MarioLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioLevelFire.h">
+      <Filter>GameObjects\Player\MarioLevel\MarioLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateJump.h">
+      <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateFall.h">
+      <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioLevelRaccoon.h">
+      <Filter>GameObjects\Player\MarioLevel\MarioLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateFly.h">
+      <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioFireBall.h">
+      <Filter>GameObjects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateSlowFall.h">
+      <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
