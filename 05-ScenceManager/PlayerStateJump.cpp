@@ -3,6 +3,7 @@
 
 #include "PlayerStateFall.h"
 #include "PlayerStateFly.h"
+#include "PlayerStateAttack.h"
 
 PlayerStateJump::PlayerStateJump()
 {
@@ -66,6 +67,10 @@ void PlayerStateJump::OnKeyDown(int KeyCode)
 		{
 			__Mario->SetState(new PlayerStateFly());
 		}
+		break;
+	case DIK_A:
+		if (__Mario->level > MARIO_LEVEL_BIG)
+			__Mario->SetState(new PlayerStateAttack());
 		break;
 	}
 }

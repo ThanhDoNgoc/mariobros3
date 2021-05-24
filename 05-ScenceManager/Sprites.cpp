@@ -32,8 +32,6 @@ void CSprites::Add(int id, int left, int top, int right, int bottom, float cx, f
 {
 	LPSPRITE s = new CSprite(id, left, top, right, bottom, cx, cy, tex);
 	sprites[id] = s;
-
-	DebugOut(L"[INFO] sprite added: %d, %d, %d, %d, %d, %f, %f \n", id, left, top, right, bottom, cx , cy);
 }
 
 LPSPRITE CSprites::Get(int id)

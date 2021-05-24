@@ -22,13 +22,12 @@ protected:
 
 	Map* maps;
 
-	vector<LPGAMEOBJECT> objects;
-
 	void _ParseSection_OBJECTS(string line);
 	void _ParseSection_MAP(string line);
 
 	
 public: 
+	vector<LPGAMEOBJECT> objects;
 	CPlayScene(int id, LPCWSTR filePath);
 
 	virtual void Load();
@@ -38,6 +37,8 @@ public:
 
 	virtual void OnKeyUp(int KeyCode) override;
 	virtual void OnKeyDown(int KeyCode) override;
+
+	virtual void AddObject(LPGAMEOBJECT addobject) { objects.push_back(addobject); };
 
 	CMario * GetPlayer() { return player; } 
 

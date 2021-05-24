@@ -7,6 +7,8 @@
 #include "Sprites.h"
 #include "Portal.h"
 #include "Map.h"
+
+#include "MarioFireBall.h"
 using namespace std;
 
 CPlayScene::CPlayScene(int id, LPCWSTR filePath):
@@ -32,6 +34,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 #define OBJECT_TYPE_GOOMBA	2
 #define OBJECT_TYPE_KOOPAS	3
 #define OBJECT_TYPE_GROUND	4
+#define OBJECT_TYPE_FIREBALL	5
 
 #define OBJECT_TYPE_PORTAL	50
 
@@ -54,8 +57,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	int ani_set_id = atoi(tokens[3].c_str());
 
-	//CAnimationSets * animation_sets = CAnimationSets::GetInstance();
-
 	CGameObject *obj = NULL;
 
 	switch (object_type)
@@ -74,6 +75,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
 	case OBJECT_TYPE_KOOPAS: obj = new CKoopas(); break;
+	case OBJECT_TYPE_FIREBALL: obj = new MarioFireBall(x,y,1.0f,1.0f); break;
 	case OBJECT_TYPE_GROUND: 
 		{
 		int w = atoi(tokens[4].c_str());
@@ -98,9 +100,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	obj->SetPosition(x, y);
 
 	//LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
-
-	//obj->SetAnimationSet(ani_set);
-	objects.push_back(obj);
+	AddObject(obj);
+	//objects.push_back(obj);
 }
 
 void CPlayScene::_ParseSection_MAP(string line)

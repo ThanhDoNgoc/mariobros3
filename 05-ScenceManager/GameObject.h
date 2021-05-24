@@ -6,6 +6,7 @@
 
 #include "Sprites.h"
 #include "Animations.h"
+#include "defineAni.h"
 
 
 using namespace std;

@@ -3,6 +3,7 @@
 #include "PlayerStateWalk.h"
 #include "PlayerStateJump.h"
 #include "PlayerStateFall.h"
+#include "PlayerStateAttack.h"
 #include "KeyHanler.h"
 #include "Mario.h"
 
@@ -33,9 +34,19 @@ void PlayerStateIdle::Update()
 void PlayerStateIdle::SetAnimation()
 {
 	if (__Mario->vx != 0)
+	{
+		if (__Mario->isHolding)
+			__Mario->ani = MARIO_ANI_RUN_HOLD;
+		else
 		__Mario->ani = MARIO_ANI_WALK;
+	}
 	else
+	{
+		if (__Mario->isHolding)
+			__Mario->ani = MARIO_ANI_IDLE_HOLD;
+		else
 		__Mario->ani = MARIO_ANI_IDLE;
+	}
 }
 
 void PlayerStateIdle::OnKeyDown(int KeyCode)
@@ -45,6 +56,9 @@ void PlayerStateIdle::OnKeyDown(int KeyCode)
 	case DIK_S:
 		__Mario->SetState(new PlayerStateJump());
 		break;
-
+	case DIK_A:
+		if (__Mario->level > MARIO_LEVEL_BIG)
+			__Mario->SetState(new PlayerStateAttack());
+		break;
 	}
 }

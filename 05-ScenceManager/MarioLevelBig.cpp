@@ -18,6 +18,8 @@ MarioLevelBig::MarioLevelBig()
 	__Mario->AddAnimation(ID_ANI_BIG_MARIO_RUN_HOLD);
 	__Mario->AddAnimation(ID_ANI_BIG_MARIO_KICK);
 
+	__Mario->y -= 100;
+
 	this->width = MARIO_BIG_BBOX_WIDTH;
 	this->height = MARIO_BIG_BBOX_HEIGHT;
 

@@ -137,6 +137,7 @@
     <ClCompile Include="MarioLevelFire.cpp" />
     <ClCompile Include="MarioLevelRaccoon.cpp" />
     <ClCompile Include="MarioLevelSmall.cpp" />
+    <ClCompile Include="PlayerStateAttack.cpp" />
     <ClCompile Include="PlayerStateFall.cpp" />
     <ClCompile Include="PlayerStateFly.cpp" />
     <ClCompile Include="PlayerStateIdle.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="MarioLevelRaccoon.h" />
     <ClInclude Include="MarioLevelSmall.h" />
     <ClInclude Include="PlayerState.h" />
+    <ClInclude Include="PlayerStateAttack.h" />
     <ClInclude Include="PlayerStateFall.h" />
     <ClInclude Include="PlayerStateFly.h" />
     <ClInclude Include="PlayerStateIdle.h" />

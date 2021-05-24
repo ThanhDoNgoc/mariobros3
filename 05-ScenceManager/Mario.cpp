@@ -8,6 +8,7 @@
 
 #include "Goomba.h"
 #include "Portal.h"
+#include "Koopas.h"
 
 #include "PlayerState.h"
 #include "PlayerStateIdle.h"
@@ -31,7 +32,9 @@ CMario::CMario(float x, float y) : CGameObject()
 	start_y = y; 
 	this->x = x; 
 	this->y = y; 
+	this->isHolding = false;
 
+	this->obj = NULL;
 }
 
 CMario* CMario::GetInstance()
@@ -76,6 +79,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	if (GetTickCount() - on_max_charge_start > MARIO_MAX_CHARGE_TIME)
 	{
 		this->isMaxCharge = false;
+	}
+	if (GetTickCount() - kickStart > MARIO_KICK_TIME)
+	{
+		this->isKicking = false;
 	}
 
 	// No collision occured, proceed normally
@@ -125,8 +132,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				{
 					if (goomba->GetState()!= GOOMBA_STATE_DIE)
 					{
-						goomba->SetState(GOOMBA_STATE_DIE);
-						vy = -MARIO_JUMP_DEFLECT_SPEED;
+						goomba->TakeDamage();
+						this->SetState(new PlayerStateJump());
 					}
 				}
 				else if (e->nx != 0)
@@ -145,25 +152,65 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				CPortal *p = dynamic_cast<CPortal *>(e->obj);
 				CGame::GetInstance()->SwitchScene(p->GetSceneId());
 			}
+			else if (dynamic_cast<CKoopas*>(e->obj))
+			{
+				CKoopas* koopas = dynamic_cast<CKoopas*>(e->obj);
+
+				// jump on top >> kill Goomba and deflect a bit 
+				if (e->ny < 0)
+				{
+					if (koopas->GetState() != KOOPAS_STATE_DIE)
+					{
+						koopas->TakeDamage();
+						this->SetState(new PlayerStateJump());
+					}
+				}
+				else if (e->nx != 0)
+				{
+					if (untouchable == 0)
+					{
+						if (koopas->GetState() == KOOPAS_STATE_WALKING)
+						{
+							_marioLevel->LevelDown();
+						}
+					}
+					if (koopas->GetState() == KOOPAS_STATE_SHELL)
+					{
+						if (KeyHanler::GetInstance()->IsKeyDown(DIK_A))
+						{
+							koopas->SetState(KOOPAS_STATE_BEING_HOLD);
+							isHolding = true;
+							this->obj = koopas;
+						}
+						else
+						{
+							koopas->SetState(KOOPAS_STATE_SHELL_MOVING);
+							StartKick();
+						}
+					}
+				}
+			}
 		}
 	}
 
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 
-	DebugOut(L" velocity y: %f \n ", vy);
+	DebugOut(L" velocity x: %f \n ", vx);
+
 }
 
 void CMario::Render()
 {
 
 	_playerState->SetAnimation();
+	if (isKicking)
+		ani = MARIO_ANI_KICK;
 	int alpha = 255;
 	if (untouchable) alpha = 128;
 
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 
-	//animation_set->at(ani)->Render(x - camera->GetCamPosX(), y - camera->GetCamPosY(), alpha);
 	animation_set[ani]->Render(x - camera->GetCamPosX() + _marioLevel->width/2  , y - camera->GetCamPosY() + _marioLevel->height/2 , direction, alpha);
 
 	RenderBoundingBox();
@@ -208,6 +255,16 @@ void CMario::GetAnimation(int new_ani)
 
 void CMario::OnKeyUp(int KeyCode)
 {
+	switch (KeyCode)
+	{
+	case DIK_A:
+		if (isHolding)
+		{
+			obj->SetState(KOOPAS_STATE_SHELL);
+			isHolding = false;
+		}
+		break;
+	}
 }
 
 

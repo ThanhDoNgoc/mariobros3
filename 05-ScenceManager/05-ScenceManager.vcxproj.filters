@@ -31,9 +31,6 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{d5491f45-5f61-44b3-8e1c-a64144245573}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scences">
-      <UniqueIdentifier>{7b01ff3e-bd13-46c0-b37f-6384af5529f6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="KeyHandler">
       <UniqueIdentifier>{564394f2-8d51-42fe-87c7-c67fc98e4286}</UniqueIdentifier>
     </Filter>
@@ -79,6 +76,12 @@
     <Filter Include="GameObjects\Player\MarioLevel\MarioLevel">
       <UniqueIdentifier>{a619230d-fa0f-4b01-b2fa-0f3469a6f59f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{7b01ff3e-bd13-46c0-b37f-6384af5529f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes\Scenes">
+      <UniqueIdentifier>{de41f081-af08-406a-b888-71ec3edfdb1b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -103,10 +106,7 @@
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="Scence.cpp">
-      <Filter>Scences</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayScence.cpp">
-      <Filter>Scences</Filter>
+      <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
@@ -188,6 +188,12 @@
     <ClCompile Include="PlayerStateSlowFall.cpp">
       <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerStateAttack.cpp">
+      <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScence.cpp">
+      <Filter>Scenes\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -212,10 +218,7 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Scence.h">
-      <Filter>Scences</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayScence.h">
-      <Filter>Scences</Filter>
+      <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Game.h" />
     <ClInclude Include="KeyHanler.h">
@@ -301,6 +304,12 @@
     </ClInclude>
     <ClInclude Include="PlayerStateSlowFall.h">
       <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateAttack.h">
+      <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScence.h">
+      <Filter>Scenes\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

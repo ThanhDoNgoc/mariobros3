@@ -3,6 +3,7 @@
 #include "PlayerStateWalk.h"
 #include "PlayerStateIdle.h"
 #include "PlayerStateJump.h"
+#include "PlayerStateAttack.h"
 #include "Mario.h"
 
 PlayerStateRun::PlayerStateRun()
@@ -36,6 +37,10 @@ void PlayerStateRun::OnKeyDown(int KeyCode)
 	case DIK_S:
 		__Mario->StartOnMaxCharge();
 		__Mario->SetState(new PlayerStateJump());
+		break;
+	case DIK_A:
+		if (__Mario->level > MARIO_LEVEL_BIG)
+			__Mario->SetState(new PlayerStateAttack());
 		break;
 	}
 }

@@ -1,6 +1,7 @@
 #include "PlayerStateSlowFall.h"
 #include "Mario.h"
 #include "PlayerStateFall.h"
+#include "PlayerStateAttack.h"
 PlayerStateSlowFall::PlayerStateSlowFall()
 {
 	__Mario->vy = MARIO_SLOW_FALL_SPEED;
@@ -41,6 +42,10 @@ void PlayerStateSlowFall::OnKeyDown(int KeyCode)
 		{
 			__Mario->SetState(new PlayerStateSlowFall());
 		}
+		break;
+	case DIK_A:
+		if (__Mario->level > MARIO_LEVEL_BIG)
+			__Mario->SetState(new PlayerStateAttack());
 		break;
 	}
 }

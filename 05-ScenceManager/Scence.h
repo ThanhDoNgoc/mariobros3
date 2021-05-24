@@ -1,7 +1,7 @@
 #pragma once
 
 #include <d3dx9.h>
-
+#include "GameObject.h"
 #include "Camera.h"
 
 class Camera;
@@ -24,6 +24,8 @@ public:
 
 	virtual void OnKeyUp(int KeyCode) = 0;
 	virtual void OnKeyDown(int KeyCode) = 0;
+
+	virtual void AddObject(LPGAMEOBJECT object) = 0;
 
 	virtual Camera* GetCamera();
 };

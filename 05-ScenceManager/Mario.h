@@ -20,13 +20,14 @@
 class CMario : public CGameObject
 {
 	int untouchable;
-	DWORD untouchable_start, on_max_charge_start;
+	DWORD untouchable_start, on_max_charge_start, kickStart;
 
 	static CMario* __instance;
 
 	float start_x;			// initial position of Mario at scene
 	float start_y; 
 	
+	LPGAMEOBJECT obj;
 
 	//D3DXVECTOR2 direction = D3DXVECTOR2(1.0f,1.0f);
 
@@ -34,7 +35,7 @@ public:
 	int ani = -1;
 	int level;
 	bool isOnGround, isMaxCharge;
-
+	bool isAttacking, isKicking, isHolding;
 	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f, 1.0f);
 
 	PlayerState* _playerState;
@@ -51,14 +52,14 @@ public:
 	void SetState(PlayerState* newState);
 	void SetLevel(int lvl);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
-	void StartOnMaxCharge() { this->isMaxCharge = true; on_max_charge_start = GetTickCount(); }
+	void StartOnMaxCharge() { this->isMaxCharge = true; on_max_charge_start = GetTickCount();}
+	void StartKick() { this->isKicking = true; kickStart = GetTickCount(); }
 
 	void Reset();
 	void GetAnimation(int new_ani);
 
 	void OnKeyUp(int KeyCode);
 	void OnKeyDown(int KeyCode);
-
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 };

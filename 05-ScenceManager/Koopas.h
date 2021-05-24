@@ -2,18 +2,25 @@
 
 #include "GameObject.h"
 
-#define KOOPAS_WALKING_SPEED 0.03f;
+#define KOOPAS_WALKING_SPEED		0.03f
+#define KOOPAS_SHELL_MOVING_SPEED	0.4f
+#define KOOPAS_INSTANCE_DEAD_VY		0.5f
+#define KOOPAS_GRAVITY				0.003f
 
-#define KOOPAS_BBOX_WIDTH 16
-#define KOOPAS_BBOX_HEIGHT 26
+
+#define KOOPAS_BBOX_WIDTH	48
+#define KOOPAS_BBOX_HEIGHT	48 
 #define KOOPAS_BBOX_HEIGHT_DIE 16
 
-#define KOOPAS_STATE_WALKING 100
-#define KOOPAS_STATE_DIE 200
+#define KOOPAS_STATE_WALKING		100
+#define KOOPAS_STATE_SHELL			200	
+#define KOOPAS_STATE_SHELL_MOVING	300
+#define KOOPAS_STATE_DIE			400
+#define KOOPAS_STATE_BEING_HOLD		500
 
-#define KOOPAS_ANI_WALKING_LEFT 0
-#define KOOPAS_ANI_WALKING_RIGHT 1
-#define KOOPAS_ANI_DIE 2
+#define KOOPAS_ANI_WALKING		0
+#define KOOPAS_ANI_SHELL		1
+#define KOOPAS_ANI_SHELLMOVING	2
 
 class CKoopas : public CGameObject
 {
@@ -21,7 +28,12 @@ class CKoopas : public CGameObject
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
 	virtual void Render();
 
+	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f, 1.0f);
+	bool isBeingHold = false;
 public:
 	CKoopas();
 	virtual void SetState(int state);
+	void TakeDamage();
+	void InstanceDead();
+	void BeingHold();
 };

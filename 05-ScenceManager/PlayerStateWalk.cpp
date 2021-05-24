@@ -5,6 +5,7 @@
 #include "PlayerStateIdle.h"
 #include "PlayerStateRun.h"
 #include "PlayerStateJump.h"
+#include "PlayerStateAttack.h"
 #include "Mario.h"
 
 PlayerStateWalk::PlayerStateWalk()
@@ -48,16 +49,25 @@ void PlayerStateWalk::SetAnimation()
 	if (__Mario->direction.x * CMario::GetInstance()->vx < 0)
 		__Mario->ani = MARIO_ANI_SKID;
 	else
-		__Mario->ani = MARIO_ANI_WALK;
+	{
+		if (__Mario->isHolding)
+			__Mario->ani = MARIO_ANI_RUN_HOLD;
+		else
+			__Mario->ani = MARIO_ANI_WALK;
+	}
 }
 
 void PlayerStateWalk::OnKeyDown(int KeyCode)
 {
-		switch (KeyCode)
-		{
-		case DIK_S:
-			__Mario->SetState(new PlayerStateJump());
-			break;
-		}
+	switch (KeyCode)
+	{
+	case DIK_S:
+		__Mario->SetState(new PlayerStateJump());
+		break;
+	case DIK_A:
+		if (__Mario->level > MARIO_LEVEL_BIG)
+			__Mario->SetState(new PlayerStateAttack());
+		break;
+	}
 	
 }
