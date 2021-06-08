@@ -15,6 +15,7 @@
 #include "PlayerStateWalk.h"
 #include "PlayerStateRun.h"
 #include "PlayerStateJump.h"
+#include "PlayerStateCrouch.h"
 
 CMario* CMario::__instance = NULL;
 
@@ -22,7 +23,6 @@ CMario::CMario(float x, float y) : CGameObject()
 {
 	this->__instance = this;
 	this->_marioLevel = new MarioLevelSmall();
-
 
 	untouchable = 0;
 	DebugOut(L"[INFO] create new IDLE");
@@ -123,27 +123,19 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 
-			if (dynamic_cast<CGoomba *>(e->obj)) // if e->obj is Goomba 
+			if (e->obj->ObjectGroup == Group::enemy) // if e->obj is Enemy 
 			{
-				CGoomba *goomba = dynamic_cast<CGoomba *>(e->obj);
-
-				// jump on top >> kill Goomba and deflect a bit 
+				// jump on top >> kill Enemy and deflect a bit 
 				if (e->ny < 0)
 				{
-					if (goomba->GetState()!= GOOMBA_STATE_DIE)
-					{
-						goomba->TakeDamage();
-						this->SetState(new PlayerStateJump());
-					}
+					e->obj->TakeDamage();
+					this->SetState(new PlayerStateJump());
 				}
 				else if (e->nx != 0)
 				{
 					if (untouchable==0)
 					{
-						if (goomba->GetState()!=GOOMBA_STATE_DIE)
-						{
-							_marioLevel->LevelDown();
-						}
+							this->TakeDamage();
 					}
 				}
 			} // if Goomba
@@ -152,42 +144,21 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				CPortal *p = dynamic_cast<CPortal *>(e->obj);
 				CGame::GetInstance()->SwitchScene(p->GetSceneId());
 			}
+			else if (e->obj->ObjectGroup == Group::shell && e->obj->getHoldAble() && KeyHanler::GetInstance()->IsKeyDown(DIK_A))
+			{
+				e->obj->setBeingHold(true);
+				e->obj->setHoldAble(false);
+				this->obj = e->obj;
+				
+			}
 			else if (dynamic_cast<CKoopas*>(e->obj))
 			{
-				CKoopas* koopas = dynamic_cast<CKoopas*>(e->obj);
-
-				// jump on top >> kill Goomba and deflect a bit 
-				if (e->ny < 0)
+				CKoopas* koopa = dynamic_cast<CKoopas*>(e->obj);
+				if (koopa->koopaState == KoopaState::shell)
 				{
-					if (koopas->GetState() != KOOPAS_STATE_DIE)
-					{
-						koopas->TakeDamage();
-						this->SetState(new PlayerStateJump());
-					}
-				}
-				else if (e->nx != 0)
-				{
-					if (untouchable == 0)
-					{
-						if (koopas->GetState() == KOOPAS_STATE_WALKING)
-						{
-							_marioLevel->LevelDown();
-						}
-					}
-					if (koopas->GetState() == KOOPAS_STATE_SHELL)
-					{
-						if (KeyHanler::GetInstance()->IsKeyDown(DIK_A))
-						{
-							koopas->SetState(KOOPAS_STATE_BEING_HOLD);
-							isHolding = true;
-							this->obj = koopas;
-						}
-						else
-						{
-							koopas->SetState(KOOPAS_STATE_SHELL_MOVING);
-							StartKick();
-						}
-					}
+					koopa->direction.x = this->direction.x;
+					koopa->SetState(KoopaState::slide);
+					StartKick();
 				}
 			}
 		}
@@ -196,7 +167,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 
-	DebugOut(L" velocity x: %f \n ", vx);
+	//DebugOut(L" velocity x: %f \n ", vx);
 
 }
 
@@ -211,7 +182,7 @@ void CMario::Render()
 
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 
-	animation_set[ani]->Render(x - camera->GetCamPosX() + _marioLevel->width/2  , y - camera->GetCamPosY() + _marioLevel->height/2 , direction, alpha);
+	animation_set[ani]->Render(x - camera->GetCamPosX() + this->width/2  , y - camera->GetCamPosY() + this->height/2 , direction, alpha);
 
 	RenderBoundingBox();
 }
@@ -232,9 +203,14 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 {
 	left = x;
 	top = y; 
-	right = x + _marioLevel->width;
-	bottom = y + _marioLevel->height;
+	right = x + this->width;
+	bottom = y + this->height;
 
+}
+
+void CMario::TakeDamage()
+{
+	this->_marioLevel->LevelDown();
 }
 
 /*
@@ -260,8 +236,10 @@ void CMario::OnKeyUp(int KeyCode)
 	case DIK_A:
 		if (isHolding)
 		{
-			obj->SetState(KOOPAS_STATE_SHELL);
+			//obj->SetState(KOOPAS_STATE_SHELL);
 			isHolding = false;
+			obj->setBeingHold(false);
+			obj->setHoldAble(true);
 		}
 		break;
 	}

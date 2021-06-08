@@ -85,10 +85,10 @@ AniMaganer* AniMaganer::GetInstance()
 	return __instance;
 }
 
-void AniMaganer::LoadResource()
+void AniMaganer::LoadResource(string line)
 {
 	CTextures* textures = CTextures::GetInstance();
-	ifstream f("animations.txt");
+	ifstream f(line);
 	// current resource section flag
 	int section = SCENE_SECTION_UNKNOWN;
 

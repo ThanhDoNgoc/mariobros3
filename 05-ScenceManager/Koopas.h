@@ -22,18 +22,28 @@
 #define KOOPAS_ANI_SHELL		1
 #define KOOPAS_ANI_SHELLMOVING	2
 
+enum class KoopaState
+{
+	walk,
+	shell,
+	slide,
+	die
+};
+
 class CKoopas : public CGameObject
 {
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
 	virtual void Render();
+	float velocity;
 
-	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f, 1.0f);
-	bool isBeingHold = false;
 public:
 	CKoopas();
-	virtual void SetState(int state);
-	void TakeDamage();
-	void InstanceDead();
+	KoopaState koopaState;
+	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f, 1.0f);
+	bool isBeingHold = false;
+	virtual void SetState(KoopaState state);
+	virtual void TakeDamage();
+	virtual void InstanceDead();
 	void BeingHold();
 };

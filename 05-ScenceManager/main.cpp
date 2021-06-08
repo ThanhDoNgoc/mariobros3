@@ -180,7 +180,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	game = CGame::GetInstance();
 	game->Init(hWnd);
 	KeyHanler::GetInstance()->InitKeyboard(hWnd);
-	AniMaganer::GetInstance()->LoadResource();
 	game->Load(L"mario-sample.txt");
 
 	Run();

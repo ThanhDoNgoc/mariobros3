@@ -9,19 +9,19 @@ CKoopas::CKoopas()
 	AddAnimation(ID_ANI_KOOPAS_WALK);
 	AddAnimation(ID_ANI_KOOPAS_SHELL);
 	AddAnimation(ID_ANI_KOOPAS_SHELL_MOVING);
-	SetState(KOOPAS_STATE_WALKING);
+	this->SetState(KoopaState::walk);
+	ObjectGroup = Group::enemy;
+	isBeingHold = false;
 }
 
 void CKoopas::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
+	if (isBeingHold || koopaState == KoopaState::die) return;
+
 	left = x;
 	top = y;
 	right = x + KOOPAS_BBOX_WIDTH;
-
-	if (state == KOOPAS_STATE_DIE)
-		bottom = y + KOOPAS_BBOX_HEIGHT_DIE;
-	else
-		bottom = y + KOOPAS_BBOX_HEIGHT;
+	bottom = y + KOOPAS_BBOX_HEIGHT;
 }
 
 void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -29,23 +29,21 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	CGame* game = CGame::GetInstance();
 	
-	if (state == KOOPAS_STATE_BEING_HOLD)
+	if (isBeingHold)
 	{
 		this->x = __Mario->x + (__Mario->_marioLevel->width * __Mario->direction.x);
 		this->y = __Mario->y - __Mario->_marioLevel->height / 2;
 		return;
 	}
-
-	this->vy += KOOPAS_GRAVITY * dt;
-
 	CGameObject::Update(dt);
-
+	this->vx = this->velocity * this->direction.x;
+	this->vy += KOOPAS_GRAVITY*dt;
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
 	coEvents.clear();
 
-	if (state != KOOPAS_STATE_DIE && state != KOOPAS_STATE_BEING_HOLD)
+	if (koopaState!=KoopaState::die && !isBeingHold)
 		CalcPotentialCollisions(coObjects, coEvents);
 
 	// No collision occured, proceed normally
@@ -71,25 +69,22 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		x += min_tx * dx + nx * 0.4f;
 		y += min_ty * dy + ny * 0.4f;
 
-		if (nx != 0) vx = 0;
+		if (nx != 0)
+		{
+			//this->vx = -this->vx;
+		}
 		if (ny != 0)
 		{
-			vy = 0;
+			this->vy = 0;
 		}
 		// Collision logic with other objects
 		//
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-
-			if (dynamic_cast<CGoomba*>(e->obj))
+			if (e->obj->ObjectGroup == Group::ground || e->obj->ObjectGroup == Group::enemy)
 			{
-				CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
-				if (this->state == KOOPAS_STATE_SHELL_MOVING)
-				{
-					if (goomba->GetState() != GOOMBA_STATE_DIE)
-						goomba->InstanceDead();
-				}					
+				this->direction.x = this->direction.x * -1.0f;
 			}
 		}
 	}
@@ -101,67 +96,70 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 void CKoopas::Render()
 {
 	int ani = KOOPAS_ANI_WALKING;
-	switch (state)
+	switch (koopaState)
 	{
-	case KOOPAS_STATE_WALKING:
+	case KoopaState::walk:
 		ani = KOOPAS_ANI_WALKING;
 		break;
-	case KOOPAS_STATE_SHELL:
+	case KoopaState::shell:
 		ani = KOOPAS_ANI_SHELL;
 		break;
-	case KOOPAS_STATE_SHELL_MOVING:
+	case KoopaState::slide:
 		ani = KOOPAS_ANI_SHELLMOVING;
 		break;
-	case KOOPAS_STATE_BEING_HOLD:
-		ani = KOOPAS_ANI_SHELL;
-		break;
 	}
-	if (vx > 0) this->direction.x = -1.0f;
-	else if (vx <= 0) this->direction.x = 1.0f;
 
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 
 	animation_set[ani]->Render(x - camera->GetCamPosX() + KOOPAS_BBOX_WIDTH / 2, y - camera->GetCamPosY() + KOOPAS_BBOX_HEIGHT / 2, direction, 255);
 
 	RenderBoundingBox();
+
 }
 
-void CKoopas::SetState(int state)
+void CKoopas::SetState(KoopaState state)
 {
-	CGameObject::SetState(state);
-	switch (state)
+	//CGameObject::SetState(state);
+	this->koopaState = state;
+	switch (koopaState)
 	{
-	case KOOPAS_STATE_WALKING:
-		this->vx = -KOOPAS_WALKING_SPEED;
+	case KoopaState::walk:
+		this->velocity = -KOOPAS_WALKING_SPEED;
+		this->ObjectGroup = Group::enemy;
+		this->isHoldAble = false;
 		break;
-	case KOOPAS_STATE_SHELL:
-		this->vx = 0;
+	case KoopaState::shell:
+		this->velocity = 0;
+		this->ObjectGroup = Group::shell;
+		this->isHoldAble = true;
+		this->y -= 0.4;
 		break;
-	case KOOPAS_STATE_SHELL_MOVING:
-		this->vx = KOOPAS_SHELL_MOVING_SPEED;
+	case KoopaState::slide:
+		this->velocity = KOOPAS_SHELL_MOVING_SPEED;
+		this->ObjectGroup = Group::projectile;
+		this->isHoldAble = false;
+		this->y -= 0.4;
 		break;
-	case KOOPAS_STATE_BEING_HOLD:
-		this->vx = 0;
-		this->vy = 0;
-		break;
+	case KoopaState::die:
+		this->isHoldAble = false;
 	}
-
+	DebugOut(L" velocity x: %f \n ", this->vx);
 }
 
 void CKoopas::TakeDamage()
 {
-	if (state == KOOPAS_STATE_WALKING)
-		SetState(KOOPAS_STATE_SHELL);
+	if (koopaState == KoopaState::walk)
+		SetState(KoopaState::shell);
 }
 
 void CKoopas::InstanceDead()
 {
-	SetState(KOOPAS_STATE_DIE);
+	SetState(KoopaState::die);
 	this->direction.y = -1;
-	vy = -KOOPAS_INSTANCE_DEAD_VY;
+	this->vy = -KOOPAS_INSTANCE_DEAD_VY;
 }
 
 void CKoopas::BeingHold()
 {
-	SetState(KOOPAS_STATE_BEING_HOLD);
+	//SetState(KOOPAS_STATE_BEING_HOLD);
 }

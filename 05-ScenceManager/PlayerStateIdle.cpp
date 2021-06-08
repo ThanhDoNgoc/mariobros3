@@ -4,6 +4,7 @@
 #include "PlayerStateJump.h"
 #include "PlayerStateFall.h"
 #include "PlayerStateAttack.h"
+#include "PlayerStateCrouch.h"
 #include "KeyHanler.h"
 #include "Mario.h"
 
@@ -19,6 +20,9 @@ void PlayerStateIdle::Update()
 	
 	if (KeyHanler::GetInstance()->IsKeyDown(DIK_X))
 		__Mario->SetState(new PlayerStateJump());
+
+	if (KeyHanler::GetInstance()->IsKeyDown(DIK_DOWN))
+		__Mario->SetState(new PlayerStateCrouch());
 
 	if (__Mario->vx != 0)
 		__Mario->vx -= MARIO_DRAG * __Mario->direction.x;

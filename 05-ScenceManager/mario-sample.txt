@@ -1,3 +1,5 @@
+[ANIMATIONS]
+animations.txt
 [SETTINGS]
 start	2
 #scene list

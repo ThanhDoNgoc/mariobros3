@@ -15,6 +15,13 @@
 #define GOOMBA_ANI_WALKING	0
 #define GOOMBA_ANI_DIE		1
 
+enum class GoombaState
+{
+	walk,
+	die,
+	instancedead
+};
+
 class CGoomba : public CGameObject
 {
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
@@ -22,9 +29,10 @@ class CGoomba : public CGameObject
 	virtual void Render();
 	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f, 1.0f);
 	int width, height;
+	GoombaState goombaState;
 public: 	
 	CGoomba();
-	virtual void SetState(int state);
-	void TakeDamage();
+	virtual void SetState(GoombaState state);
+	virtual void TakeDamage();
 	void InstanceDead();
 };

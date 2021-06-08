@@ -20,8 +20,8 @@ MarioLevelRaccoon::MarioLevelRaccoon()
 	__Mario->AddAnimation(ID_ANI_RACCOON_MARIO_SLOW_FALL);
 	__Mario->AddAnimation(ID_ANI_RACCOON_MARIO_FLY);
 	
-	this->width = MARIO_BIG_BBOX_WIDTH;
-	this->height = MARIO_BIG_BBOX_HEIGHT;
+	__Mario->width = MARIO_BIG_BBOX_WIDTH;
+	__Mario->height = MARIO_BIG_BBOX_HEIGHT;
 
 	__Mario->level = MARIO_LEVEL_RACCOON;
 }

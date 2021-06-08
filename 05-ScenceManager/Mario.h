@@ -25,15 +25,15 @@ class CMario : public CGameObject
 	static CMario* __instance;
 
 	float start_x;			// initial position of Mario at scene
-	float start_y; 
-	
-	LPGAMEOBJECT obj;
+	float start_y;
 
+	LPGAMEOBJECT obj;
 	//D3DXVECTOR2 direction = D3DXVECTOR2(1.0f,1.0f);
 
-public: 
+public:
 	int ani = -1;
 	int level;
+	float width, height;
 	bool isOnGround, isMaxCharge;
 	bool isAttacking, isKicking, isHolding;
 	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f, 1.0f);
@@ -45,16 +45,17 @@ public:
 	CMario(float x = 0.0f, float y = 0.0f);
 	static CMario* GetInstance();
 
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render();
 
 	//void SetState(int state);
 	void SetState(PlayerState* newState);
 	void SetLevel(int lvl);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
-	void StartOnMaxCharge() { this->isMaxCharge = true; on_max_charge_start = GetTickCount();}
+	void StartOnMaxCharge() { this->isMaxCharge = true; on_max_charge_start = GetTickCount(); }
 	void StartKick() { this->isKicking = true; kickStart = GetTickCount(); }
-
+	void TakeDamage();
+	void InstanceDead() {};
 	void Reset();
 	void GetAnimation(int new_ani);
 

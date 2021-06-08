@@ -41,6 +41,19 @@ struct CCollisionEvent
 	}
 };
 
+enum class Group
+{
+	player,
+	enemy,
+	ground,
+	block,
+	projectile,
+	shell,
+	item,
+	portal,
+	dead	
+
+};
 
 class CGameObject
 {
@@ -59,16 +72,25 @@ public:
 
 	int state;
 
+	bool isBeingHold = false;
+	bool isHoldAble = false;
+
 	DWORD dt; 
 
 	//LPANIMATION_SET animation_set;
 	vector<LPANIMATION> animation_set;
 
 public: 
+	Group ObjectGroup;
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
 	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
+
+	void setHoldAble(bool holdAble) { this->isHoldAble = holdAble; }
+	void setBeingHold(bool beingHold) { this->isBeingHold = beingHold; }
+	bool getHoldAble() { return isHoldAble; }
+	bool getBeingHold() { return isBeingHold; }
 
 	int GetState() { return this->state; }
 
@@ -96,7 +118,8 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	virtual void Render() = 0;
 	virtual void SetState(int state) { this->state = state; }
-
+	virtual void TakeDamage() = 0;
+	virtual void InstanceDead() = 0;
 
 	~CGameObject();
 };

@@ -4,12 +4,7 @@ textures\MapData\World_1-1.tmx	textures\MapData\
 # type	x	y	ani_set_id	extra_settings per object type
 # type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas
 # MARIO
-0	10	1104	1
-
-4	0	1248	2	8848	48
-2	768	1100	0
-3	500	1100	0
-
+0	1104	1056	1
 # --- SCENE PORTAL ----
 # type	l	t	ani_set_id	r	b	scene_id
 50	300	98	0	380	150	2

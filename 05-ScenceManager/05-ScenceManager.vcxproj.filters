@@ -194,6 +194,9 @@
     <ClCompile Include="PlayScence.cpp">
       <Filter>Scenes\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerStateCrouch.cpp">
+      <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -310,6 +313,9 @@
     </ClInclude>
     <ClInclude Include="PlayScence.h">
       <Filter>Scenes\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateCrouch.h">
+      <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

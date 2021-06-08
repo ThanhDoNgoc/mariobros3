@@ -2,6 +2,11 @@
 #include "Game.h"
 #include "Camera.h"
 
+CBrick::CBrick()
+{
+	ObjectGroup = Group::block;
+}
+
 void CBrick::Render()
 {
 	//Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();

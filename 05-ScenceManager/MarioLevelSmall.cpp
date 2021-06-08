@@ -19,8 +19,8 @@ MarioLevelSmall::MarioLevelSmall()
 	__Mario->AddAnimation(ID_ANI_SMALL_MARIO_KICK);
 	__Mario->AddAnimation(ID_ANI_SMALL_MARIO_DIE);
 
-	this->width = MARIO_SMALL_BBOX_WIDTH;
-	this->height = MARIO_SMALL_BBOX_HEIGHT;
+	__Mario->width = MARIO_SMALL_BBOX_WIDTH;
+	__Mario->height = MARIO_SMALL_BBOX_HEIGHT;
 
 	__Mario->level = MARIO_LEVEL_SMALL;
 

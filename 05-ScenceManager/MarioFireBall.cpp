@@ -12,6 +12,7 @@ MarioFireBall::MarioFireBall(float posX, float posY, float direcX, float direcY)
 	this->direction = D3DXVECTOR2(direcX, direcY);
 	this->x = posX;
 	this->y = posY;
+	this->ObjectGroup = Group::projectile;
 }
 
 void MarioFireBall::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -77,19 +78,9 @@ void MarioFireBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 
-			if (dynamic_cast<CGoomba*>(e->obj)) // if e->obj is Goomba 
+			if (e->obj->ObjectGroup == Group ::enemy) 
 			{
-				CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
-
-				if (goomba->GetState()!= GOOMBA_STATE_DIE)
-					goomba->InstanceDead();
-				
-			}
-			else if (dynamic_cast<CKoopas*>(e->obj))
-			{
-				CKoopas* koopas = dynamic_cast<CKoopas*>(e->obj);
-				if (koopas->GetState() != KOOPAS_STATE_DIE)
-				koopas->InstanceDead();
+				e->obj->InstanceDead();	
 			}
 		}
 	}

@@ -19,8 +19,8 @@ MarioLevelFire::MarioLevelFire()
 	__Mario->AddAnimation(ID_ANI_FIRE_MARIO_KICK);
 	__Mario->AddAnimation(ID_ANI_FIRE_MARIO_ATTACK);
 
-	this->width = MARIO_BIG_BBOX_WIDTH;
-	this->height = MARIO_BIG_BBOX_HEIGHT;
+	__Mario->width = MARIO_BIG_BBOX_WIDTH;
+	__Mario->height = MARIO_BIG_BBOX_HEIGHT;
 
 	__Mario->level = MARIO_LEVEL_FIRE;
 }

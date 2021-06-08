@@ -1,5 +1,7 @@
 #include "Map.h"
-
+#include "Ground.h"
+#include "Goomba.h"
+#include "Koopas.h"
 Map::Map()
 {
 }
@@ -45,6 +47,8 @@ void Map::LoadMap(const char* filePath, const char* path)
 			this->AddTileMap(tilemap);
 		}
 
+		this->AddObject(root);
+
 		DebugOut(L"[INFO] map load successful \n");
 	}
 	else
@@ -53,8 +57,46 @@ void Map::LoadMap(const char* filePath, const char* path)
 	}
 }
 
+
 void Map::AddObject(TiXmlElement* RootElement)
 {
+	for (TiXmlElement* TMXObjectsgroup = RootElement->FirstChildElement("objectgroup"); TMXObjectsgroup != NULL; TMXObjectsgroup = TMXObjectsgroup->NextSiblingElement("objectgroup"))
+	{
+		for (TiXmlElement* TMXObject = TMXObjectsgroup->FirstChildElement("object"); TMXObject != NULL; TMXObject = TMXObject->NextSiblingElement("object"))
+		{
+			int id;
+			float x, y, width, height;
+			std::string name = TMXObject->Attribute("name");
+			if (name == "ground")
+			{
+				TMXObject->QueryFloatAttribute("x", &x);
+				TMXObject->QueryFloatAttribute("y", &y);
+				TMXObject->QueryFloatAttribute("width", &width);
+				TMXObject->QueryFloatAttribute("height", &height);
+				Ground* ground = new Ground(width, height);
+				ground->SetPosition(x, y);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(ground);
+				DebugOut(L"[INFO] map object ground \n");
+
+			}
+			else if (name == "goomba")
+			{
+				TMXObject->QueryFloatAttribute("x", &x);
+				TMXObject->QueryFloatAttribute("y", &y);
+				CGoomba* goomba = new CGoomba();
+				goomba->SetPosition(x, y);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(goomba);
+			}
+			else if (name == "koopa")
+			{
+				TMXObject->QueryFloatAttribute("x", &x);
+				TMXObject->QueryFloatAttribute("y", &y);
+				CKoopas* koopa = new CKoopas();
+				koopa->SetPosition(x, y);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(koopa);
+			}
+		}
+	}
 }
 
 void Map::Render(Camera* camera)

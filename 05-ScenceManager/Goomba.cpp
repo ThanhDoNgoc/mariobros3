@@ -6,25 +6,30 @@ CGoomba::CGoomba()
 {
 	AddAnimation(ID_ANI_GOOMBA_WALK);
 	AddAnimation(ID_ANI_GOOMBA_DIE);
-	SetState(GOOMBA_STATE_WALKING);
+	SetState(GoombaState::walk);
 	this->width = GOOMBA_BBOX_WIDTH;
 	this->height = GOOMBA_BBOX_HEIGHT;
 	this->direction.x = -1.0f;
+	ObjectGroup = Group::enemy;
 }
 
 void CGoomba::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
+	if (this->goombaState == GoombaState::die)
+		return;
 	left = x;
 	top = y;
 	right = x + this->width;
 	bottom = y + this->height;
+
 }
 
 void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGame* game = CGame::GetInstance();
 
-	vy += GOOMBA_GRAVITY * dt;
+	if(this->goombaState != GoombaState::die)
+		vy += GOOMBA_GRAVITY * dt;
 
 	CGameObject::Update(dt);
 
@@ -33,7 +38,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	coEvents.clear();
 
-	if (state != GOOMBA_STATE_INSTANCE_DEAD)
+	if (goombaState != GoombaState::instancedead)
 		CalcPotentialCollisions(coObjects, coEvents);
 
 	// No collision occured, proceed normally
@@ -59,7 +64,10 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		x += min_tx * dx + nx * 0.4f;
 		y += min_ty * dy + ny * 0.4f;
 
-		if (nx != 0) vx = 0;
+		if (nx != 0)
+		{
+			this->direction.x * -1;
+		}
 		if (ny != 0)
 		{
 			vy = 0;
@@ -70,9 +78,13 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 
-			if (dynamic_cast<CGoomba*>(e->obj)) // if e->obj is Goomba 
+			if (e->obj->ObjectGroup == Group::enemy) // if e->obj is Goomba 
 			{
 				this->direction.x * -1;
+			}
+			if (e->obj->ObjectGroup == Group::projectile) // if e->obj is Goomba 
+			{
+				this->InstanceDead();
 			}
 		}
 	}
@@ -87,15 +99,15 @@ void CGoomba::Render()
 	if (state == GOOMBA_STATE_DIE) {
 		ani = GOOMBA_ANI_DIE;
 	}
-	switch (state)
+	switch (goombaState)
 	{
-	case GOOMBA_STATE_WALKING:
+	case GoombaState::walk:
 		ani = GOOMBA_ANI_WALKING;
 		break;
-	case GOOMBA_STATE_DIE:
+	case GoombaState::die:
 		ani = GOOMBA_ANI_DIE;
 		break;
-	case GOOMBA_STATE_INSTANCE_DEAD:
+	case GoombaState::instancedead:
 		ani = GOOMBA_ANI_WALKING;
 		this->direction.y = -1.0;
 		break;
@@ -107,19 +119,20 @@ void CGoomba::Render()
 	RenderBoundingBox();
 }
 
-void CGoomba::SetState(int state)
+void CGoomba::SetState(GoombaState state)
 {
-	CGameObject::SetState(state);
+	//CGameObject::SetState(state);
+	this->goombaState = state;
 	switch (state)
 	{
-		case GOOMBA_STATE_DIE:
+	case GoombaState::die:
 			vx = 0;
 			vy = 0;
 			break;
-		case GOOMBA_STATE_WALKING: 
+	case GoombaState::walk: 
 			vx = -GOOMBA_WALKING_SPEED;
 			break;
-		case GOOMBA_STATE_INSTANCE_DEAD:
+	case GoombaState::instancedead:
 			vx = -GOOMBA_WALKING_SPEED;
 			vy = -GOOMBA_INSTANCE_DEAD_VY;
 			break;
@@ -128,12 +141,12 @@ void CGoomba::SetState(int state)
 
 void CGoomba::TakeDamage()
 {
-	this->SetState(GOOMBA_STATE_DIE);
+	this->SetState(GoombaState::die);
 }
 
 void CGoomba::InstanceDead()
 {
-	this->SetState(GOOMBA_STATE_INSTANCE_DEAD);
+	this->SetState(GoombaState::instancedead);
 	this->width = 0;
 	this->height = 0;
 }

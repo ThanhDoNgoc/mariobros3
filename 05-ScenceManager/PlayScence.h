@@ -39,6 +39,7 @@ public:
 	virtual void OnKeyDown(int KeyCode) override;
 
 	virtual void AddObject(LPGAMEOBJECT addobject) { objects.push_back(addobject); };
+	virtual void DeleteObject(LPGAMEOBJECT object);
 
 	CMario * GetPlayer() { return player; } 
 

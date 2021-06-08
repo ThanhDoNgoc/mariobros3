@@ -5,6 +5,7 @@
 #include "Utils.h"
 
 #include "PlayScence.h"
+#include "AniMaganer.h"
 
 CGame * CGame::__instance = NULL;
 
@@ -264,7 +265,7 @@ CGame *CGame::GetInstance()
 #define GAME_FILE_SECTION_UNKNOWN -1
 #define GAME_FILE_SECTION_SETTINGS 1
 #define GAME_FILE_SECTION_SCENES 2
-
+#define GAME_FILE_SECTION_ANIMATION 3
 void CGame::_ParseSection_SETTINGS(string line)
 {
 	vector<string> tokens = split(line);
@@ -286,6 +287,11 @@ void CGame::_ParseSection_SCENES(string line)
 
 	LPSCENE scene = new CPlayScene(id, path);
 	scenes[id] = scene;
+}
+
+void CGame::_ParseSection_ANIMATIONS(string line)
+{
+	AniMaganer::GetInstance()->LoadResource(line);
 }
 
 /*
@@ -310,7 +316,7 @@ void CGame::Load(LPCWSTR gameFile)
 
 		if (line == "[SETTINGS]") { section = GAME_FILE_SECTION_SETTINGS; continue; }
 		if (line == "[SCENES]") { section = GAME_FILE_SECTION_SCENES; continue; }
-
+		if (line == "[ANIMATIONS]") { section = GAME_FILE_SECTION_ANIMATION; continue; }
 		//
 		// data section
 		//
@@ -318,6 +324,7 @@ void CGame::Load(LPCWSTR gameFile)
 		{
 			case GAME_FILE_SECTION_SETTINGS: _ParseSection_SETTINGS(line); break;
 			case GAME_FILE_SECTION_SCENES: _ParseSection_SCENES(line); break;
+			case GAME_FILE_SECTION_ANIMATION: _ParseSection_ANIMATIONS(line); break;
 		}
 	}
 	f.close();

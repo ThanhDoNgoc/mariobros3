@@ -37,6 +37,7 @@ class CGame
 
 	void _ParseSection_SETTINGS(string line);
 	void _ParseSection_SCENES(string line);
+	void _ParseSection_ANIMATIONS(string line);
 
 public:
 	void Init(HWND hWnd);

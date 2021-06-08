@@ -14,6 +14,6 @@ class AniMaganer
 public:
 	~AniMaganer();
 	static AniMaganer* GetInstance();
-	void LoadResource();
+	void LoadResource(string line);
 };
 
