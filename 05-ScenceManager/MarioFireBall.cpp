@@ -78,10 +78,10 @@ void MarioFireBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 
-			if (e->obj->ObjectGroup == Group ::enemy) 
+			/*if (e->obj->ObjectGroup == Group ::enemy) 
 			{
 				e->obj->InstanceDead();	
-			}
+			}*/
 		}
 	}
 

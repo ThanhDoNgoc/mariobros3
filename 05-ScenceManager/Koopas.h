@@ -32,8 +32,8 @@ enum class KoopaState
 
 class CKoopas : public CGameObject
 {
-	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
 	float velocity;
 
@@ -41,8 +41,9 @@ public:
 	CKoopas();
 	KoopaState koopaState;
 	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f, 1.0f);
-	bool isBeingHold = false;
-	virtual void SetState(KoopaState state);
+	//bool isBeingHold = false;
+	void SetState(KoopaState state);
+	int GetState() { return 1; };
 	virtual void TakeDamage();
 	virtual void InstanceDead();
 	void BeingHold();

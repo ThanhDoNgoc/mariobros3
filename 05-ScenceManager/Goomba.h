@@ -30,6 +30,7 @@ class CGoomba : public CGameObject
 	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f, 1.0f);
 	int width, height;
 	GoombaState goombaState;
+	float velocity;
 public: 	
 	CGoomba();
 	virtual void SetState(GoombaState state);

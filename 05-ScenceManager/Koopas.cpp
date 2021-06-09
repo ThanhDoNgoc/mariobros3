@@ -12,11 +12,12 @@ CKoopas::CKoopas()
 	this->SetState(KoopaState::walk);
 	ObjectGroup = Group::enemy;
 	isBeingHold = false;
+	this->direction.x *= -1.0f;
 }
 
 void CKoopas::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	if (isBeingHold || koopaState == KoopaState::die) return;
+	if (koopaState == KoopaState::die) return;
 
 	left = x;
 	top = y;
@@ -31,11 +32,13 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	
 	if (isBeingHold)
 	{
-		this->x = __Mario->x + (__Mario->_marioLevel->width * __Mario->direction.x);
-		this->y = __Mario->y - __Mario->_marioLevel->height / 2;
+		
+		this->x = __Mario->x + __Mario->width*__Mario->direction.x;
+		this->y = __Mario->y - __Mario->height/2 ;
 		return;
 	}
 	CGameObject::Update(dt);
+
 	this->vx = this->velocity * this->direction.x;
 	this->vy += KOOPAS_GRAVITY*dt;
 	vector<LPCOLLISIONEVENT> coEvents;
@@ -43,7 +46,7 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	coEvents.clear();
 
-	if (koopaState!=KoopaState::die && !isBeingHold)
+	if (koopaState!=KoopaState::die)
 		CalcPotentialCollisions(coObjects, coEvents);
 
 	// No collision occured, proceed normally
@@ -66,8 +69,8 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		//	x += nx*abs(rdx); 
 
 		// block every object first!
-		x += min_tx * dx + nx * 0.4f;
-		y += min_ty * dy + ny * 0.4f;
+		/*x += min_tx * dx + nx * 0.4f;
+		y += min_ty * dy + ny * 0.4f;*/
 
 		if (nx != 0)
 		{
@@ -84,11 +87,27 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (e->obj->ObjectGroup == Group::ground || e->obj->ObjectGroup == Group::enemy)
 			{
-				this->direction.x = this->direction.x * -1.0f;
+				x += min_tx * dx + nx * 0.4f;
+				y += min_ty * dy + ny * 0.4f;
+				if (e->nx != 0)
+				{
+					if (koopaState==KoopaState::walk)
+						this->direction.x *= -1.0f;
+					else if (koopaState == KoopaState::slide || e->obj->ObjectGroup == Group::ground)
+					{
+						this->direction.x *= -1.0f;
+					}
+				}
+			}
+			else if (e->obj->ObjectGroup == Group::projectile) // if e->obj is projectile 
+			{
+				this->InstanceDead();
 			}
 		}
 	}
 
+
+	DebugOut(L" object x: %f , y: %f\n ", this->x, this->y);
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
@@ -126,22 +145,19 @@ void CKoopas::SetState(KoopaState state)
 	case KoopaState::walk:
 		this->velocity = -KOOPAS_WALKING_SPEED;
 		this->ObjectGroup = Group::enemy;
-		this->isHoldAble = false;
 		break;
 	case KoopaState::shell:
 		this->velocity = 0;
 		this->ObjectGroup = Group::shell;
-		this->isHoldAble = true;
 		this->y -= 0.4;
 		break;
 	case KoopaState::slide:
 		this->velocity = KOOPAS_SHELL_MOVING_SPEED;
 		this->ObjectGroup = Group::projectile;
-		this->isHoldAble = false;
 		this->y -= 0.4;
 		break;
 	case KoopaState::die:
-		this->isHoldAble = false;
+		break;
 	}
 	DebugOut(L" velocity x: %f \n ", this->vx);
 }

@@ -30,6 +30,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	if(this->goombaState != GoombaState::die)
 		vy += GOOMBA_GRAVITY * dt;
+	vx = velocity * direction.x;
 
 	CGameObject::Update(dt);
 
@@ -61,12 +62,12 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		//	x += nx*abs(rdx); 
 
 		// block every object first!
-		x += min_tx * dx + nx * 0.4f;
-		y += min_ty * dy + ny * 0.4f;
+		/*x += min_tx * dx + nx * 0.4f;
+		y += min_ty * dy + ny * 0.4f;*/
 
 		if (nx != 0)
 		{
-			this->direction.x * -1;
+			//this->direction.x * -1;
 		}
 		if (ny != 0)
 		{
@@ -78,9 +79,14 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 
-			if (e->obj->ObjectGroup == Group::enemy) // if e->obj is Goomba 
+			if (e->obj->ObjectGroup == Group::enemy || e->obj->ObjectGroup == Group::ground) // if e->obj is Goomba 
 			{
-				this->direction.x * -1;
+				x += min_tx * dx + nx * 0.4f;
+				y += min_ty * dy + ny * 0.4f;
+				if (e->nx != 0)
+				{
+					this->direction.x *= -1.0f;
+				}
 			}
 			if (e->obj->ObjectGroup == Group::projectile) // if e->obj is Goomba 
 			{
@@ -126,16 +132,16 @@ void CGoomba::SetState(GoombaState state)
 	switch (state)
 	{
 	case GoombaState::die:
-			vx = 0;
-			vy = 0;
-			break;
+		velocity = 0;
+		vy = 0;
+		break;
 	case GoombaState::walk: 
-			vx = -GOOMBA_WALKING_SPEED;
-			break;
+		velocity = -GOOMBA_WALKING_SPEED;
+		break;
 	case GoombaState::instancedead:
-			vx = -GOOMBA_WALKING_SPEED;
-			vy = -GOOMBA_INSTANCE_DEAD_VY;
-			break;
+		velocity = -GOOMBA_WALKING_SPEED;
+		vy = -GOOMBA_INSTANCE_DEAD_VY;
+		break;
 	}
 }
 

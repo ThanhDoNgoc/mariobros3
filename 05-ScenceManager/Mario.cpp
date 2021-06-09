@@ -139,26 +139,28 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					}
 				}
 			} // if Goomba
-			else if (dynamic_cast<CPortal *>(e->obj))
+			else if (dynamic_cast<CPortal*>(e->obj))
 			{
-				CPortal *p = dynamic_cast<CPortal *>(e->obj);
+				CPortal* p = dynamic_cast<CPortal*>(e->obj);
 				CGame::GetInstance()->SwitchScene(p->GetSceneId());
-			}
-			else if (e->obj->ObjectGroup == Group::shell && e->obj->getHoldAble() && KeyHanler::GetInstance()->IsKeyDown(DIK_A))
-			{
-				e->obj->setBeingHold(true);
-				e->obj->setHoldAble(false);
-				this->obj = e->obj;
-				
 			}
 			else if (dynamic_cast<CKoopas*>(e->obj))
 			{
 				CKoopas* koopa = dynamic_cast<CKoopas*>(e->obj);
 				if (koopa->koopaState == KoopaState::shell)
 				{
-					koopa->direction.x = this->direction.x;
-					koopa->SetState(KoopaState::slide);
-					StartKick();
+					if (KeyHanler::GetInstance()->IsKeyDown(DIK_A))
+					{
+						koopa->isBeingHold = true;
+						this->obj = koopa;
+						this->isHolding = true;
+					}
+					else
+					{
+						koopa->direction.x = this->direction.x;
+						koopa->SetState(KoopaState::slide);
+						StartKick();
+					}
 				}
 			}
 		}
@@ -168,7 +170,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 
 	//DebugOut(L" velocity x: %f \n ", vx);
-
+	//if (this->obj != NULL)
+	//	DebugOut(L" object x: %d \n ", obj->GetState());
 }
 
 void CMario::Render()
@@ -240,6 +243,7 @@ void CMario::OnKeyUp(int KeyCode)
 			isHolding = false;
 			obj->setBeingHold(false);
 			obj->setHoldAble(true);
+			
 		}
 		break;
 	}
