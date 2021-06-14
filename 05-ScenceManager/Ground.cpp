@@ -6,7 +6,9 @@ Ground::Ground(int width, int height)
 {
 	this->groundWidth = width;
 	this->groundHeight = height;
+
 	this->ObjectGroup = Group::ground;
+	this->collision = Collision2D::Full;
 }
 
 void Ground::Render()

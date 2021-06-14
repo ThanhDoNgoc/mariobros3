@@ -13,6 +13,7 @@ MarioFireBall::MarioFireBall(float posX, float posY, float direcX, float direcY)
 	this->x = posX;
 	this->y = posY;
 	this->ObjectGroup = Group::projectile;
+	this->collision = Collision2D::Full;
 }
 
 void MarioFireBall::GetBoundingBox(float& left, float& top, float& right, float& bottom)

@@ -31,6 +31,3 @@ void MarioLevelFire::LevelDown()
 	__Mario->StartUntouchable();
 }
 
-void MarioLevelFire::Attack()
-{
-}

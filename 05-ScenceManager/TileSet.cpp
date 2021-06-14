@@ -31,7 +31,7 @@ TileSet::TileSet(TiXmlElement* TMXtileset, std::string Path)
 
 			this->cells[index] = rect;
 
-			DebugOut(L"rect %d: %d %d %d %d \n",index, rect->left, rect->top, rect->right, rect->bottom);
+			//DebugOut(L"rect %d: %d %d %d %d \n",index, rect->left, rect->top, rect->right, rect->bottom);
 		}
 	}
 }

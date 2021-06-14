@@ -7,9 +7,7 @@
 class MarioLevel
 {
 public:
-	float width, height;
 	MarioLevel() {};
 	virtual void LevelDown() {};
-	virtual void Attack() {};
 };
 

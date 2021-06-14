@@ -67,9 +67,6 @@
     <Filter Include="GameObjects\Player\StateMachine\PlayerFSM">
       <UniqueIdentifier>{2accd24b-1dad-4f1a-969c-bccf279a59d2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObjects\Ground">
-      <UniqueIdentifier>{6bb2cd9a-b7ec-4b55-9a5f-b327dc2c5670}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObjects\Player\MarioLevel">
       <UniqueIdentifier>{59ca8066-0e29-445c-9d7a-f16c772d7a57}</UniqueIdentifier>
     </Filter>
@@ -81,6 +78,12 @@
     </Filter>
     <Filter Include="Scenes\Scenes">
       <UniqueIdentifier>{de41f081-af08-406a-b888-71ec3edfdb1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Blocks\Ground">
+      <UniqueIdentifier>{6bb2cd9a-b7ec-4b55-9a5f-b327dc2c5670}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Blocks\GhostPlatform">
+      <UniqueIdentifier>{27ed9ab0-0f83-45c5-a939-fcba9c5374b6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -159,7 +162,7 @@
       <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
     </ClCompile>
     <ClCompile Include="Ground.cpp">
-      <Filter>GameObjects\Ground</Filter>
+      <Filter>GameObjects\Blocks\Ground</Filter>
     </ClCompile>
     <ClCompile Include="MarioLevelSmall.cpp">
       <Filter>GameObjects\Player\MarioLevel\MarioLevel</Filter>
@@ -196,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="PlayerStateCrouch.cpp">
       <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="GhostPlatform.cpp">
+      <Filter>GameObjects\Blocks\GhostPlatform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -273,7 +279,7 @@
       <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
     </ClInclude>
     <ClInclude Include="Ground.h">
-      <Filter>GameObjects\Ground</Filter>
+      <Filter>GameObjects\Blocks\Ground</Filter>
     </ClInclude>
     <ClInclude Include="defineMario.h">
       <Filter>GameObjects\Player</Filter>
@@ -316,6 +322,9 @@
     </ClInclude>
     <ClInclude Include="PlayerStateCrouch.h">
       <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="GhostPlatform.h">
+      <Filter>GameObjects\Blocks\GhostPlatform</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

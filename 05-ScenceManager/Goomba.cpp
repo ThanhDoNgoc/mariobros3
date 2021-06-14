@@ -10,7 +10,9 @@ CGoomba::CGoomba()
 	this->width = GOOMBA_BBOX_WIDTH;
 	this->height = GOOMBA_BBOX_HEIGHT;
 	this->direction.x = -1.0f;
-	ObjectGroup = Group::enemy;
+
+	this->ObjectGroup = Group::enemy;
+	this->collision = Collision2D::Full;
 }
 
 void CGoomba::GetBoundingBox(float &left, float &top, float &right, float &bottom)
@@ -102,9 +104,6 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 void CGoomba::Render()
 {
 	int ani = GOOMBA_ANI_WALKING;
-	if (state == GOOMBA_STATE_DIE) {
-		ani = GOOMBA_ANI_DIE;
-	}
 	switch (goombaState)
 	{
 	case GoombaState::walk:

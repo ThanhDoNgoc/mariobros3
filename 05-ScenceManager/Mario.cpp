@@ -35,6 +35,9 @@ CMario::CMario(float x, float y) : CGameObject()
 	this->isHolding = false;
 
 	this->obj = NULL;
+
+	this->ObjectGroup = Group::player;
+	this->collision = Collision2D::Full;
 }
 
 CMario* CMario::GetInstance()
@@ -50,7 +53,6 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 
 	_playerState->Update();
-	//vx = _playerState->getVelocity();
 	
 	CGame* game = CGame::GetInstance();
 
@@ -171,7 +173,6 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	//DebugOut(L" velocity x: %f \n ", vx);
 	//if (this->obj != NULL)
-	//	DebugOut(L" object x: %d \n ", obj->GetState());
 }
 
 void CMario::Render()

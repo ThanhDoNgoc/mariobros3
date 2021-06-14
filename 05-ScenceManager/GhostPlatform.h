@@ -1,13 +1,12 @@
 #pragma once
 #include "GameObject.h"
-class Ground : public CGameObject
+class GhostPlatform : public CGameObject
 {
-	int groundWidth, groundHeight;
+	int platformWidth, platformHeight;
 public:
-	Ground(int width, int height);
+	GhostPlatform(int width, int height);
 	virtual void Render();
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
 	virtual void TakeDamage() {};
-
 };
 

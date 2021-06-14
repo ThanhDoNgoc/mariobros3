@@ -6,6 +6,5 @@ class MarioLevelSmall : public MarioLevel
 public:
 	MarioLevelSmall();
 	void LevelDown();
-	void Attack() {};
 };
 

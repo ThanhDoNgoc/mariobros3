@@ -73,7 +73,15 @@ void CGameObject::CalcPotentialCollisions(
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
 
 		if (e->t > 0 && e->t <= 1.0f)
-			coEvents.push_back(e);
+		{
+			float ml = 0, mt = 0, mr = 0, mb = 0;
+			// check for collisiont tag and collide direction if match then create the event!!!
+			e->obj->GetBoundingBox(ml, mt, mr, mb);
+			if (e->obj->collision == Collision2D::Full)
+				coEvents.push_back(e);
+			else if (e->ny < 0 && e->obj->collision == Collision2D::Top)
+				coEvents.push_back(e);
+		}
 		else
 			delete e;
 	}

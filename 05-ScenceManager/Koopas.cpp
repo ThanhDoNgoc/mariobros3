@@ -10,7 +10,10 @@ CKoopas::CKoopas()
 	AddAnimation(ID_ANI_KOOPAS_SHELL);
 	AddAnimation(ID_ANI_KOOPAS_SHELL_MOVING);
 	this->SetState(KoopaState::walk);
-	ObjectGroup = Group::enemy;
+
+	this->ObjectGroup = Group::enemy;
+	this->collision = Collision2D::Full;
+
 	isBeingHold = false;
 	this->direction.x *= -1.0f;
 }
@@ -106,8 +109,6 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 	}
 
-
-	DebugOut(L" object x: %f , y: %f\n ", this->x, this->y);
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }

@@ -5,6 +5,5 @@ class MarioLevelRaccoon : public MarioLevel
 public:
 	MarioLevelRaccoon();
 	void LevelDown();
-	void Attack();
 };
 

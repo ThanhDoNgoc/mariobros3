@@ -54,6 +54,14 @@ enum class Group
 	dead	
 
 };
+enum class Collision2D
+{
+	//should make bottom, left, right as well but i just need top to make ghost platform
+
+	Full,
+	Top,
+	None
+};
 
 class CGameObject
 {
@@ -82,6 +90,7 @@ public:
 
 public: 
 	Group ObjectGroup;
+	Collision2D collision;
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
@@ -92,7 +101,7 @@ public:
 	bool getHoldAble() { return isHoldAble; }
 	bool getBeingHold() { return isBeingHold; }
 
-	int GetState() { return this->state; }
+	//int GetState() { return this->state; }
 
 	void RenderBoundingBox();
 
@@ -119,7 +128,6 @@ public:
 	virtual void Render() = 0;
 	virtual void SetState(int state) { this->state = state; }
 	virtual void TakeDamage() = 0;
-	virtual void InstanceDead() = 0;
 
 	~CGameObject();
 };

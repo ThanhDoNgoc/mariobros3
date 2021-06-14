@@ -18,7 +18,6 @@ MarioLevelBig::MarioLevelBig()
 	__Mario->AddAnimation(ID_ANI_BIG_MARIO_RUN_HOLD);
 	__Mario->AddAnimation(ID_ANI_BIG_MARIO_KICK);
 
-	//__Mario->y -= 100;
 
 	__Mario->width = MARIO_BIG_BBOX_WIDTH;
 	__Mario->height = MARIO_BIG_BBOX_HEIGHT;
@@ -32,6 +31,3 @@ void MarioLevelBig::LevelDown()
 	__Mario->StartUntouchable();
 }
 
-void MarioLevelBig::Attack()
-{
-}

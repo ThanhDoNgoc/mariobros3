@@ -1,7 +1,9 @@
 #include "Map.h"
 #include "Ground.h"
+#include "GhostPlatform.h"
 #include "Goomba.h"
 #include "Koopas.h"
+#include "Brick.h"
 Map::Map()
 {
 }
@@ -76,8 +78,19 @@ void Map::AddObject(TiXmlElement* RootElement)
 				Ground* ground = new Ground(width, height);
 				ground->SetPosition(x, y);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(ground);
-				DebugOut(L"[INFO] map object ground \n");
+				//DebugOut(L"[INFO] map object ground \n");
 
+			}
+			else if (name == "ghostplatform")
+			{
+				TMXObject->QueryFloatAttribute("x", &x);
+				TMXObject->QueryFloatAttribute("y", &y);
+				TMXObject->QueryFloatAttribute("width", &width);
+				TMXObject->QueryFloatAttribute("height", &height);
+				GhostPlatform* ghost = new GhostPlatform(width, height);
+				ghost->SetPosition(x, y);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(ghost);
+				//DebugOut(L"[INFO] map object ghostplatform \n");
 			}
 			else if (name == "goomba")
 			{
@@ -94,6 +107,14 @@ void Map::AddObject(TiXmlElement* RootElement)
 				CKoopas* koopa = new CKoopas();
 				koopa->SetPosition(x, y);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(koopa);
+			}
+			else if (name == "brick")
+			{
+				TMXObject->QueryFloatAttribute("x", &x);
+				TMXObject->QueryFloatAttribute("y", &y);
+				CBrick* brick = new CBrick();
+				brick->SetPosition(x, y);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(brick);
 			}
 		}
 	}

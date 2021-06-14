@@ -55,7 +55,6 @@ public:
 	void StartOnMaxCharge() { this->isMaxCharge = true; on_max_charge_start = GetTickCount(); }
 	void StartKick() { this->isKicking = true; kickStart = GetTickCount(); }
 	void TakeDamage();
-	void InstanceDead() {};
 	void Reset();
 	void GetAnimation(int new_ani);
 

@@ -3,7 +3,7 @@
 #include "GameObject.h"
 
 #define KOOPAS_WALKING_SPEED		0.03f
-#define KOOPAS_SHELL_MOVING_SPEED	0.4f
+#define KOOPAS_SHELL_MOVING_SPEED	0.35f
 #define KOOPAS_INSTANCE_DEAD_VY		0.5f
 #define KOOPAS_GRAVITY				0.003f
 
@@ -45,6 +45,6 @@ public:
 	void SetState(KoopaState state);
 	int GetState() { return 1; };
 	virtual void TakeDamage();
-	virtual void InstanceDead();
+	void InstanceDead();
 	void BeingHold();
 };

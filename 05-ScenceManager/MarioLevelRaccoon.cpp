@@ -32,7 +32,3 @@ void MarioLevelRaccoon::LevelDown()
 	__Mario->StartUntouchable();
 }
 
-void MarioLevelRaccoon::Attack()
-{
-
-}

@@ -4,14 +4,15 @@
 
 CBrick::CBrick()
 {
+	AddAnimation(ID_ANI_BRICK);
 	ObjectGroup = Group::block;
 }
 
 void CBrick::Render()
 {
-	//Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
-
-	//animation_set->at(0)->Render(x - camera->GetCamPosX(), y - camera->GetCamPosY());
+	int ani = ANI_BRICK;
+	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
+	animation_set[ani]->Render(x - camera->GetCamPosX() + BRICK_BBOX_WIDTH / 2, y - camera->GetCamPosY() + BRICK_BBOX_HEIGHT / 2, direction, 255);
 	RenderBoundingBox();
 }
 
