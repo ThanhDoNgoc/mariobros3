@@ -60,6 +60,7 @@ enum class Collision2D
 
 	Full,
 	Top,
+	Bottom,
 	None
 };
 

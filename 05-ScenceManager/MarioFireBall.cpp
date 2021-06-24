@@ -68,7 +68,7 @@ void MarioFireBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		x += min_tx * dx + nx * 0.4f;
 		y += min_ty * dy + ny * 0.4f;
 
-		if (nx != 0) vx = 0;
+		if (nx != 0) this->TakeDamage();
 		if (ny != 0)
 		{
 			vy = -FIREBALL_SPEED;
@@ -78,11 +78,12 @@ void MarioFireBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
+			//this->TakeDamage();
 
-			/*if (e->obj->ObjectGroup == Group ::enemy) 
+			if (e->obj->ObjectGroup == Group ::enemy)
 			{
-				e->obj->InstanceDead();	
-			}*/
+				this->TakeDamage(); // something wrong here ???
+			}
 		}
 	}
 
@@ -97,4 +98,9 @@ void MarioFireBall::Render()
 	animation_set[FIREBALL_ANI]->Render(x - camera->GetCamPosX() + FIREBALL_BBOX_WIDTH / 2, y - camera->GetCamPosY() + FIREBALL_BBOX_HEIGHT / 2, direction, 255);
 
 	RenderBoundingBox();
+}
+
+void MarioFireBall::TakeDamage()
+{
+	CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
 }

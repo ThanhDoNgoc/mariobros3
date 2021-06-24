@@ -4,6 +4,8 @@
 #include "Goomba.h"
 #include "Koopas.h"
 #include "Brick.h"
+#include "QuestionBlock.h"
+#include "Coin.h"
 Map::Map()
 {
 }
@@ -115,6 +117,22 @@ void Map::AddObject(TiXmlElement* RootElement)
 				CBrick* brick = new CBrick();
 				brick->SetPosition(x, y);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(brick);
+			}
+			else if (name == "qblock")
+			{
+				TMXObject->QueryFloatAttribute("x", &x);
+				TMXObject->QueryFloatAttribute("y", &y);
+				QuestionBlock* qblock = new QuestionBlock();
+				qblock->SetPosition(x, y);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(qblock);
+			}
+			else if (name == "coin")
+			{
+				TMXObject->QueryFloatAttribute("x", &x);
+				TMXObject->QueryFloatAttribute("y", &y);
+				Coin* coin = new Coin();
+				coin->SetPosition(x, y);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(coin);
 			}
 		}
 	}

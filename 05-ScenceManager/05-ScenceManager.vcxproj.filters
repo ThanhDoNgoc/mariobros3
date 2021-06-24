@@ -85,6 +85,12 @@
     <Filter Include="GameObjects\Blocks\GhostPlatform">
       <UniqueIdentifier>{27ed9ab0-0f83-45c5-a939-fcba9c5374b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObjects\Pickups\Coin">
+      <UniqueIdentifier>{460720f8-56a3-4ab9-b422-436cd9194454}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Blocks\QuestionBlock">
+      <UniqueIdentifier>{cbf629f7-abd0-4f6e-9cbe-849580f465b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -202,6 +208,12 @@
     </ClCompile>
     <ClCompile Include="GhostPlatform.cpp">
       <Filter>GameObjects\Blocks\GhostPlatform</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>GameObjects\Pickups\Coin</Filter>
+    </ClCompile>
+    <ClCompile Include="QuestionBlock.cpp">
+      <Filter>GameObjects\Blocks\QuestionBlock</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -325,6 +337,12 @@
     </ClInclude>
     <ClInclude Include="GhostPlatform.h">
       <Filter>GameObjects\Blocks\GhostPlatform</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>GameObjects\Pickups\Coin</Filter>
+    </ClInclude>
+    <ClInclude Include="QuestionBlock.h">
+      <Filter>GameObjects\Blocks\QuestionBlock</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

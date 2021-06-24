@@ -178,6 +178,27 @@ void CPlayScene::Update(DWORD dt)
 		objects[i]->Update(dt, &coObjects);
 	}
 
+	if (earseobjects.size() > 0)
+	{
+		for (auto e : earseobjects)
+		{
+			for (size_t i = 0; i < objects.size(); i++)
+			{
+				if (objects[i] == e) objects.erase(objects.begin() + i);
+			}
+		}
+		for (auto e : earseobjects) delete e;
+		earseobjects.clear();
+	}
+	if (addobjects.size() > 0)
+	{
+		for (auto e : addobjects)
+		{
+			objects.push_back(e);
+		}
+
+		addobjects.clear();
+	}
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
 	if (player == NULL) return; 
 
@@ -217,9 +238,4 @@ void CPlayScene::OnKeyUp(int KeyCode)
 void CPlayScene::OnKeyDown(int KeyCode)
 {
 	player->OnKeyDown(KeyCode);
-}
-
-void CPlayScene::DeleteObject(LPGAMEOBJECT object)
-{
-	delete object;
 }

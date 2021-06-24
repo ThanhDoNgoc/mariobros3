@@ -81,6 +81,8 @@ void CGameObject::CalcPotentialCollisions(
 				coEvents.push_back(e);
 			else if (e->ny < 0 && e->obj->collision == Collision2D::Top)
 				coEvents.push_back(e);
+			else if (e->ny > 0 && e->obj->collision == Collision2D::Bottom)
+				coEvents.push_back(e);
 		}
 		else
 			delete e;

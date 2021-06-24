@@ -6,6 +6,7 @@ CBrick::CBrick()
 {
 	AddAnimation(ID_ANI_BRICK);
 	ObjectGroup = Group::block;
+	collision = Collision2D::Full;
 }
 
 void CBrick::Render()

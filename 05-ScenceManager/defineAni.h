@@ -85,3 +85,4 @@
 #define ID_ANI_LEAF				807
 #define ID_ANI_P_BUTTON			808
 #define ID_ANI_P_BUTTON_CLAIMED	809
+#define ID_ANI_COIN				810

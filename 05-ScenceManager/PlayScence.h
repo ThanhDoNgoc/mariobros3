@@ -28,6 +28,9 @@ protected:
 	
 public: 
 	vector<LPGAMEOBJECT> objects;
+	vector<LPGAMEOBJECT> earseobjects;
+	vector<LPGAMEOBJECT> addobjects;
+
 	CPlayScene(int id, LPCWSTR filePath);
 
 	virtual void Load();
@@ -38,8 +41,8 @@ public:
 	virtual void OnKeyUp(int KeyCode) override;
 	virtual void OnKeyDown(int KeyCode) override;
 
-	virtual void AddObject(LPGAMEOBJECT addobject) { objects.push_back(addobject); };
-	virtual void DeleteObject(LPGAMEOBJECT object);
+	virtual void AddObject(LPGAMEOBJECT addobject) { addobjects.push_back(addobject); };
+	virtual void DeleteObject(LPGAMEOBJECT object) { earseobjects.push_back(object); };
 
 	CMario * GetPlayer() { return player; } 
 
