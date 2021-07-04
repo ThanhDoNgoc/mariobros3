@@ -33,6 +33,7 @@ class CMario : public CGameObject
 public:
 	int ani = -1;
 	int level;
+	int fireball;
 	float width, height;
 	bool isOnGround, isMaxCharge;
 	bool isAttacking, isKicking, isHolding;

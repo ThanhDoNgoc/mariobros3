@@ -5,7 +5,7 @@
 Coin::Coin()
 {
 	AddAnimation(ID_ANI_COIN);
-	ObjectGroup = Group::block;
+	ObjectGroup = Group::item;
 	collision = Collision2D::None;
 }
 
@@ -23,4 +23,12 @@ void Coin::GetBoundingBox(float& l, float& t, float& r, float& b)
 	t = y;
 	r = x + COIN_BBOX_WIDTH;
 	b = y + COIN_BBOX_HEIGHT;
+}
+
+void Coin::OnOverLap(CGameObject* obj)
+{
+	if (obj->ObjectGroup == Group::player)
+	{
+		CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
+	}
 }

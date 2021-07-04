@@ -6,6 +6,10 @@
 #include "Brick.h"
 #include "QuestionBlock.h"
 #include "Coin.h"
+#include "Deadblock.h"
+#include "RedFireShootingPlant.h"
+#include "GreenFireShootingPlant.h"
+#include "GreenEatingPlant.h"
 Map::Map()
 {
 }
@@ -83,6 +87,18 @@ void Map::AddObject(TiXmlElement* RootElement)
 				//DebugOut(L"[INFO] map object ground \n");
 
 			}
+			else if (name == "deadblock")
+			{
+				TMXObject->QueryFloatAttribute("x", &x);
+				TMXObject->QueryFloatAttribute("y", &y);
+				TMXObject->QueryFloatAttribute("width", &width);
+				TMXObject->QueryFloatAttribute("height", &height);
+				Deadblock* deadblock = new Deadblock(width, height);
+				deadblock->SetPosition(x, y);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(deadblock);
+				//DebugOut(L"[INFO] map object ground \n");
+
+			}
 			else if (name == "ghostplatform")
 			{
 				TMXObject->QueryFloatAttribute("x", &x);
@@ -101,6 +117,31 @@ void Map::AddObject(TiXmlElement* RootElement)
 				CGoomba* goomba = new CGoomba();
 				goomba->SetPosition(x, y);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(goomba);
+			}
+			else if (name == "redfiretree")
+			{
+				TMXObject->QueryFloatAttribute("x", &x);
+				TMXObject->QueryFloatAttribute("y", &y);
+				RedFireShootingPlant* obj = new RedFireShootingPlant();
+				obj->SetPosition(x, y);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(obj);
+			}
+			/*else if (name == "greenfiretree")
+			{
+				TMXObject->QueryFloatAttribute("x", &x);
+				TMXObject->QueryFloatAttribute("y", &y);
+				GreenFireShootingPlant* greenshoot = new GreenFireShootingPlant();
+				greenshoot->SetPosition(x, y);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(greenshoot);
+			}*/
+			else if (name == "greeneating")
+			{
+				TMXObject->QueryFloatAttribute("x", &x);
+				TMXObject->QueryFloatAttribute("y", &y);
+				GreenEatingPlant* obj = new GreenEatingPlant();
+				obj->SetPosition(x, y);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(obj);
+				DebugOut(L"[INFO] greeneating \n");
 			}
 			else if (name == "koopa")
 			{
@@ -125,6 +166,7 @@ void Map::AddObject(TiXmlElement* RootElement)
 				QuestionBlock* qblock = new QuestionBlock();
 				qblock->SetPosition(x, y);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(qblock);
+				qblock->SetItem(TMXObject->Attribute("type"));
 			}
 			else if (name == "coin")
 			{

@@ -38,6 +38,8 @@ CMario::CMario(float x, float y) : CGameObject()
 
 	this->ObjectGroup = Group::player;
 	this->collision = Collision2D::Full;
+
+	this->fireball = 2;
 }
 
 CMario* CMario::GetInstance()
@@ -164,6 +166,19 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						StartKick();
 					}
 				}
+			}
+			else if (e->obj->ObjectGroup == Group::projectile)
+			{
+				this->TakeDamage();
+			}
+			else if (e->obj->ObjectGroup == Group::block)
+			{
+				if (e->ny > 0)
+					e->obj->TakeDamage();
+			}
+			else if (e->obj->ObjectGroup == Group::item)
+			{
+					e->obj->TakeDamage();
 			}
 		}
 	}

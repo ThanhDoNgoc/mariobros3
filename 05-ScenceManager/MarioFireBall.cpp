@@ -5,6 +5,7 @@
 
 #include "Goomba.h"
 #include "Koopas.h"
+#include "Mario.h"
 MarioFireBall::MarioFireBall(float posX, float posY, float direcX, float direcY)
 {
 	AddAnimation(ID_ANI_FIREBALL);
@@ -33,10 +34,6 @@ void MarioFireBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vx = FIREBALL_SPEED * this->direction.x;
 	vy += FIREBALL_GRAVITY * dt;
 	CGameObject::Update(dt);
-
-	//playerState->Update(*this);
-	// Simple fall down
-	//vy += FIREBALL_GRAVITY * dt;
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -73,16 +70,13 @@ void MarioFireBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			vy = -FIREBALL_SPEED;
 		}
-		// Collision logic with other objects
-		//
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-			//this->TakeDamage();
 
 			if (e->obj->ObjectGroup == Group ::enemy)
 			{
-				this->TakeDamage(); // something wrong here ???
+				this->TakeDamage();
 			}
 		}
 	}
@@ -102,5 +96,6 @@ void MarioFireBall::Render()
 
 void MarioFireBall::TakeDamage()
 {
+	__Mario->fireball+=1;
 	CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
 }

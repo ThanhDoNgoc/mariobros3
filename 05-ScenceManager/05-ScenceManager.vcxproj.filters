@@ -79,9 +79,6 @@
     <Filter Include="Scenes\Scenes">
       <UniqueIdentifier>{de41f081-af08-406a-b888-71ec3edfdb1b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObjects\Blocks\Ground">
-      <UniqueIdentifier>{6bb2cd9a-b7ec-4b55-9a5f-b327dc2c5670}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObjects\Blocks\GhostPlatform">
       <UniqueIdentifier>{27ed9ab0-0f83-45c5-a939-fcba9c5374b6}</UniqueIdentifier>
     </Filter>
@@ -90,6 +87,33 @@
     </Filter>
     <Filter Include="GameObjects\Blocks\QuestionBlock">
       <UniqueIdentifier>{cbf629f7-abd0-4f6e-9cbe-849580f465b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Blocks\DeadBlock">
+      <UniqueIdentifier>{c5bcc84f-a80b-4432-87d8-38e4823961a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Blocks\Ground">
+      <UniqueIdentifier>{6bb2cd9a-b7ec-4b55-9a5f-b327dc2c5670}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Enemies\FireShootingPlant">
+      <UniqueIdentifier>{33e35312-4210-40a3-9617-275c021ebff1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Enemies\EatingPlant">
+      <UniqueIdentifier>{e45b9b27-71e3-40a5-bebd-5448539fe3a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Pickups\PButton">
+      <UniqueIdentifier>{4c498ad0-1405-443f-8f1a-987a896ab3c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Pickups\RedMushroom">
+      <UniqueIdentifier>{06b35f54-837d-4cbf-852d-734e031dd631}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Pickups\GreenMushroom">
+      <UniqueIdentifier>{ba6fe69e-e5c6-4aa7-9c5f-cc979ecb3dc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Pickups\Leaf">
+      <UniqueIdentifier>{ca7b58c3-9eed-4257-aefb-e64f71eacf3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Pickups\Flower">
+      <UniqueIdentifier>{d9853b28-3b8f-41ac-aa56-ffd0e6e07a46}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -215,6 +239,36 @@
     <ClCompile Include="QuestionBlock.cpp">
       <Filter>GameObjects\Blocks\QuestionBlock</Filter>
     </ClCompile>
+    <ClCompile Include="Deadblock.cpp">
+      <Filter>GameObjects\Blocks\DeadBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="GreenFireShootingPlant.cpp">
+      <Filter>GameObjects\Enemies\FireShootingPlant</Filter>
+    </ClCompile>
+    <ClCompile Include="RedFireShootingPlant.cpp">
+      <Filter>GameObjects\Enemies\FireShootingPlant</Filter>
+    </ClCompile>
+    <ClCompile Include="GreenEatingPlant.cpp">
+      <Filter>GameObjects\Enemies\EatingPlant</Filter>
+    </ClCompile>
+    <ClCompile Include="PlantFireBall.cpp">
+      <Filter>GameObjects\Enemies\FireShootingPlant</Filter>
+    </ClCompile>
+    <ClCompile Include="PButton.cpp">
+      <Filter>GameObjects\Pickups\PButton</Filter>
+    </ClCompile>
+    <ClCompile Include="RedMushroom.cpp">
+      <Filter>GameObjects\Pickups\RedMushroom</Filter>
+    </ClCompile>
+    <ClCompile Include="Leaf.cpp">
+      <Filter>GameObjects\Pickups\Leaf</Filter>
+    </ClCompile>
+    <ClCompile Include="Flower.cpp">
+      <Filter>GameObjects\Pickups\Flower</Filter>
+    </ClCompile>
+    <ClCompile Include="GreenMushroom.cpp">
+      <Filter>GameObjects\Pickups\GreenMushroom</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -338,11 +392,41 @@
     <ClInclude Include="GhostPlatform.h">
       <Filter>GameObjects\Blocks\GhostPlatform</Filter>
     </ClInclude>
+    <ClInclude Include="QuestionBlock.h">
+      <Filter>GameObjects\Blocks\QuestionBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="Deadblock.h">
+      <Filter>GameObjects\Blocks\DeadBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="GreenFireShootingPlant.h">
+      <Filter>GameObjects\Enemies\FireShootingPlant</Filter>
+    </ClInclude>
+    <ClInclude Include="RedFireShootingPlant.h">
+      <Filter>GameObjects\Enemies\FireShootingPlant</Filter>
+    </ClInclude>
+    <ClInclude Include="GreenEatingPlant.h">
+      <Filter>GameObjects\Enemies\EatingPlant</Filter>
+    </ClInclude>
+    <ClInclude Include="PlantFireBall.h">
+      <Filter>GameObjects\Enemies\FireShootingPlant</Filter>
+    </ClInclude>
+    <ClInclude Include="PButton.h">
+      <Filter>GameObjects\Pickups\PButton</Filter>
+    </ClInclude>
     <ClInclude Include="Coin.h">
       <Filter>GameObjects\Pickups\Coin</Filter>
     </ClInclude>
-    <ClInclude Include="QuestionBlock.h">
-      <Filter>GameObjects\Blocks\QuestionBlock</Filter>
+    <ClInclude Include="RedMushroom.h">
+      <Filter>GameObjects\Pickups\RedMushroom</Filter>
+    </ClInclude>
+    <ClInclude Include="GreenMushroom.h">
+      <Filter>GameObjects\Pickups\GreenMushroom</Filter>
+    </ClInclude>
+    <ClInclude Include="Flower.h">
+      <Filter>GameObjects\Pickups\Flower</Filter>
+    </ClInclude>
+    <ClInclude Include="Leaf.h">
+      <Filter>GameObjects\Pickups\Leaf</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

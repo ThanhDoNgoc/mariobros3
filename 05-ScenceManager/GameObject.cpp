@@ -70,6 +70,12 @@ void CGameObject::CalcPotentialCollisions(
 {
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
+		if (IsOverLapped(coObjects->at(i)))
+		{
+			this->OnOverLap(coObjects->at(i));
+			coObjects->at(i)->OnOverLap(this);
+		}
+
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
 
 		if (e->t > 0 && e->t <= 1.0f)
@@ -132,6 +138,25 @@ void CGameObject::AddAnimation(int aniID)
 	DebugOut(L"ADD ANIMATION: %d \n ", aniID);
 }
 
+
+bool CGameObject::IsOverLapped(CGameObject* object)
+{
+	float left, top, right, bottom;
+	float left1, top1, right1, bottom1;
+
+	this->GetBoundingBox(left, top, right, bottom);
+	object->GetBoundingBox(left1, top1, right1, bottom1);
+
+	return CheckOverlapped(left, top, right, bottom, left1, top1, right1, bottom1);
+}
+
+bool CGameObject::CheckOverlapped(float left, float top, float right, float bottom, float left1, float top1, float right1, float bottom1)
+{
+	if (left >= right1 || left1 >= right || top >= bottom1 || top1 >= bottom)
+		return false;
+
+	return true;
+}
 
 void CGameObject::RenderBoundingBox()
 {

@@ -103,6 +103,9 @@ public:
 	bool getBeingHold() { return isBeingHold; }
 
 	//int GetState() { return this->state; }
+	virtual void OnOverLap(CGameObject* object) {};
+	bool IsOverLapped(CGameObject* object);
+	bool CheckOverlapped(float left, float top, float right, float bottom, float left1, float top1, float right1, float bottom1);
 
 	void RenderBoundingBox();
 

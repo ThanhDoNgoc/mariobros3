@@ -12,9 +12,12 @@ PlayerStateAttack::PlayerStateAttack()
 	case MARIO_LEVEL_FIRE:
 	{
 		this->attack_time = MARIO_FIRE_ATTACK_TIME;
-		MarioFireBall* fireball = new MarioFireBall(__Mario->x + MARIO_BIG_BBOX_WIDTH / 2, __Mario->y, __Mario->direction.x, __Mario->direction.y);
-		//CScene::AddObject(fireball);
-		CGame::GetInstance()->GetCurrentScene()->AddObject(fireball);
+		if (__Mario->fireball > 0)
+		{
+			__Mario->fireball -= 1;
+			MarioFireBall* fireball1 = new MarioFireBall(__Mario->x + MARIO_BIG_BBOX_WIDTH / 2, __Mario->y, __Mario->direction.x, __Mario->direction.y);
+			CGame::GetInstance()->GetCurrentScene()->AddObject(fireball1);
+		}
 		break;
 	}
 	case MARIO_LEVEL_RACCOON:

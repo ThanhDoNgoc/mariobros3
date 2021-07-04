@@ -81,7 +81,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 
-			if (e->obj->ObjectGroup == Group::enemy || e->obj->ObjectGroup == Group::ground) // if e->obj is Goomba 
+			if (e->obj->ObjectGroup == Group::enemy || e->obj->ObjectGroup == Group::ground)
 			{
 				x += min_tx * dx + nx * 0.4f;
 				y += min_ty * dy + ny * 0.4f;
@@ -90,15 +90,24 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					this->direction.x *= -1.0f;
 				}
 			}
-			if (e->obj->ObjectGroup == Group::projectile) // if e->obj is Goomba 
+			if (e->obj->ObjectGroup == Group::projectile)
 			{
 				this->InstanceDead();
+				e->obj->TakeDamage();
 			}
 		}
 	}
 
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+
+	if (goombaState == GoombaState::die || goombaState == GoombaState::instancedead)
+	{
+		if (GetTickCount() - this->die_time > GOOMBA_DIE_TIME)
+		{
+			CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
+		}
+	}
 }
 
 void CGoomba::Render()
@@ -147,10 +156,12 @@ void CGoomba::SetState(GoombaState state)
 void CGoomba::TakeDamage()
 {
 	this->SetState(GoombaState::die);
+	this->die_time = GetTickCount();
 }
 
 void CGoomba::InstanceDead()
 {
+	this->die_time = GetTickCount();
 	this->SetState(GoombaState::instancedead);
 	this->width = 0;
 	this->height = 0;

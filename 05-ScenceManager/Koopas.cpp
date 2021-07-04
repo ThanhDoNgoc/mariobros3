@@ -35,9 +35,10 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	
 	if (isBeingHold)
 	{
-		
 		this->x = __Mario->x + __Mario->width*__Mario->direction.x;
-		this->y = __Mario->y - __Mario->height/2 ;
+		if (__Mario->level == MARIO_LEVEL_SMALL)
+			this->y = __Mario->y - __Mario->height / 2;
+		else this->y = __Mario->y + __Mario->height / 4 ;
 		return;
 	}
 	CGameObject::Update(dt);
@@ -77,7 +78,6 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 		if (nx != 0)
 		{
-			//this->vx = -this->vx;
 		}
 		if (ny != 0)
 		{
@@ -105,6 +105,7 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			else if (e->obj->ObjectGroup == Group::projectile) // if e->obj is projectile 
 			{
 				this->InstanceDead();
+				e->obj->TakeDamage();
 			}
 		}
 	}

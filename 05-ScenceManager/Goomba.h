@@ -15,6 +15,8 @@
 #define GOOMBA_ANI_WALKING	0
 #define GOOMBA_ANI_DIE		1
 
+#define GOOMBA_DIE_TIME		300
+
 enum class GoombaState
 {
 	walk,
@@ -24,6 +26,7 @@ enum class GoombaState
 
 class CGoomba : public CGameObject
 {
+	DWORD die_time;
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
 	virtual void Render();

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="7" nextobjectid="198">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="7" nextobjectid="222">
  <tileset firstgid="1" name="world-1-1" tilewidth="48" tileheight="48" tilecount="870" columns="29">
   <image source="world-1-1.png" width="1392" height="1440"/>
  </tileset>
@@ -212,13 +212,13 @@
   <object id="166" name="qblock" type="coin" x="672" y="912">
    <point/>
   </object>
-  <object id="167" name="qblock" type="lvlup" x="720" y="912">
+  <object id="167" name="qblock" type="leaf" x="720" y="912">
    <point/>
   </object>
   <object id="169" name="qblock" type="coin" x="1248" y="960">
    <point/>
   </object>
-  <object id="170" name="qblock" type="lvlup" x="1968" y="1152">
+  <object id="170" name="qblock" type="leaf" x="1968" y="1152">
    <point/>
   </object>
   <object id="171" name="qblock" type="coin" x="2112" y="1056">
@@ -294,6 +294,55 @@
    <point/>
   </object>
   <object id="197" name="coin" x="5472" y="336">
+   <point/>
+  </object>
+  <object id="198" name="coin" x="6960" y="1536">
+   <point/>
+  </object>
+  <object id="199" name="coin" x="7008" y="1488">
+   <point/>
+  </object>
+  <object id="200" name="coin" x="7056" y="1488">
+   <point/>
+  </object>
+  <object id="201" name="coin" x="7104" y="1536">
+   <point/>
+  </object>
+  <object id="204" name="coin" x="7104" y="1584">
+   <point/>
+  </object>
+  <object id="205" name="coin" x="7056" y="1632">
+   <point/>
+  </object>
+  <object id="206" name="coin" x="7104" y="1680">
+   <point/>
+  </object>
+  <object id="207" name="coin" x="7104" y="1728">
+   <point/>
+  </object>
+  <object id="208" name="coin" x="7056" y="1776">
+   <point/>
+  </object>
+  <object id="209" name="coin" x="7008" y="1776">
+   <point/>
+  </object>
+  <object id="210" name="coin" x="6960" y="1728">
+   <point/>
+  </object>
+  <object id="211" name="coin" x="7008" y="1632">
+   <point/>
+  </object>
+  <object id="213" name="deadblock" x="0" y="1296" width="8448" height="48"/>
+  <object id="218" name="redfiretree" x="1080" y="1104">
+   <point/>
+  </object>
+  <object id="219" name="greenfiretree" x="5544" y="1104">
+   <point/>
+  </object>
+  <object id="220" name="greeneating" x="5352" y="1152">
+   <point/>
+  </object>
+  <object id="221" name="qblock" type="pbutton" x="6048" y="1104">
    <point/>
   </object>
  </objectgroup>
