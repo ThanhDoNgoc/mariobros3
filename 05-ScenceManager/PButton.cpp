@@ -6,7 +6,7 @@ PButton::PButton()
 	AddAnimation(ID_ANI_P_BUTTON);
 	AddAnimation(ID_ANI_P_BUTTON_CLAIMED);
 	ObjectGroup = Group::item;
-	collision = Collision2D::Full;
+	collision = Collision2D::None;
 }
 
 void PButton::Render()
@@ -30,13 +30,19 @@ void PButton::GetBoundingBox(float& l, float& t, float& r, float& b)
 void PButton::TakeDamage()
 {
 	isClaimed = true;
-	collision = Collision2D::None;
 }
 
 void PButton::OnOverLap(CGameObject* obj)
 {
 	if (obj->ObjectGroup == Group::player)
 	{
-		CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
+		this->TakeDamage();
 	}
+}
+
+void PButton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+{
+	vector<LPCOLLISIONEVENT> coEvents;
+	coEvents.clear();
+	CalcPotentialCollisions(coObjects, coEvents);
 }

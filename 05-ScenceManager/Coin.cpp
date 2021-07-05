@@ -9,6 +9,13 @@ Coin::Coin()
 	collision = Collision2D::None;
 }
 
+void Coin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+{
+	vector<LPCOLLISIONEVENT> coEvents;
+	coEvents.clear();
+	CalcPotentialCollisions(coObjects, coEvents);
+}
+
 void Coin::Render()
 {
 	int ani = ANI_COIN;

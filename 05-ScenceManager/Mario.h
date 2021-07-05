@@ -37,6 +37,7 @@ public:
 	float width, height;
 	bool isOnGround, isMaxCharge;
 	bool isAttacking, isKicking, isHolding;
+	bool isWarping;
 	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f, 1.0f);
 
 	PlayerState* _playerState;
@@ -61,6 +62,8 @@ public:
 
 	void OnKeyUp(int KeyCode);
 	void OnKeyDown(int KeyCode);
+
+	virtual void OnOverLap(CGameObject* obj);
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 };

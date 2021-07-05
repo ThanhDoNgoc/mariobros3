@@ -9,6 +9,8 @@
 #include "Goomba.h"
 #include "Portal.h"
 #include "Koopas.h"
+#include "Warp.h"
+#include "Leaf.h"
 
 #include "PlayerState.h"
 #include "PlayerStateIdle.h"
@@ -16,6 +18,7 @@
 #include "PlayerStateRun.h"
 #include "PlayerStateJump.h"
 #include "PlayerStateCrouch.h"
+#include "PlayerStateWarp.h"
 
 CMario* CMario::__instance = NULL;
 
@@ -33,6 +36,7 @@ CMario::CMario(float x, float y) : CGameObject()
 	this->x = x; 
 	this->y = y; 
 	this->isHolding = false;
+	this->isWarping = false;
 
 	this->obj = NULL;
 
@@ -58,12 +62,14 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	
 	CGame* game = CGame::GetInstance();
 
-	// Calculate dx, dy 
-	CGameObject::Update(dt);
-
 	//playerState->Update(*this);
 	// Simple fall down
 	vy += MARIO_GRAVITY*dt;
+	CGameObject::Update(dt);
+	if (isWarping)
+	{
+		return;
+	}
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -186,7 +192,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 
-	//DebugOut(L" velocity x: %f \n ", vx);
+	DebugOut(L" velocity x: %f \n ", vx);
 	//if (this->obj != NULL)
 }
 
@@ -290,7 +296,45 @@ void CMario::OnKeyDown(int KeyCode)
 	case DIK_9:
 		_marioLevel->LevelDown();
 		break;
+	case DIK_5:
+		this->SetPosition(6744, 330);
+		break;
 	}
+}
+
+void CMario::OnOverLap(CGameObject* obj)
+{
+	if (obj->ObjectGroup == Group::projectile2)
+	{
+		this->TakeDamage();
+	}
+	else if (dynamic_cast<CKoopas*>(obj))
+	{
+		CKoopas* koopa = dynamic_cast<CKoopas*>(obj);
+		if (koopa->koopaState == KoopaState::shell)
+		{
+			if (!isHolding)
+			{
+				koopa->direction.x = this->direction.x;
+				koopa->SetState(KoopaState::slide);
+				StartKick();
+			}
+		}
+	}
+	else if (obj->ObjectGroup == Group::warp)
+	{
+		auto warp = static_cast<Warp*>(obj);
+		if (KeyHanler::GetInstance()->IsKeyDown(warp->getKeyDirection()))
+		{
+
+			this->SetState(new PlayerStateWarp(warp->isDown(), warp->toX, warp->toY));
+		}
+	}
+	else
+	{
+
+	}
+
 }
 
 

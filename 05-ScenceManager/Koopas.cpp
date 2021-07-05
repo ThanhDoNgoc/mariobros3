@@ -35,7 +35,9 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	
 	if (isBeingHold)
 	{
-		this->x = __Mario->x + __Mario->width*__Mario->direction.x;
+		if (__Mario->direction.x<0)
+			this->x = __Mario->x - __Mario->width;
+		else this->x = __Mario->x + __Mario->width-3;
 		if (__Mario->level == MARIO_LEVEL_SMALL)
 			this->y = __Mario->y - __Mario->height / 2;
 		else this->y = __Mario->y + __Mario->height / 4 ;

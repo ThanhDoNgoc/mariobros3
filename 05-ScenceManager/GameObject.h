@@ -48,9 +48,12 @@ enum class Group
 	ground,
 	block,
 	projectile,
+	projectile2,
+	marioprojectile,
 	shell,
 	item,
 	portal,
+	warp,
 	dead	
 
 };

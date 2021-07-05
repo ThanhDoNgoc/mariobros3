@@ -18,12 +18,12 @@ void PlayerStateWalk::Update()
 	if (KeyHanler::GetInstance()->IsKeyDown(DIK_RIGHT))
 	{
 		__Mario->direction.x = 1.0f;
-		__Mario->vx += MARIO_ACCELERATION * __Mario->direction.x;
+		__Mario->vx += MARIO_ACCELERATION * __Mario->direction.x * __Mario->dt;
 	}
 	else if (KeyHanler::GetInstance()->IsKeyDown(DIK_LEFT))
 	{
 		__Mario->direction.x = -1.0f;
-		__Mario->vx += MARIO_ACCELERATION * __Mario->direction.x;
+		__Mario->vx += MARIO_ACCELERATION * __Mario->direction.x * __Mario->dt;
 	}
 	else	
 		__Mario->SetState(new PlayerStateIdle());
@@ -38,7 +38,7 @@ void PlayerStateWalk::Update()
 	{
 		if (abs(__Mario->vx) > MARIO_MAX_WALKING_SPEED)
 		{
-			__Mario->vx = MARIO_MAX_WALKING_SPEED * __Mario->direction.x;
+			__Mario->vx = MARIO_MAX_WALKING_SPEED * __Mario->direction.x ;
 		}
 
 	}
@@ -46,7 +46,7 @@ void PlayerStateWalk::Update()
 
 void PlayerStateWalk::SetAnimation()
 {
-	if (__Mario->direction.x * CMario::GetInstance()->vx < 0)
+	if (__Mario->direction.x * __Mario->vx < 0)
 		__Mario->ani = MARIO_ANI_SKID;
 	else
 	{

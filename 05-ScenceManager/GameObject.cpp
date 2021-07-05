@@ -73,7 +73,7 @@ void CGameObject::CalcPotentialCollisions(
 		if (IsOverLapped(coObjects->at(i)))
 		{
 			this->OnOverLap(coObjects->at(i));
-			coObjects->at(i)->OnOverLap(this);
+			//coObjects->at(i)->OnOverLap(this);
 		}
 
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));

@@ -10,6 +10,7 @@
 #include "RedFireShootingPlant.h"
 #include "GreenFireShootingPlant.h"
 #include "GreenEatingPlant.h"
+#include "Warp.h"
 Map::Map()
 {
 }
@@ -175,6 +176,30 @@ void Map::AddObject(TiXmlElement* RootElement)
 				Coin* coin = new Coin();
 				coin->SetPosition(x, y);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(coin);
+			}
+			else if (name == "wrap")
+			{
+			TMXObject->QueryFloatAttribute("x", &x);
+			TMXObject->QueryFloatAttribute("y", &y);
+			Warp* warp = new Warp();
+			warp->SetPosition(x, y);
+			CGame::GetInstance()->GetCurrentScene()->AddObject(warp);
+			std::string dir;
+			dir = TMXObject->Attribute("type");
+
+			if (dir == "up")
+			{
+				warp->setWarpDirection(WarpDirection::up);
+			}
+			else if (dir == "down")
+			{
+				warp->setWarpDirection(WarpDirection::down);
+			}
+			float toposX, toposY;
+			TMXObject->QueryFloatAttribute("toX", &toposX);
+			TMXObject->QueryFloatAttribute("toY", &toposY);
+			warp->toX = toposX;
+			warp->toY = toposY;
 			}
 		}
 	}

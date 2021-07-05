@@ -1,6 +1,7 @@
 #include "Leaf.h"
 #include "Camera.h"
 #include "Game.h"
+#include "Mario.h"
 Leaf::Leaf()
 {
 	AddAnimation(ID_ANI_LEAF);
@@ -10,7 +11,6 @@ Leaf::Leaf()
 
 	leafRevealTime = GetTickCount();
 
-	isClaimed = false;
 	this -> state = 1;
 
 }
@@ -73,4 +73,13 @@ void Leaf::GetBoundingBox(float& l, float& t, float& r, float& b)
 	t = y;
 	r = x + LEAF_WIDTH;
 	b = y + LEAF_HEIGHT;
+}
+
+void Leaf::OnOverLap(CGameObject* obj)
+{
+	if (obj->ObjectGroup == Group::player)
+	{
+		CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
+		__Mario->_marioLevel = new MarioLevelRaccoon();
+	}
 }

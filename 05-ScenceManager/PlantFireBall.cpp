@@ -30,6 +30,7 @@ void PlantFireBall::TakeDamage()
 {
 }
 
+
 PlantFireBall::PlantFireBall(float posX, float posY, float direcX, float direcY)
 {
 	AddAnimation(ID_ANI_FIREBALL);
@@ -38,6 +39,6 @@ PlantFireBall::PlantFireBall(float posX, float posY, float direcX, float direcY)
 	this->direction = D3DXVECTOR2(direcX, direcY);
 	this->x = posX;
 	this->y = posY;
-	this->ObjectGroup = Group::projectile;
+	this->ObjectGroup = Group::projectile2;
 	this->collision = Collision2D::None;
 }

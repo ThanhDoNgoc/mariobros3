@@ -115,6 +115,9 @@
     <Filter Include="GameObjects\Pickups\Flower">
       <UniqueIdentifier>{d9853b28-3b8f-41ac-aa56-ffd0e6e07a46}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObjects\Blocks\Warp">
+      <UniqueIdentifier>{ffa9ad44-a7a9-404b-93f6-bf7d287d6b03}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -268,6 +271,12 @@
     </ClCompile>
     <ClCompile Include="GreenMushroom.cpp">
       <Filter>GameObjects\Pickups\GreenMushroom</Filter>
+    </ClCompile>
+    <ClCompile Include="Warp.cpp">
+      <Filter>GameObjects\Blocks\Warp</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateWarp.cpp">
+      <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -427,6 +436,12 @@
     </ClInclude>
     <ClInclude Include="Leaf.h">
       <Filter>GameObjects\Pickups\Leaf</Filter>
+    </ClInclude>
+    <ClInclude Include="Warp.h">
+      <Filter>GameObjects\Blocks\Warp</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateWarp.h">
+      <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

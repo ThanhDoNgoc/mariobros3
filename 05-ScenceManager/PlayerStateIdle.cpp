@@ -25,7 +25,7 @@ void PlayerStateIdle::Update()
 		__Mario->SetState(new PlayerStateCrouch());
 
 	if (__Mario->vx != 0)
-		__Mario->vx -= MARIO_DRAG * __Mario->direction.x;
+		__Mario->vx -= MARIO_DRAG * __Mario->direction.x*__Mario->dt;
 	if (__Mario->vx * __Mario->direction.x < 0)
 		__Mario->vx = 0;
 

@@ -13,7 +13,7 @@ MarioFireBall::MarioFireBall(float posX, float posY, float direcX, float direcY)
 	this->direction = D3DXVECTOR2(direcX, direcY);
 	this->x = posX;
 	this->y = posY;
-	this->ObjectGroup = Group::projectile;
+	this->ObjectGroup = Group::marioprojectile;
 	this->collision = Collision2D::Full;
 }
 
@@ -98,4 +98,8 @@ void MarioFireBall::TakeDamage()
 {
 	__Mario->fireball+=1;
 	CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
+}
+
+void MarioFireBall::OnOverLap(CGameObject* obj)
+{
 }

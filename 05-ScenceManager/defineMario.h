@@ -3,9 +3,9 @@
 #define MARIO_WALKING_SPEED			0.0f
 #define MARIO_MAX_WALKING_SPEED		0.25f
 #define MARIO_MAX_RUNNING_SPEED		0.55f
-#define MARIO_ACCELERATION			0.01f
+#define MARIO_ACCELERATION			0.0005f
 
-#define MARIO_DRAG					0.01f
+#define MARIO_DRAG					0.0005f
 #define MARIO_DRAG_RUN				0.015f
 
 #define MARIO_JUMP_SPEED			0.55f
@@ -14,7 +14,7 @@
 #define MARIO_GRAVITY				0.002f
 #define MARIO_DIE_DEFLECT_SPEED		0.5f
 #define MARIO_SLOW_FALL_SPEED		0.1f
-
+#define MARIO_WARP_SPEED			0.5f
 
 #define MARIO_ANI_IDLE			0
 #define MARIO_ANI_WALK			1
