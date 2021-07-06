@@ -1,5 +1,6 @@
 #pragma once
-
+#define CAMERA_WIDTH	768
+#define CAMERA_HEIGHT	720
 class CGameObject;
 
 class Camera
@@ -12,7 +13,21 @@ class Camera
 
 	CGameObject* target;
 
+	float limitTop;
+	float limitLeft;
+	float limitBottom;
+	float limidRight;
+
+	bool isFollow;
+	bool isStatic;
+
+	bool scrollX;
+	bool scrollY;
+
+
 public:
+
+	Camera();
 
 	void SetCamPos(int CamPosX, int CamPosY);
 	void SetCamSize(float CamWidth, float CamHeight);
@@ -23,6 +38,17 @@ public:
 
 	float GetCamWidth(); 
 	float GetCamHeight();
+
+	void SetCamLimit(float left, float top, float right, float bottom);
+
+	void setIsFollow(bool camfollow);
+	bool IsFollow();
+
+	void setIsStatic(bool camstatic);
+	bool IsStatic();
+
+	void SetScollX(bool sX);
+	void SetScoolY(bool sY);
 
 	void Update();
 

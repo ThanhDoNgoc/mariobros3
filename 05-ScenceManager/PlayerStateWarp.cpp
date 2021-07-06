@@ -15,9 +15,9 @@ PlayerStateWarp::PlayerStateWarp(bool down, float posX, float posY)
 void PlayerStateWarp::Update()
 {
 	if (isDown)
-		__Mario->vy += MARIO_WARP_SPEED * __Mario->dt;
+		__Mario->vy = -MARIO_WARP_SPEED;
 	else
-		__Mario->vy -= MARIO_WARP_SPEED * __Mario->dt;
+		__Mario->vy = MARIO_WARP_SPEED;
 	if (abs(__Mario->y - this->distance) > __Mario->height)
 	{
 		__Mario->isWarping = false;

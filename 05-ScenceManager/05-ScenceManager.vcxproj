@@ -158,6 +158,7 @@
     <ClCompile Include="PlayerStateWalk.cpp" />
     <ClCompile Include="PlayerStateWarp.cpp" />
     <ClCompile Include="Portal.cpp" />
+    <ClCompile Include="PSPortal.cpp" />
     <ClCompile Include="QuestionBlock.cpp" />
     <ClCompile Include="RedFireShootingPlant.cpp" />
     <ClCompile Include="RedMushroom.cpp" />
@@ -218,6 +219,7 @@
     <ClInclude Include="PlayerStateWalk.h" />
     <ClInclude Include="PlayerStateWarp.h" />
     <ClInclude Include="Portal.h" />
+    <ClInclude Include="PSPortal.h" />
     <ClInclude Include="QuestionBlock.h" />
     <ClInclude Include="RedFireShootingPlant.h" />
     <ClInclude Include="RedMushroom.h" />

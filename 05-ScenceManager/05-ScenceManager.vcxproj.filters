@@ -278,6 +278,9 @@
     <ClCompile Include="PlayerStateWarp.cpp">
       <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
     </ClCompile>
+    <ClCompile Include="PSPortal.cpp">
+      <Filter>GameObjects\Blocks\Portal</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -442,6 +445,9 @@
     </ClInclude>
     <ClInclude Include="PlayerStateWarp.h">
       <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="PSPortal.h">
+      <Filter>GameObjects\Blocks\Portal</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

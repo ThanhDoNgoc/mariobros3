@@ -28,6 +28,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 #define SCENE_SECTION_ANIMATION_SETS	5
 #define SCENE_SECTION_OBJECTS	6
 #define SCENE_SECTION_MAP	7
+#define SCENE_SECTION_CAMERA	8
 
 #define OBJECT_TYPE_MARIO	0
 #define OBJECT_TYPE_BRICK	1
@@ -113,6 +114,16 @@ void CPlayScene::_ParseSection_MAP(string line)
 	maps->LoadMap(filepath, path);
 }
 
+void CPlayScene::_ParseSection_CAMERA(string line)
+{
+	vector<string> tokens = split(line);
+	if (tokens.size() < 4) return;
+	this->camL = atof(tokens[0].c_str());
+	this->camT = atof(tokens[1].c_str());
+	this->camR = atof(tokens[2].c_str());
+	this->camB = atof(tokens[3].c_str());
+}
+
 void CPlayScene::Load()
 {
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", sceneFilePath);
@@ -136,6 +147,11 @@ void CPlayScene::Load()
 			section = SCENE_SECTION_MAP; continue;
 		
 		}
+		if (line == "[CAMERA]")
+		{
+			section = SCENE_SECTION_CAMERA; continue;
+
+		}
 		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }	
 
 		//
@@ -145,6 +161,7 @@ void CPlayScene::Load()
 		{ 
 			case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
 			case SCENE_SECTION_MAP:  _ParseSection_MAP(line); break;
+			case SCENE_SECTION_CAMERA: _ParseSection_CAMERA(line); break;
 		}
 	}
 
@@ -154,7 +171,7 @@ void CPlayScene::Load()
 
 	this->camera = new Camera();
 	this->camera->SetCamPos(0, 0);
-	this->camera->SetCamSize(480, 360);
+	this->camera->SetCamLimit(camL, camT, camR, camB);
 	this->camera->SetCamTarget(player);
 
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);

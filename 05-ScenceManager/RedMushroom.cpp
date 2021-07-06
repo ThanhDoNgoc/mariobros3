@@ -7,7 +7,7 @@ RedMushroom::RedMushroom()
 	AddAnimation(ID_ANI_MUSHROOM_RED);
 
 	this->ObjectGroup = Group::item;
-	this->collision = Collision2D::None;
+	this->collision = Collision2D::Full;
 	this->isOut = false;
 
 }
@@ -18,6 +18,15 @@ void RedMushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGameObject::Update(dt);
 	this->x += dx;
 	this->y += dy;
+
+	if (this->distance >= MUSHROOM_HEIGHT)
+		this->isOut = true;
+
+	if (isOut)
+	{
+		vx = MUSHROOM_SPEED * direction.x;
+		vy += MUSHROOM_GRAVITY * dt;
+	}
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -35,27 +44,20 @@ void RedMushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		float min_tx, min_ty, nx = 0, ny = 0;
 		float rdx = 0;
 		float rdy = 0;
-
-		// TODO: This is a very ugly designed function!!!!
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
 		this->x += min_tx * dx + nx * 0.4;
 		this->y += min_ty * dy + ny * 0.4;
 
-		if (ny != 0) vy = 0;
+		if (ny != 0) 
+			vy = 0;
 
 		if (nx != 0)
 			direction.x = -direction.x; 
 
 	}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-	if (this->distance >= MUSHROOM_HEIGHT)
-		this->isOut = true;
-	if (isOut)
-	{
-		vx = MUSHROOM_SPEED * direction.x;
-		vy += MUSHROOM_GRAVITY * dt;
-	}
+
 
 }
 

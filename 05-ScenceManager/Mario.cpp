@@ -192,7 +192,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 
-	DebugOut(L" velocity x: %f \n ", vx);
+	DebugOut(L" velocity y: %f \n ", vy);
 	//if (this->obj != NULL)
 }
 
@@ -265,7 +265,6 @@ void CMario::OnKeyUp(int KeyCode)
 			isHolding = false;
 			obj->setBeingHold(false);
 			obj->setHoldAble(true);
-			
 		}
 		break;
 	}

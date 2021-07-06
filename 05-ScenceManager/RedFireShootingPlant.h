@@ -1,5 +1,4 @@
-#ifndef __RED_FIRE_SHOOTING_PLANT_H__
-#define __RED_FIRE_SHOOTING_PLANT_H__
+#pragma once
 
 #include "GameObject.h"
 
@@ -42,9 +41,8 @@ class RedFireShootingPlant:public CGameObject
 	DWORD waitTime_start, hideTime_start;
 public:
 	RedFireShootingPlant();
+	float fsheight;
 	virtual void TakeDamage();
 	void startWait() { this->waitTime_start = GetTickCount(); }
 	void startHide() { this->hideTime_start = GetTickCount(); }
 };
-
-#endif

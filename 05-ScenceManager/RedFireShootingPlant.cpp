@@ -8,7 +8,7 @@ void RedFireShootingPlant::GetBoundingBox(float& left, float& top, float& right,
 	left = x;
 	top = y;
 	right = x + RED_FIRE_SHOOTING_PLANT_WIDTH;
-	bottom = y + RED_FIRE_SHOOTING_PLANT_HEIGHT;
+	bottom = y + fsheight;
 }
 
 void RedFireShootingPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -62,7 +62,6 @@ void RedFireShootingPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		distance = 0;
 		if (GetTickCount() - hideTime_start > RED_FIRE_SHOOTING_PLANT_HIDE_TIME)
 		{
-			DebugOut(L"[INFO] slide up\n");
 			state = ShootPlantState::slideup;
 		}
 
@@ -72,11 +71,10 @@ void RedFireShootingPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		this->vy = -RED_FIRE_SHOOTING_PLANT_SPEED;
 		distance += abs(vy * dt);
-		if (distance> RED_FIRE_SHOOTING_PLANT_HEIGHT)
+		if (distance> fsheight)
 		{
-			distance = RED_FIRE_SHOOTING_PLANT_HEIGHT;
+			distance = fsheight;
 			this->waitTime_start = GetTickCount();
-			DebugOut(L"[INFO] idle up \n");
 			state = ShootPlantState::idleup;
 		}
 		break;
@@ -97,11 +95,10 @@ void RedFireShootingPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		this->vy = +RED_FIRE_SHOOTING_PLANT_SPEED;
 		distance += abs(vy * dt);
-		if (distance > RED_FIRE_SHOOTING_PLANT_HEIGHT)
+		if (distance > fsheight)
 		{
-			distance = RED_FIRE_SHOOTING_PLANT_HEIGHT;
+			distance = fsheight;
 			this->hideTime_start = GetTickCount();
-			DebugOut(L"[INFO] idle down \n");
 			state = ShootPlantState::idledown;
 		}
 		break;
@@ -117,7 +114,7 @@ void RedFireShootingPlant::Render()
 	else ani = ANI_ID_RED_FIRE_SHOOTING_PLANT_UP;
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 
-	animation_set[ani]->Render(x - camera->GetCamPosX() + RED_FIRE_SHOOTING_PLANT_WIDTH / 2, y - camera->GetCamPosY() + RED_FIRE_SHOOTING_PLANT_HEIGHT / 2, direction, 255);
+	animation_set[ani]->Render(x - camera->GetCamPosX() + RED_FIRE_SHOOTING_PLANT_WIDTH / 2, y - camera->GetCamPosY() + fsheight / 2, direction, 255);
 
 	RenderBoundingBox();
 }
@@ -140,8 +137,9 @@ RedFireShootingPlant::RedFireShootingPlant()
 	AddAnimation(ID_ANI_RED_SHOOTING_PLANT_UP);
 
 	this->ObjectGroup = Group::projectile;
-	this->collision = Collision2D::Full;
+	this->collision = Collision2D::None;
 	this->hideTime_start = GetTickCount();
+	this->fsheight = RED_FIRE_SHOOTING_PLANT_HEIGHT;
 }
 
 void RedFireShootingPlant::TakeDamage()

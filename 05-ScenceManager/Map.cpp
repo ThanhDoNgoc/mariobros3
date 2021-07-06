@@ -127,14 +127,14 @@ void Map::AddObject(TiXmlElement* RootElement)
 				obj->SetPosition(x, y);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(obj);
 			}
-			/*else if (name == "greenfiretree")
+			else if (name == "greenfiretree")
 			{
 				TMXObject->QueryFloatAttribute("x", &x);
 				TMXObject->QueryFloatAttribute("y", &y);
 				GreenFireShootingPlant* greenshoot = new GreenFireShootingPlant();
 				greenshoot->SetPosition(x, y);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(greenshoot);
-			}*/
+			}
 			else if (name == "greeneating")
 			{
 				TMXObject->QueryFloatAttribute("x", &x);

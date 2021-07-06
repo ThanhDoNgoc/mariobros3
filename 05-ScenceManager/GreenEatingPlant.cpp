@@ -57,7 +57,6 @@ void GreenEatingPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		distance = 0;
 		if (GetTickCount() - hideTime_start > GREENEATING_HIDE)
 		{
-			DebugOut(L"[INFO] slide up\n");
 			state = GreeneatingState::slideup;
 		}
 
@@ -71,7 +70,6 @@ void GreenEatingPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			distance = GREENEATING_HEIGHT;
 			this->waitTime_start = GetTickCount();
-			DebugOut(L"[INFO] idle up \n");
 			state = GreeneatingState::idleup;
 		}
 		break;
@@ -82,7 +80,6 @@ void GreenEatingPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (GetTickCount() - waitTime_start > GREENEATING_WAIT)
 		{
 			distance = 0;
-			DebugOut(L"[INFO] slide down \n");
 			state = GreeneatingState::slidedown;
 		}
 		break;
@@ -95,7 +92,6 @@ void GreenEatingPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			distance = GREENEATING_HEIGHT;
 			this->hideTime_start = GetTickCount();
-			DebugOut(L"[INFO] idle down \n");
 			state = GreeneatingState::idledown;
 		}
 		break;

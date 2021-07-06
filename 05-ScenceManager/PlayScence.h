@@ -19,11 +19,13 @@ class CPlayScene: public CScene
 {
 protected: 
 	CMario *player;					// A play scene has to have player, right? 
-
 	Map* maps;
+
+	float camL, camT, camR, camB;
 
 	void _ParseSection_OBJECTS(string line);
 	void _ParseSection_MAP(string line);
+	void _ParseSection_CAMERA(string line);
 
 	
 public: 
