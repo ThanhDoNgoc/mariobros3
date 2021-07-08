@@ -11,6 +11,7 @@
 #include "GreenFireShootingPlant.h"
 #include "GreenEatingPlant.h"
 #include "Warp.h"
+#include "PSPortal.h"
 Map::Map()
 {
 }
@@ -85,7 +86,7 @@ void Map::AddObject(TiXmlElement* RootElement)
 				Ground* ground = new Ground(width, height);
 				ground->SetPosition(x, y);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(ground);
-				//DebugOut(L"[INFO] map object ground \n");
+				DebugOut(L"[INFO] map object ground %f \n", x);
 
 			}
 			else if (name == "deadblock")
@@ -186,20 +187,90 @@ void Map::AddObject(TiXmlElement* RootElement)
 			CGame::GetInstance()->GetCurrentScene()->AddObject(warp);
 			std::string dir;
 			dir = TMXObject->Attribute("type");
+				if (dir == "up")
+				{
+					warp->setWarpDirection(WarpDirection::up);
+				}
+				else if (dir == "down")
+				{
+					warp->setWarpDirection(WarpDirection::down);
+				}
+			}
+			else if (name == "psportal")
+			{
+			TMXObject->QueryFloatAttribute("x", &x);
+			TMXObject->QueryFloatAttribute("y", &y);
+			TMXObject->QueryFloatAttribute("width", &width);
+			TMXObject->QueryFloatAttribute("height", &height);
+			PSPortal* portal = new PSPortal(width, height);
+			portal->SetPosition(x, y);
 
-			if (dir == "up")
+			bool isstatic = false, isfollow = false, scrollx = false, scrolly = false;
+			float camL, camR, camT, camB;
+			float posX, posY;
+
+			TiXmlElement* TMXproperties = TMXObject->FirstChildElement("properties");
+
+			if (TMXproperties != nullptr)
 			{
-				warp->setWarpDirection(WarpDirection::up);
+				for (TiXmlElement* TMXproperty = TMXproperties->FirstChildElement("property"); TMXproperty != NULL; TMXproperty = TMXproperty->NextSiblingElement("property"))
+				{
+
+
+					std::string propertyname = TMXproperty->Attribute("name");
+					 
+					if (propertyname == "limitL")
+					{
+						TMXproperty->QueryFloatAttribute("value", &camL);
+					}
+					if (propertyname == "limitT")
+					{
+						TMXproperty->QueryFloatAttribute("value", &camT);
+					}
+					if (propertyname == "limitR")
+					{
+						TMXproperty->QueryFloatAttribute("value", &camR);
+					}
+					if (propertyname == "limitB")
+					{
+						TMXproperty->QueryFloatAttribute("value", &camB);
+					}
+					if (propertyname == "scrollx")
+					{
+						TMXproperty->QueryBoolAttribute("value", &scrollx);
+					}
+					if (propertyname == "scrolly")
+					{
+						TMXproperty->QueryBoolAttribute("value", &scrolly);
+					}
+					if (propertyname == "isstatic")
+					{
+						TMXproperty->QueryBoolAttribute("value", &isstatic);
+					}
+					if (propertyname == "isfollow")
+					{
+						TMXproperty->QueryBoolAttribute("value", &isfollow);
+					}
+
+					if (propertyname == "posx")
+					{
+						TMXproperty->QueryFloatAttribute("value", &posX);
+					}
+					if (propertyname == "posy")
+					{
+						TMXproperty->QueryFloatAttribute("value", &posY);
+					}
+				}
 			}
-			else if (dir == "down")
-			{
-				warp->setWarpDirection(WarpDirection::down);
-			}
-			float toposX, toposY;
-			TMXObject->QueryFloatAttribute("toX", &toposX);
-			TMXObject->QueryFloatAttribute("toY", &toposY);
-			warp->toX = toposX;
-			warp->toY = toposY;
+
+			portal->scrollX = scrollx;
+			portal->scrollY = scrolly;
+			portal->isStatic = isstatic;
+			portal->isFolow = isfollow;
+			portal->setcam(camL, camT, camR, camB);
+			portal->setpos(posX, posY);
+
+			CGame::GetInstance()->GetCurrentScene()->AddObject(portal);
 			}
 		}
 	}

@@ -36,8 +36,7 @@ public:
 	int fireball;
 	float width, height;
 	bool isOnGround, isMaxCharge;
-	bool isAttacking, isKicking, isHolding;
-	bool isWarping;
+	bool isAttacking, isKicking, isHolding, isWarping;
 	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f, 1.0f);
 
 	PlayerState* _playerState;

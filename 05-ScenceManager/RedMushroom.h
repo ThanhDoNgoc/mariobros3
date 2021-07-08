@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
-#define MUSHROOM_SPEED  0.15f
+#define MUSHROOM_SPEED  0.1f
 #define MUSHROOM_GRAVITY  0.0005f
 
 #define SPROUT_SPEED  0.1f

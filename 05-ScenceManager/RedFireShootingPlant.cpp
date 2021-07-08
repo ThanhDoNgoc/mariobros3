@@ -137,7 +137,7 @@ RedFireShootingPlant::RedFireShootingPlant()
 	AddAnimation(ID_ANI_RED_SHOOTING_PLANT_UP);
 
 	this->ObjectGroup = Group::projectile;
-	this->collision = Collision2D::None;
+	this->collision = Collision2D::Full;
 	this->hideTime_start = GetTickCount();
 	this->fsheight = RED_FIRE_SHOOTING_PLANT_HEIGHT;
 }

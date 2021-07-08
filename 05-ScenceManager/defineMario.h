@@ -14,7 +14,7 @@
 #define MARIO_GRAVITY				0.002f
 #define MARIO_DIE_DEFLECT_SPEED		0.5f
 #define MARIO_SLOW_FALL_SPEED		0.1f
-#define MARIO_WARP_SPEED			0.5f
+#define MARIO_WARP_SPEED			0.15f
 
 #define MARIO_ANI_IDLE			0
 #define MARIO_ANI_WALK			1

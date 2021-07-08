@@ -11,6 +11,7 @@
 #include "Koopas.h"
 #include "Warp.h"
 #include "Leaf.h"
+#include "PSPortal.h"
 
 #include "PlayerState.h"
 #include "PlayerStateIdle.h"
@@ -19,6 +20,7 @@
 #include "PlayerStateJump.h"
 #include "PlayerStateCrouch.h"
 #include "PlayerStateWarp.h"
+#include "PlayerStateFall.h"
 
 CMario* CMario::__instance = NULL;
 
@@ -26,6 +28,8 @@ CMario::CMario(float x, float y) : CGameObject()
 {
 	this->__instance = this;
 	this->_marioLevel = new MarioLevelSmall();
+	this->isHolding = false;
+	this->isWarping = false;
 
 	untouchable = 0;
 	DebugOut(L"[INFO] create new IDLE");
@@ -35,8 +39,6 @@ CMario::CMario(float x, float y) : CGameObject()
 	start_y = y; 
 	this->x = x; 
 	this->y = y; 
-	this->isHolding = false;
-	this->isWarping = false;
 
 	this->obj = NULL;
 
@@ -62,19 +64,22 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	
 	CGame* game = CGame::GetInstance();
 
-	//playerState->Update(*this);
-	// Simple fall down
-	vy += MARIO_GRAVITY*dt;
-	CGameObject::Update(dt);
-	if (isWarping)
-	{
-		return;
-	}
-
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
 	coEvents.clear();
+
+	CGameObject::Update(dt);
+
+	if (isWarping)
+	{
+		CalcPotentialCollisions(coObjects, coEvents);
+		y += dy;
+		return;
+	}
+
+	// Simple fall down
+	vy += MARIO_GRAVITY * dt;
 
 	// turn off collision when die 
 	//if (state!=MARIO_STATE_DIE)
@@ -122,9 +127,12 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		if (ny != 0)
 		{
 			vy = 0;
-			isOnGround = true;
 		}
-
+		if (ny < 0) isOnGround = true;
+		else
+		{
+			isOnGround = false;
+		}
 
 		//
 		// Collision logic with other objects
@@ -329,9 +337,33 @@ void CMario::OnOverLap(CGameObject* obj)
 			this->SetState(new PlayerStateWarp(warp->isDown(), warp->toX, warp->toY));
 		}
 	}
-	else
+	else if (dynamic_cast<PSPortal*>(obj))
 	{
-
+		PSPortal* portal = dynamic_cast<PSPortal*>(obj);
+		Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
+		camera->SetCamLimit(portal->camL, portal->camT, portal->camR, portal->camB);
+		if (this->level == MARIO_LEVEL_SMALL)
+			this->SetPosition(portal->posX, portal->posY);
+		else
+			this->SetPosition(portal->posX, portal->posY - 100);
+		this->SetState(new PlayerStateJump());
+		this->isWarping = false;
+		this->vy = 0;
+		switch (level)
+		{
+		case MARIO_LEVEL_SMALL:
+			this->_marioLevel = new MarioLevelSmall();
+			break;
+		case MARIO_LEVEL_BIG:
+			this->_marioLevel = new MarioLevelBig();
+			break;
+		case MARIO_LEVEL_FIRE:
+			this->_marioLevel = new MarioLevelFire();
+			break;
+		case MARIO_LEVEL_RACCOON:
+			this->_marioLevel = new MarioLevelRaccoon();
+			break;
+		}
 	}
 
 }

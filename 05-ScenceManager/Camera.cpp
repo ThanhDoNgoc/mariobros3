@@ -113,4 +113,5 @@ void Camera::Update()
 
 	if (this->CamPosY + this->CamHeight > this->limitBottom)
 		this->CamPosY = this->limitBottom - this->CamHeight;
+
 }

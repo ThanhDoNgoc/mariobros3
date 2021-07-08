@@ -1,6 +1,6 @@
 #pragma once
 #define CAMERA_WIDTH	768
-#define CAMERA_HEIGHT	720
+#define CAMERA_HEIGHT	576
 class CGameObject;
 
 class Camera

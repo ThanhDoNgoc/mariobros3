@@ -14,17 +14,11 @@ PlayerStateWarp::PlayerStateWarp(bool down, float posX, float posY)
 
 void PlayerStateWarp::Update()
 {
+	DebugOut(L"[INFO] warpspeed %f \n", __Mario->vy);
 	if (isDown)
-		__Mario->vy = -MARIO_WARP_SPEED;
+		__Mario->vy = +MARIO_WARP_SPEED;
 	else
-		__Mario->vy = MARIO_WARP_SPEED;
-	if (abs(__Mario->y - this->distance) > __Mario->height)
-	{
-		__Mario->isWarping = false;
-		__Mario->SetPosition(this->toX, this->toY);
-		__Mario->SetState(new PlayerStateIdle());
-		__Mario->collision = Collision2D::Full;
-	}
+		__Mario->vy = -MARIO_WARP_SPEED;
 }
 
 void PlayerStateWarp::SetAnimation()

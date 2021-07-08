@@ -29,9 +29,6 @@ void PlayerStateIdle::Update()
 	if (__Mario->vx * __Mario->direction.x < 0)
 		__Mario->vx = 0;
 
-	if (!__Mario->isOnGround && __Mario->vy > 0)
-		__Mario->SetState(new PlayerStateFall());
-
 }
 
 

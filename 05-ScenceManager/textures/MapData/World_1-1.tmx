@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="7" nextobjectid="252">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="7" nextobjectid="265">
  <tileset firstgid="1" name="world-1-1" tilewidth="48" tileheight="48" tilecount="870" columns="29">
   <image source="world-1-1.png" width="1392" height="1440"/>
  </tileset>
@@ -337,10 +337,6 @@
    <point/>
   </object>
   <object id="222" name="wrap" type="down" x="6744" y="456">
-   <properties>
-    <property name="toX" type="float" value="6744"/>
-    <property name="toY" type="float" value="1488"/>
-   </properties>
    <point/>
   </object>
   <object id="248" name="qblock" type="greenmushroom" x="4272" y="384">
@@ -354,6 +350,39 @@
   </object>
   <object id="251" name="brick" x="6048" y="1104">
    <point/>
+  </object>
+  <object id="252" name="psportal" x="6742.83" y="575.167" width="48" height="96">
+   <properties>
+    <property name="isfollow" value="true"/>
+    <property name="isstatic" value="false"/>
+    <property name="limitB" type="float" value="1968"/>
+    <property name="limitL" type="float" value="6336"/>
+    <property name="limitR" type="float" value="7872"/>
+    <property name="limitT" type="float" value="1392"/>
+    <property name="posx" type="float" value="6744"/>
+    <property name="posy" type="float" value="1488"/>
+    <property name="scrollx" value="false"/>
+    <property name="scrolly" value="false"/>
+   </properties>
+  </object>
+  <object id="257" name="ground" x="6720" y="1344" width="96" height="96"/>
+  <object id="258" name="ground" x="7392" y="1392" width="96" height="96"/>
+  <object id="259" name="wrap" type="up" x="7416" y="1490">
+   <point/>
+  </object>
+  <object id="260" name="psportal" x="7408" y="1363" width="60" height="55.5">
+   <properties>
+    <property name="isfollow" value="true"/>
+    <property name="isstatic" value="false"/>
+    <property name="limitB" type="float" value="1296"/>
+    <property name="limitL" type="float" value="0"/>
+    <property name="limitR" type="float" value="8448"/>
+    <property name="limitT" type="float" value="192"/>
+    <property name="posx" type="float" value="6936"/>
+    <property name="posy" type="float" value="1104"/>
+    <property name="scrollx" value="false"/>
+    <property name="scrolly" value="false"/>
+   </properties>
   </object>
  </objectgroup>
 </map>
