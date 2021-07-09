@@ -80,6 +80,7 @@ void Leaf::OnOverLap(CGameObject* obj)
 	if (obj->ObjectGroup == Group::player)
 	{
 		CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
+		GlobalVariables::GetInstance()->AddScore(1000);
 		__Mario->_marioLevel = new MarioLevelRaccoon();
 	}
 }

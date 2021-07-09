@@ -13,14 +13,14 @@
 
 #include "KeyHanler.h"
 #include "Map.h"
-
+#include "HUD.h"
 
 class CPlayScene: public CScene
 {
 protected: 
 	CMario *player;					// A play scene has to have player, right? 
 	Map* maps;
-
+	HUD* hud;
 	float camL, camT, camR, camB;
 
 	void _ParseSection_OBJECTS(string line);

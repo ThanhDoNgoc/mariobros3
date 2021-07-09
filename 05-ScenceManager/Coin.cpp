@@ -1,6 +1,7 @@
 #include "Coin.h"
 #include "Game.h"
 #include "Camera.h"
+#include "GlobalVariables.h"
 
 Coin::Coin()
 {
@@ -37,5 +38,6 @@ void Coin::OnOverLap(CGameObject* obj)
 	if (obj->ObjectGroup == Group::player)
 	{
 		CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
+		GlobalVariables::GetInstance()->AddCoin(1);
 	}
 }

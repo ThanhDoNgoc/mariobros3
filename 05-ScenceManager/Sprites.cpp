@@ -28,10 +28,18 @@ void CSprite::Draw(float x, float y, D3DXVECTOR2 direction, int alpha)
 	game->Draw(x , y , centerX, centerY, texture, left, top, right, bottom, direction, alpha);
 }
 
+int CSprite::GetSpriteWidth()
+{
+	int width;
+	width = this->right - this->left;
+	return width;
+}
+
 void CSprites::Add(int id, int left, int top, int right, int bottom, float cx, float cy, LPDIRECT3DTEXTURE9 tex)
 {
 	LPSPRITE s = new CSprite(id, left, top, right, bottom, cx, cy, tex);
 	sprites[id] = s;
+	DebugOut(L"Sprite added: %d\n", id);
 }
 
 LPSPRITE CSprites::Get(int id)

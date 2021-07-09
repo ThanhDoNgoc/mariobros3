@@ -4,9 +4,33 @@
 1	textures\enemy.png	0	255	255
 20	textures\misc.png	176	224	248
 2	textures\misc_x3.png	117	255	255
+3	textures\uix3.png	255	127	39
 
 #change litte bit: id	left	top	witdth	 height	tex_id
 [SPRITES]
+#HUD
+#font
+0	231	93	24	21	12	0	3
+1	264	93	18	21	9	0	3
+2	291	93	24	21	12	0	3
+3	321	93	24	21	12	0	3
+4	351	93	24	21	12	0	3
+5	381	93	24	21	12	0	3
+6	411	93	24	21	12	0	3
+7	441	93	24	21	12	0	3
+8	471	93	24	21	12	0	3
+9	501	93	24	21	12	0	3
+#points
+100	183	267	33	24	0	0	3
+200	225	267	36	24	0	0	3
+400	270	267	36	24	0	0	3
+800	315	267	36	24	0	0	3
+1000	360	267	45	24	0	0	3
+2000	414	267	48	24	0	0	3
+4000	471	267	48	24	0	0	3
+8000	528	267	48	24	0	0	3
+8001	585	267	48	24	0	0	3
+
 #MARIO (idle - walk - skid - jump  - run - die - hold idle - hold run - kick)
 # SMALL MARIO
 # idle
@@ -208,6 +232,9 @@
 #green eating
 30704	21	321	48	72	24	36	1
 30705	21	411	48	72	24	36	1
+
+#hud_main
+40000	36	384	696	84	348	42	3
 # ani_id	sprite1_id	time1	sprite2_id	time2	...
 [ANIMATIONS]
 
@@ -315,3 +342,5 @@
 815	30704	100	30705	100
 #BrickCoin
 816	30603	100
+#hud
+1000	40000	100

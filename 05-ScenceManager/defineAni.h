@@ -94,3 +94,5 @@
 #define ID_ANI_GREEN_EATING_PLANT			815
 
 #define ID_ANI_BRICK_COIN	816
+
+#define ID_ANI_HUD	1000

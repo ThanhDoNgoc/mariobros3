@@ -11,7 +11,7 @@
 
 #include "KeyHanler.h"
 #include "Camera.h"
-
+#include "GlobalVariables.h"
 
 #include "Scence.h"
 

@@ -132,10 +132,12 @@
     <ClCompile Include="Deadblock.cpp" />
     <ClCompile Include="Flower.cpp" />
     <ClCompile Include="GhostPlatform.cpp" />
+    <ClCompile Include="GlobalVariables.cpp" />
     <ClCompile Include="GreenEatingPlant.cpp" />
     <ClCompile Include="GreenFireShootingPlant.cpp" />
     <ClCompile Include="GreenMushroom.cpp" />
     <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="HUD.cpp" />
     <ClCompile Include="KeyHanler.cpp" />
     <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="Leaf.cpp" />
@@ -191,10 +193,12 @@
     <ClInclude Include="defineMario.h" />
     <ClInclude Include="Flower.h" />
     <ClInclude Include="GhostPlatform.h" />
+    <ClInclude Include="GlobalVariables.h" />
     <ClInclude Include="GreenEatingPlant.h" />
     <ClInclude Include="GreenFireShootingPlant.h" />
     <ClInclude Include="GreenMushroom.h" />
     <ClInclude Include="Ground.h" />
+    <ClInclude Include="HUD.h" />
     <ClInclude Include="KeyHanler.h" />
     <ClInclude Include="Koopas.h" />
     <ClInclude Include="Leaf.h" />

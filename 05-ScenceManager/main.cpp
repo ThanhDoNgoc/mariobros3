@@ -29,7 +29,7 @@
 #include "AniMaganer.h"
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
-#define MAIN_WINDOW_TITLE L"SAMPLE 05 - SCENCE MANAGER"
+#define MAIN_WINDOW_TITLE L"SuperMarioBros3"
 
 #define BACKGROUND_COLOR D3DCOLOR_XRGB(181, 235, 242)
 #define SCREEN_WIDTH 768
@@ -181,7 +181,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	game->Init(hWnd);
 	KeyHanler::GetInstance()->InitKeyboard(hWnd);
 	game->Load(L"mario-sample.txt");
-
 	Run();
 
 	return 0;

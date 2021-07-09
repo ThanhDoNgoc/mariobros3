@@ -118,6 +118,9 @@
     <Filter Include="GameObjects\Blocks\Warp">
       <UniqueIdentifier>{ffa9ad44-a7a9-404b-93f6-bf7d287d6b03}</UniqueIdentifier>
     </Filter>
+    <Filter Include="HUD">
+      <UniqueIdentifier>{44d90460-4719-4d40-b03d-1587a24c3343}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -281,6 +284,10 @@
     <ClCompile Include="PSPortal.cpp">
       <Filter>GameObjects\Blocks\Portal</Filter>
     </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalVariables.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -449,5 +456,9 @@
     <ClInclude Include="PSPortal.h">
       <Filter>GameObjects\Blocks\Portal</Filter>
     </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalVariables.h" />
   </ItemGroup>
 </Project>

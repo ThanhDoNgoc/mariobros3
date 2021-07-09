@@ -106,6 +106,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		if (GetTickCount() - this->die_time > GOOMBA_DIE_TIME)
 		{
 			CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
+			GlobalVariables::GetInstance()->AddScore(100);
 		}
 	}
 }
