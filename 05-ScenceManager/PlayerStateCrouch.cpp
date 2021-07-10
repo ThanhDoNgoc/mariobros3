@@ -16,6 +16,7 @@ PlayerStateCrouch::PlayerStateCrouch()
 		__Mario->y += MARIO_BIG_BBOX_HEIGHT - MARIO_CROUCH_BBOX_HEIGHT;
 		__Mario->height = MARIO_CROUCH_BBOX_HEIGHT;
 	}
+	__Mario->state = MARIO_STATE_IDLE;
 }
 
 PlayerStateCrouch::~PlayerStateCrouch()

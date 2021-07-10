@@ -47,4 +47,5 @@ public:
 	virtual void TakeDamage();
 	void InstanceDead();
 	void BeingHold();
+	virtual void OnOverLap(CGameObject* obj);
 };

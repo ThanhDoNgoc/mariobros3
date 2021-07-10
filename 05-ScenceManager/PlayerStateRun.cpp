@@ -10,15 +10,28 @@ PlayerStateRun::PlayerStateRun()
 {
 	DebugOut(L"[INFO] RUN \n");
 	//this->velocity = MARIO_MAX_RUNNING_SPEED * __Mario->direction.x;
+	__Mario->state = MARIO_STATE_RUN;
 }
 
 void PlayerStateRun::Update()
 {
-	if (KeyHanler::GetInstance()->IsKeyDown(DIK_RIGHT))
-		__Mario->direction.x = 1.0f;
-	if (KeyHanler::GetInstance()->IsKeyDown(DIK_LEFT))
-		__Mario->direction.x = -1.0f;
+	if (KeyHanler::GetInstance()->IsKeyDown(DIK_LEFT) && KeyHanler::GetInstance()->IsKeyDown(DIK_RIGHT))
+		__Mario->SetState(new PlayerStateWalk());
+	if (!KeyHanler::GetInstance()->IsKeyDown(DIK_RIGHT) && !KeyHanler::GetInstance()->IsKeyDown(DIK_LEFT))
+		__Mario->SetState(new PlayerStateWalk());
 
+	if (KeyHanler::GetInstance()->IsKeyDown(DIK_RIGHT))
+	{
+		__Mario->direction.x = 1.0f;
+		if (__Mario->vx < 0)
+			__Mario->SetState(new PlayerStateWalk());
+	}
+	if (KeyHanler::GetInstance()->IsKeyDown(DIK_LEFT))
+	{
+		__Mario->direction.x = -1.0f;
+		if (__Mario->vx > 0)
+			__Mario->SetState(new PlayerStateWalk());
+	}
 
 	if (!KeyHanler::GetInstance()->IsKeyDown(DIK_A) || __Mario->vx * __Mario->direction.x < 0)
 		__Mario->SetState(new PlayerStateWalk());
@@ -41,6 +54,16 @@ void PlayerStateRun::OnKeyDown(int KeyCode)
 	case DIK_A:
 		if (__Mario->level > MARIO_LEVEL_BIG)
 			__Mario->SetState(new PlayerStateAttack());
+		break;
+	case DIK_LEFT:
+		if (__Mario->direction.x == 1.0f)
+		{
+			__Mario->SetState(new PlayerStateWalk());
+		}
+		break;
+	case DIK_RIGHT:
+		if (__Mario->direction.x == -1.0f)
+			__Mario->SetState(new PlayerStateWalk());
 		break;
 	}
 }

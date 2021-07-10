@@ -2,7 +2,7 @@
 #include "GameObject.h"
 
 #define GOOMBA_WALKING_SPEED 0.05f
-#define GOOMBA_INSTANCE_DEAD_VY	0.5f
+#define GOOMBA_INSTANCE_DEAD_VY	0.8f
 #define GOOMBA_GRAVITY	0.003f
 
 #define GOOMBA_BBOX_WIDTH	48
@@ -39,4 +39,5 @@ public:
 	virtual void SetState(GoombaState state);
 	virtual void TakeDamage();
 	void InstanceDead();
+	virtual void OnOverLap(CGameObject* obj);
 };

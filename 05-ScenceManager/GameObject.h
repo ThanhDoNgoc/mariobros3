@@ -86,6 +86,7 @@ public:
 	bool isBeingHold = false;
 	bool isHoldAble = false;
 
+	float startX,startY;
 	DWORD dt; 
 
 	//LPANIMATION_SET animation_set;
@@ -94,7 +95,7 @@ public:
 public: 
 	Group ObjectGroup;
 	Collision2D collision;
-	void SetPosition(float x, float y) { this->x = x, this->y = y; }
+	void SetPosition(float x, float y) { this->x = x, this->y = y; this->startX = x; this->startY = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
 	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }

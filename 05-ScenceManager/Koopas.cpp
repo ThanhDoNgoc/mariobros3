@@ -90,7 +90,7 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (e->obj->ObjectGroup == Group::ground || e->obj->ObjectGroup == Group::enemy)
+			if (e->obj->ObjectGroup == Group::ground || e->obj->ObjectGroup == Group::enemy || e->obj->ObjectGroup == Group::block)
 			{
 				x += min_tx * dx + nx * 0.4f;
 				y += min_ty * dy + ny * 0.4f;
@@ -98,13 +98,14 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				{
 					if (koopaState==KoopaState::walk)
 						this->direction.x *= -1.0f;
-					else if (koopaState == KoopaState::slide || e->obj->ObjectGroup == Group::ground)
+					else if (koopaState == KoopaState::slide || e->obj->ObjectGroup == Group::ground || e->obj->ObjectGroup == Group::block)
 					{
 						this->direction.x *= -1.0f;
+						e->obj->TakeDamage();
 					}
 				}
 			}
-			else if (e->obj->ObjectGroup == Group::projectile) // if e->obj is projectile 
+			else if (e->obj->ObjectGroup == Group::marioprojectile) // if e->obj is projectile 
 			{
 				this->InstanceDead();
 				e->obj->TakeDamage();
@@ -182,4 +183,13 @@ void CKoopas::InstanceDead()
 void CKoopas::BeingHold()
 {
 	//SetState(KOOPAS_STATE_BEING_HOLD);
+}
+
+void CKoopas::OnOverLap(CGameObject* obj)
+{
+	if (obj->ObjectGroup == Group::marioprojectile)
+	{
+		this->vy = -KOOPAS_INSTANCE_DEAD_VY;
+		this->InstanceDead();
+	}
 }

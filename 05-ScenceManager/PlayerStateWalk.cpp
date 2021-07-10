@@ -11,34 +11,68 @@
 PlayerStateWalk::PlayerStateWalk()
 {
 	DebugOut(L"[INFO] walk \n");
+	__Mario->state = MARIO_STATE_WALK;
 }
 
 void PlayerStateWalk::Update()
 {
+	if (KeyHanler::GetInstance()->IsKeyDown(DIK_RIGHT) && KeyHanler::GetInstance()->IsKeyDown(DIK_LEFT))
+	{
+		if (__Mario->vx > 0)
+		{
+			__Mario->vx -= MARIO_ACCELERATION * __Mario->dt;
+			if (__Mario->vx < 0)
+			{
+				__Mario->vx = 0;
+				__Mario->SetState(new PlayerStateIdle());
+			}
+		}
+		else if (__Mario->vx < 0)
+		{
+			__Mario->vx += MARIO_ACCELERATION * __Mario->dt;
+			if (__Mario->vx > 0)
+			{
+				__Mario->vx = 0;
+				__Mario->SetState(new PlayerStateIdle());
+			}
+		}
+		return;
+	}
+
 	if (KeyHanler::GetInstance()->IsKeyDown(DIK_RIGHT))
 	{
 		__Mario->direction.x = 1.0f;
-		__Mario->vx += MARIO_ACCELERATION * __Mario->direction.x * __Mario->dt;
+		__Mario->vx += MARIO_ACCELERATION * __Mario->dt;
 	}
-	else if (KeyHanler::GetInstance()->IsKeyDown(DIK_LEFT))
+	if (KeyHanler::GetInstance()->IsKeyDown(DIK_LEFT))
 	{
 		__Mario->direction.x = -1.0f;
-		__Mario->vx += MARIO_ACCELERATION * __Mario->direction.x * __Mario->dt;
+		__Mario->vx -= MARIO_ACCELERATION  * __Mario->dt;
 	}
-	else	
+
+	if (!KeyHanler::GetInstance()->IsKeyDown(DIK_RIGHT) && !KeyHanler::GetInstance()->IsKeyDown(DIK_LEFT))
 		__Mario->SetState(new PlayerStateIdle());
 
 
 	if (KeyHanler::GetInstance()->IsKeyDown(DIK_A))
 	{
+
 		if (abs(__Mario->vx) > MARIO_MAX_RUNNING_SPEED)
-				__Mario->SetState(new PlayerStateRun());
+			__Mario->vx = MARIO_MAX_RUNNING_SPEED * __Mario->direction.x;
+
+		if (__Mario->abilytiBar >= MAX_SPEED_BAR)
+			__Mario->SetState(new PlayerStateRun());
 	}
 	else
 	{
 		if (abs(__Mario->vx) > MARIO_MAX_WALKING_SPEED)
 		{
-			__Mario->vx = MARIO_MAX_WALKING_SPEED * __Mario->direction.x ;
+			//__Mario->vx += MARIO_MAX_WALKING_SPEED * __Mario->direction.x ;
+			if (__Mario->vx>0)
+				__Mario->vx-= MARIO_ACCELERATION * __Mario->dt;
+			if (__Mario->vx < 0)
+				__Mario->vx += MARIO_ACCELERATION * __Mario->dt;
+
 		}
 
 	}

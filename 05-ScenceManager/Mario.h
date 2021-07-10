@@ -26,7 +26,6 @@ class CMario : public CGameObject
 
 	float start_x;			// initial position of Mario at scene
 	float start_y;
-
 	LPGAMEOBJECT obj;
 	//D3DXVECTOR2 direction = D3DXVECTOR2(1.0f,1.0f);
 
@@ -34,11 +33,12 @@ public:
 	int ani = -1;
 	int level;
 	int fireball;
+	int state;
 	float width, height;
 	bool isOnGround, isMaxCharge;
 	bool isAttacking, isKicking, isHolding, isWarping;
 	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f, 1.0f);
-
+	float abilytiBar;
 	PlayerState* _playerState;
 
 	MarioLevel* _marioLevel;

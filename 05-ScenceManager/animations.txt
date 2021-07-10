@@ -5,7 +5,7 @@
 20	textures\misc.png	176	224	248
 2	textures\misc_x3.png	117	255	255
 3	textures\uix3.png	255	127	39
-
+4	textures\reward_x3.png	255	255	255
 #change litte bit: id	left	top	witdth	 height	tex_id
 [SPRITES]
 #HUD
@@ -30,6 +30,12 @@
 4000	471	267	48	24	0	0	3
 8000	528	267	48	24	0	0	3
 8001	585	267	48	24	0	0	3
+#bar
+10	192	486	24	21	12	0	3
+11	273	486	24	21	12	0	3
+12	219	486	45	21	22	0	3
+13	300	486	45	21	22	0	3
+
 
 #MARIO (idle - walk - skid - jump  - run - die - hold idle - hold run - kick)
 # SMALL MARIO
@@ -235,6 +241,12 @@
 
 #hud_main
 40000	36	384	696	84	348	42	3
+
+#endgamereward
+#mushroom - plant - star
+50000	549	3	78	78	0	0	4
+50001	465	3	78	78	0	0	4
+50002	381	3	78	78	0	0	4
 # ani_id	sprite1_id	time1	sprite2_id	time2	...
 [ANIMATIONS]
 
@@ -344,3 +356,7 @@
 816	30603	100
 #hud
 1000	40000	100
+#endgame reward (mushroom - plant - star)
+900	50000	100
+901	50001	100
+902	50002	100

@@ -22,7 +22,7 @@ public:
 
 	void OnKeyDown(int KeyCode);
 	void OnKeyUp(int KeyCode);
-	int IsKeyDown(int KeyCode);
+	bool IsKeyDown(int KeyCode);
 
 	static KeyHanler* GetInstance();
 

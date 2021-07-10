@@ -5,8 +5,9 @@
 #include "PlayerStateAttack.h"
 PlayerStateFly::PlayerStateFly()
 {
-	__Mario->vy = -MARIO_JUMP_SPEED;
+	__Mario->vy = -MARIO_FLY_SPEED;
 	StartFly();
+	__Mario->state = MARIO_STATE_FLY;
 }
 
 void PlayerStateFly::Update()

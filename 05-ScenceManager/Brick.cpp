@@ -67,7 +67,7 @@ void CBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 
-			if (e->obj->ObjectGroup == Group::marioprojectile || e->obj->ObjectGroup==Group::projectile)
+			if (e->obj->ObjectGroup==Group::projectile)
 			{
 				this->TakeDamage();
 			}
@@ -101,7 +101,10 @@ void CBrick::OnOverLap(CGameObject* obj)
 	case STATE_BRICK:
 	{
 		if (obj->ObjectGroup == Group::marioprojectile)
+		{
 			CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
+			obj->TakeDamage();
+		}
 		break;
 	}
 	case STATE_COIN:

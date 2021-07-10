@@ -129,7 +129,7 @@ void KeyHanler::OnKeyUp(int KeyCode)
 	CGame::GetInstance()->GetCurrentScene()->OnKeyUp(KeyCode);
 }
 
-int KeyHanler::IsKeyDown(int KeyCode)
+bool KeyHanler::IsKeyDown(int KeyCode)
 {
 	return (keyStates[KeyCode] & 0x80) > 0;
 }

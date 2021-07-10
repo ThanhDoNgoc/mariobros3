@@ -25,10 +25,12 @@ void HUD::Render()
 	DrawTimer();
 	DrawLife();
 	DrawWorld();
+	DrawAbilityBar();
 }
 
 void HUD::DrawBackground()
 {
+	
 }
 
 void HUD::DrawCoin()
@@ -117,6 +119,25 @@ void HUD::DrawWorld()
 	auto sprites = CSprites::GetInstance();
 	LPSPRITE num = sprites->Get(1);
 	num->Draw(SCREEN_WIDTH / 2 - 230, (SCREEN_HEIGHT - 112));
+}
+
+void HUD::DrawAbilityBar()
+{
+	auto sprites = CSprites::GetInstance();
+	LPSPRITE num = sprites->Get(SPRITE_ABILITY_OFF);
+	int bar = __Mario->abilytiBar / ABILITY_BAR;
+	for (int i = 0; i < 6; i++)
+	{
+		if (bar > i)
+			num = sprites->Get(SPRITE_ABILITY_ON);
+		else num = sprites->Get(SPRITE_ABILITY_OFF);
+		num->Draw(SCREEN_WIDTH / 2 - 180 + i * NUM_WIDTH, (SCREEN_HEIGHT - 112));
+	}
+	LPSPRITE p = sprites->Get(SPRITE_P_OFF);
+	if (bar == 6)
+		p = sprites->Get(SPRITE_P_ON);
+	else p = sprites->Get(SPRITE_P_OFF);
+	p->Draw(SCREEN_WIDTH / 2 - 180 + 7 * NUM_WIDTH, (SCREEN_HEIGHT - 112));
 }
 
 std::string HUD::NumberToString(int num, int numOfChar)

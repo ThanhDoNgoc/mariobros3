@@ -8,6 +8,7 @@
 PlayerStateFall::PlayerStateFall()
 {
 	DebugOut(L"[INFO] Fall \n");
+	__Mario->state = MARIO_STATE_FALL;
 }
 
 void PlayerStateFall::Update()

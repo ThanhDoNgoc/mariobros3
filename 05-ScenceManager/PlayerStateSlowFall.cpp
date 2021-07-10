@@ -6,6 +6,7 @@ PlayerStateSlowFall::PlayerStateSlowFall()
 {
 	__Mario->vy = MARIO_SLOW_FALL_SPEED;
 	StartSlowFall();
+	__Mario->state = MARIO_STATE_SLOW_FALL;
 }
 
 void PlayerStateSlowFall::Update()

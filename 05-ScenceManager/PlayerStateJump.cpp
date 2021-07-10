@@ -11,6 +11,7 @@ PlayerStateJump::PlayerStateJump()
 	__Mario->vy = -MARIO_JUMP_SPEED;
 	__Mario->isOnGround = false;
 	StartJumpHigh();
+	__Mario->state = MARIO_STATE_JUMP;
 }
 
 void PlayerStateJump::Update()

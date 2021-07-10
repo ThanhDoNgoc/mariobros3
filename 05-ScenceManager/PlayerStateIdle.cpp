@@ -11,11 +11,15 @@
 PlayerStateIdle::PlayerStateIdle()
 {
 	DebugOut(L"[INFO] idle \n");
+	__Mario->state = MARIO_STATE_IDLE;
 }
 
 void PlayerStateIdle::Update()
 {
-	if (KeyHanler::GetInstance()->IsKeyDown(DIK_RIGHT) || KeyHanler::GetInstance()->IsKeyDown(DIK_LEFT))
+	if (KeyHanler::GetInstance()->IsKeyDown(DIK_RIGHT) && KeyHanler::GetInstance()->IsKeyDown(DIK_LEFT))
+	{
+	}
+	else if (KeyHanler::GetInstance()->IsKeyDown(DIK_RIGHT) || KeyHanler::GetInstance()->IsKeyDown(DIK_LEFT))
 		__Mario->SetState(new PlayerStateWalk());
 	
 	if (KeyHanler::GetInstance()->IsKeyDown(DIK_X))

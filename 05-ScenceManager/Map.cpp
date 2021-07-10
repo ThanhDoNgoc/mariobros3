@@ -12,6 +12,8 @@
 #include "GreenEatingPlant.h"
 #include "Warp.h"
 #include "PSPortal.h"
+#include "BrickQBlock.h"
+#include "EndGameReward.h"
 Map::Map()
 {
 }
@@ -170,6 +172,15 @@ void Map::AddObject(TiXmlElement* RootElement)
 				CGame::GetInstance()->GetCurrentScene()->AddObject(qblock);
 				qblock->SetItem(TMXObject->Attribute("type"));
 			}
+			else if (name == "bqblock")
+			{
+				TMXObject->QueryFloatAttribute("x", &x);
+				TMXObject->QueryFloatAttribute("y", &y);
+				BrickQBlock* qblock = new BrickQBlock();
+				qblock->SetPosition(x, y);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(qblock);
+				qblock->SetItem(TMXObject->Attribute("type"));
+			}
 			else if (name == "coin")
 			{
 				TMXObject->QueryFloatAttribute("x", &x);
@@ -177,6 +188,14 @@ void Map::AddObject(TiXmlElement* RootElement)
 				Coin* coin = new Coin();
 				coin->SetPosition(x, y);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(coin);
+			}
+			else if (name == "endgamereward")
+			{
+			TMXObject->QueryFloatAttribute("x", &x);
+			TMXObject->QueryFloatAttribute("y", &y);
+			EndGameReward* reward = new EndGameReward();
+			reward->SetPosition(x+9, y+9);
+			CGame::GetInstance()->GetCurrentScene()->AddObject(reward);
 			}
 			else if (name == "wrap")
 			{

@@ -127,9 +127,11 @@
     <ClCompile Include="AniMaganer.cpp" />
     <ClCompile Include="Animations.cpp" />
     <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="BrickQBlock.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Deadblock.cpp" />
+    <ClCompile Include="EndGameReward.cpp" />
     <ClCompile Include="Flower.cpp" />
     <ClCompile Include="GhostPlatform.cpp" />
     <ClCompile Include="GlobalVariables.cpp" />
@@ -147,6 +149,7 @@
     <ClCompile Include="MarioLevelFire.cpp" />
     <ClCompile Include="MarioLevelRaccoon.cpp" />
     <ClCompile Include="MarioLevelSmall.cpp" />
+    <ClCompile Include="MarioRaccoonTail.cpp" />
     <ClCompile Include="PButton.cpp" />
     <ClCompile Include="PlantFireBall.cpp" />
     <ClCompile Include="PlayerStateAttack.cpp" />
@@ -186,11 +189,13 @@
     <ClInclude Include="AniMaganer.h" />
     <ClInclude Include="Animations.h" />
     <ClInclude Include="Brick.h" />
+    <ClInclude Include="BrickQBlock.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Deadblock.h" />
     <ClInclude Include="defineAni.h" />
     <ClInclude Include="defineMario.h" />
+    <ClInclude Include="EndGameReward.h" />
     <ClInclude Include="Flower.h" />
     <ClInclude Include="GhostPlatform.h" />
     <ClInclude Include="GlobalVariables.h" />
@@ -209,6 +214,7 @@
     <ClInclude Include="MarioLevelFire.h" />
     <ClInclude Include="MarioLevelRaccoon.h" />
     <ClInclude Include="MarioLevelSmall.h" />
+    <ClInclude Include="MarioRaccoonTail.h" />
     <ClInclude Include="PButton.h" />
     <ClInclude Include="PlantFireBall.h" />
     <ClInclude Include="PlayerState.h" />

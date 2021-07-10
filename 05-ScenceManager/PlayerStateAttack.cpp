@@ -1,12 +1,14 @@
 #include "PlayerStateAttack.h"
 #include "Mario.h"
 #include "MarioFireBall.h"
+#include "MarioRaccoonTail.h"
 #include "GameObject.h"
 #include "Scence.h"
 #include "Game.h"
 
 PlayerStateAttack::PlayerStateAttack()
 {
+	this->cantailattack = false;
 	switch (__Mario->level)
 	{
 	case MARIO_LEVEL_FIRE:
@@ -22,6 +24,18 @@ PlayerStateAttack::PlayerStateAttack()
 	}
 	case MARIO_LEVEL_RACCOON:
 		this->attack_time = MARIO_RACCOON_ATTACK_TIME;
+		this->raccoonAttackDelay = GetTickCount();
+		this->cantailattack = true;
+		if (__Mario->direction.x >= 1)
+		{
+			MarioRaccoonTail* tail = new MarioRaccoonTail(__Mario->x + MARIO_BIG_BBOX_WIDTH / 2 - 50, __Mario->y + 50);
+			CGame::GetInstance()->GetCurrentScene()->AddObject(tail);
+		}
+		else if (__Mario->direction.x <= -1)
+		{
+			MarioRaccoonTail* tail = new MarioRaccoonTail(__Mario->x + MARIO_BIG_BBOX_WIDTH / 2, __Mario->y + 50);
+			CGame::GetInstance()->GetCurrentScene()->AddObject(tail);
+		}
 		break;
 	}
 	StartAttack();
@@ -33,6 +47,23 @@ void PlayerStateAttack::Update()
 	if (GetTickCount() - attackTimeStart > attack_time)
 	{
 		__Mario->SetState(new PlayerStateIdle);
+	}
+	if (__Mario->level = MARIO_LEVEL_RACCOON)
+	{
+		if (GetTickCount() - raccoonAttackDelay > RACCOON_ATTACK_DELAY && cantailattack)
+		{
+			cantailattack = false;
+			if (__Mario->direction.x >= 1)
+			{
+				MarioRaccoonTail* tail = new MarioRaccoonTail(__Mario->x + MARIO_BIG_BBOX_WIDTH / 2, __Mario->y + 50);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(tail);
+			}
+			else if (__Mario->direction.x <= -1)
+			{
+				MarioRaccoonTail* tail = new MarioRaccoonTail(__Mario->x + MARIO_BIG_BBOX_WIDTH / 2 - 50, __Mario->y + 50);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(tail);
+			}
+		}
 	}
 }
 

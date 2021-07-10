@@ -121,6 +121,9 @@
     <Filter Include="HUD">
       <UniqueIdentifier>{44d90460-4719-4d40-b03d-1587a24c3343}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObjects\Pickups\EndReward">
+      <UniqueIdentifier>{e778ddfd-c4f1-453e-aeab-94fecd1cda40}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -288,6 +291,15 @@
       <Filter>HUD</Filter>
     </ClCompile>
     <ClCompile Include="GlobalVariables.cpp" />
+    <ClCompile Include="EndGameReward.cpp">
+      <Filter>GameObjects\Pickups\EndReward</Filter>
+    </ClCompile>
+    <ClCompile Include="BrickQBlock.cpp">
+      <Filter>GameObjects\Blocks\QuestionBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioRaccoonTail.cpp">
+      <Filter>GameObjects\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -460,5 +472,14 @@
       <Filter>HUD</Filter>
     </ClInclude>
     <ClInclude Include="GlobalVariables.h" />
+    <ClInclude Include="EndGameReward.h">
+      <Filter>GameObjects\Pickups\EndReward</Filter>
+    </ClInclude>
+    <ClInclude Include="BrickQBlock.h">
+      <Filter>GameObjects\Blocks\QuestionBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioRaccoonTail.h">
+      <Filter>GameObjects\Player</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

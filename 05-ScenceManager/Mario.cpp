@@ -30,8 +30,8 @@ CMario::CMario(float x, float y) : CGameObject()
 	this->_marioLevel = new MarioLevelSmall();
 	this->isHolding = false;
 	this->isWarping = false;
-
 	untouchable = 0;
+	this->abilytiBar = 0;
 	DebugOut(L"[INFO] create new IDLE");
 	this->SetState(new PlayerStateIdle());
 
@@ -81,6 +81,14 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// Simple fall down
 	vy += MARIO_GRAVITY * dt;
 
+	if (abs(this->vx) > MARIO_MAX_WALKING_SPEED)
+		this->abilytiBar += 1.2 * dt;
+	else this->abilytiBar -= 1 * dt;
+
+	if (this->abilytiBar > MAX_SPEED_BAR)
+		this->abilytiBar = MAX_SPEED_BAR;
+	if (this->abilytiBar < 0)
+		this->abilytiBar = 0;
 	// turn off collision when die 
 	//if (state!=MARIO_STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
@@ -127,13 +135,17 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		if (ny != 0)
 		{
 			vy = 0;
+			if (ny>0)
+			{
+				if (this->state = MARIO_STATE_JUMP)
+					this->SetState(new PlayerStateFall());
+			}
 		}
 		if (ny < 0) isOnGround = true;
 		else
 		{
 			isOnGround = false;
 		}
-
 		//
 		// Collision logic with other objects
 		//
@@ -200,7 +212,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 
-	DebugOut(L" velocity y: %f \n ", vy);
+	DebugOut(L" velocity y: %f \n ", abilytiBar);
 	//if (this->obj != NULL)
 }
 
@@ -292,18 +304,24 @@ void CMario::OnKeyDown(int KeyCode)
 		this->_marioLevel = new MarioLevelSmall();
 		break;
 	case DIK_2:
+		if (this->level = MARIO_LEVEL_SMALL)
+			this->y -= MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT;
 		this->_marioLevel = new MarioLevelBig();
 		break;
 	case DIK_3:
+		if (this->level = MARIO_LEVEL_SMALL)
+			this->y -= MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT;
 		this->_marioLevel = new MarioLevelFire();
 		break;
 	case DIK_4:
+		if (this->level = MARIO_LEVEL_SMALL)
+			this->y -= MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT;
 		this->_marioLevel = new MarioLevelRaccoon();
 		break;
 	case DIK_9:
 		_marioLevel->LevelDown();
 		break;
-	case DIK_5:
+	case DIK_P:
 		this->SetPosition(6744, 330);
 		break;
 	}

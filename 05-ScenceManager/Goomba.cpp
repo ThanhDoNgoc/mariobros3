@@ -167,3 +167,11 @@ void CGoomba::InstanceDead()
 	this->width = 0;
 	this->height = 0;
 }
+
+void CGoomba::OnOverLap(CGameObject* obj)
+{
+	if (obj->ObjectGroup == Group::marioprojectile)
+	{
+		this->InstanceDead();
+	}
+}

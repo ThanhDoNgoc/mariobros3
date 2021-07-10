@@ -4,6 +4,8 @@ class PlayerStateAttack : public PlayerState
 {
 	DWORD attackTimeStart;
 	int attack_time;
+	DWORD raccoonAttackDelay;
+	bool cantailattack;
 public:
 	PlayerStateAttack();
 	void Update();
