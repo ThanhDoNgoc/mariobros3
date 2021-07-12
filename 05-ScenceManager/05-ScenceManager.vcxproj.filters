@@ -124,6 +124,12 @@
     <Filter Include="GameObjects\Pickups\EndReward">
       <UniqueIdentifier>{e778ddfd-c4f1-453e-aeab-94fecd1cda40}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObjects\Player\MarioProjectile">
+      <UniqueIdentifier>{eec19655-f0fc-49c5-bad9-94761bcbe53d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Other">
+      <UniqueIdentifier>{c4b53696-3d7e-4550-8326-f4696e6ee551}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -224,9 +230,6 @@
     <ClCompile Include="PlayerStateFly.cpp">
       <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
     </ClCompile>
-    <ClCompile Include="MarioFireBall.cpp">
-      <Filter>GameObjects\Player</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerStateSlowFall.cpp">
       <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
     </ClCompile>
@@ -297,8 +300,23 @@
     <ClCompile Include="BrickQBlock.cpp">
       <Filter>GameObjects\Blocks\QuestionBlock</Filter>
     </ClCompile>
-    <ClCompile Include="MarioRaccoonTail.cpp">
+    <ClCompile Include="SceneMaganer.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldMapScene.cpp">
+      <Filter>Scenes\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldMapMario.cpp">
       <Filter>GameObjects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioFireBall.cpp">
+      <Filter>GameObjects\Player\MarioProjectile</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioRaccoonTail.cpp">
+      <Filter>GameObjects\Player\MarioProjectile</Filter>
+    </ClCompile>
+    <ClCompile Include="Bush.cpp">
+      <Filter>GameObjects\Other</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -405,17 +423,11 @@
     <ClInclude Include="PlayerStateFly.h">
       <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
     </ClInclude>
-    <ClInclude Include="MarioFireBall.h">
-      <Filter>GameObjects\Player</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerStateSlowFall.h">
       <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
     </ClInclude>
     <ClInclude Include="PlayerStateAttack.h">
       <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayScence.h">
-      <Filter>Scenes\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="PlayerStateCrouch.h">
       <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
@@ -478,8 +490,26 @@
     <ClInclude Include="BrickQBlock.h">
       <Filter>GameObjects\Blocks\QuestionBlock</Filter>
     </ClInclude>
-    <ClInclude Include="MarioRaccoonTail.h">
+    <ClInclude Include="SceneMaganer.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScence.h">
+      <Filter>Scenes\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldMapScene.h">
+      <Filter>Scenes\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldMapMario.h">
       <Filter>GameObjects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioFireBall.h">
+      <Filter>GameObjects\Player\MarioProjectile</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioRaccoonTail.h">
+      <Filter>GameObjects\Player\MarioProjectile</Filter>
+    </ClInclude>
+    <ClInclude Include="Bush.h">
+      <Filter>GameObjects\Other</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

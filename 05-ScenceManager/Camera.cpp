@@ -2,6 +2,7 @@
 
 #include "Game.h"
 #include "GameObject.h"
+#include "Mario.h"
 
 Camera::Camera()
 {
@@ -92,7 +93,7 @@ void Camera::Update()
 {
 	// Update camera to follow mario
 	float cx, cy;
-	target->GetPosition(cx, cy);
+	__Mario->GetPosition(cx, cy);
 
 	CGame* game = CGame::GetInstance();
 	cx -= CamWidth/2;
@@ -113,5 +114,8 @@ void Camera::Update()
 
 	if (this->CamPosY + this->CamHeight > this->limitBottom)
 		this->CamPosY = this->limitBottom - this->CamHeight;
+
+	if (__Mario->x < this->CamPosX)
+		__Mario->x = this->CamPosX;
 
 }

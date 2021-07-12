@@ -13,11 +13,13 @@
 #define REWARD_BBOX_WIDTH	78
 #define REWARD_BBOX_HEIGHT	78
 
+#define FLY_SPEED	0.15f
 class EndGameReward : public CGameObject
 {
 	bool isCollected;
 	DWORD switchTime;
 	int state;
+	bool isAddCard;
 public:
 	EndGameReward();
 	virtual void Render();

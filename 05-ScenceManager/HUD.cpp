@@ -26,6 +26,9 @@ void HUD::Render()
 	DrawLife();
 	DrawWorld();
 	DrawAbilityBar();
+	DrawCard();
+	if (__Mario->isEndScene)
+		DrawEndGame();
 }
 
 void HUD::DrawBackground()
@@ -140,6 +143,24 @@ void HUD::DrawAbilityBar()
 	p->Draw(SCREEN_WIDTH / 2 - 180 + 7 * NUM_WIDTH, (SCREEN_HEIGHT - 112));
 }
 
+void HUD::DrawEndGame()
+{
+	auto sprites = CSprites::GetInstance();
+	LPSPRITE text = sprites->Get(20);
+	text->Draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 -200);
+	LPSPRITE card = sprites->Get(0);
+	auto cardCollected = GlobalVariables::GetInstance()->GetCardCollected();
+	for (int i = 2; i >= 0; i--)
+	{
+		if (cardCollected[i] != 0)
+		{
+			card = sprites->Get(17 + i);
+			card->Draw(SCREEN_WIDTH / 2+150, SCREEN_HEIGHT / 2 - 200);
+			break;
+		}
+	}
+}
+
 std::string HUD::NumberToString(int num, int numOfChar)
 {
 	string numStr = to_string(num);
@@ -149,4 +170,19 @@ std::string HUD::NumberToString(int num, int numOfChar)
 		numStr = "0" + numStr;
 	}
 	return numStr;
+}
+
+void HUD::DrawCard()
+{
+	auto sprites = CSprites::GetInstance();
+	LPSPRITE card = sprites->Get(0);
+	auto cardCollected = GlobalVariables::GetInstance()->GetCardCollected();
+	for (int i = 0; i < 3; i++)
+	{
+		if (cardCollected[i] != 0)
+		{
+			card = sprites->Get(14+i);
+			card->Draw(SCREEN_WIDTH / 2 +168 +i*CARD_WIDTH, (SCREEN_HEIGHT - 90));
+		}
+	}
 }

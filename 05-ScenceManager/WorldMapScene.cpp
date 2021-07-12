@@ -1,26 +1,6 @@
-#include <iostream>
-#include <fstream>
-
-#include "PlayScence.h"
-#include "Utils.h"
-#include "Textures.h"
-#include "Sprites.h"
+#include "WorldMapScene.h"
 #include "Portal.h"
-#include "Map.h"
-#include "GlobalVariables.h"
-#include "MarioFireBall.h"
 using namespace std;
-
-CPlayScene::CPlayScene(int id, LPCWSTR filePath):
-	CScene(id, filePath)
-{
-
-}
-
-/*
-	Load scene resources from scene file (textures, sprites, animations and objects)
-	See scene1.txt, scene2.txt for detail format specification
-*/
 
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_TEXTURES 2
@@ -40,12 +20,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 
 #define OBJECT_TYPE_PORTAL	50
 
-#define MAX_SCENE_LINE 1024
-
-/*
-	Parse a line in section [OBJECTS] 
-*/
-void CPlayScene::_ParseSection_OBJECTS(string line)
+void WorldMapScene::_ParseSection_OBJECTS(string line)
 {
 	vector<string> tokens = split(line);
 
@@ -59,29 +34,28 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	int ani_set_id = atoi(tokens[3].c_str());
 
-	CGameObject *obj = NULL;
+	CGameObject* obj = NULL;
 
 	switch (object_type)
 	{
 	case OBJECT_TYPE_MARIO:
-		if (player!=NULL) 
+		if (player != NULL)
 		{
 			DebugOut(L"[ERROR] MARIO object was created before!\n");
 			return;
 		}
-		obj = new CMario(x,y); 
-		player = (CMario*)obj; 
-		__Mario->isEndScene = false;
+		obj = new WorldMapMario();
+		player = (WorldMapMario*)obj;
 		DebugOut(L"[INFO] Player object created!\n");
 		break;
 	case OBJECT_TYPE_PORTAL:
-		{	
-			float r = atof(tokens[4].c_str());
-			float b = atof(tokens[5].c_str());
-			int scene_id = atoi(tokens[6].c_str());
-			obj = new CPortal(x, y, r, b, scene_id);
-		}
-		break;
+	{
+		float r = atof(tokens[4].c_str());
+		float b = atof(tokens[5].c_str());
+		int scene_id = atoi(tokens[6].c_str());
+		obj = new CPortal(x, y, r, b, scene_id);
+	}
+	break;
 	default:
 		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
 		return;
@@ -95,16 +69,16 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	//objects.push_back(obj);
 }
 
-void CPlayScene::_ParseSection_MAP(string line)
+void WorldMapScene::_ParseSection_MAP(string line)
 {
-	maps = new Map();
+	tileMap = new Map();
 	vector<string> tokens = split(line);
 	const char* filepath = tokens[0].c_str();
 	const char* path = tokens[1].c_str();
-	maps->LoadMap(filepath, path);
+	tileMap->LoadMap(filepath, path);
 }
 
-void CPlayScene::_ParseSection_CAMERA(string line)
+void WorldMapScene::_ParseSection_CAMERA(string line)
 {
 	vector<string> tokens = split(line);
 	if (tokens.size() < 4) return;
@@ -114,60 +88,16 @@ void CPlayScene::_ParseSection_CAMERA(string line)
 	this->camB = atof(tokens[3].c_str());
 }
 
-void CPlayScene::Load()
+WorldMapScene::WorldMapScene(int id, LPCWSTR filePath) : CScene(id, filePath)
 {
-	DebugOut(L"[INFO] Start loading scene resources from : %s \n", sceneFilePath);
-
-	ifstream f;
-	f.open(sceneFilePath);
-
-	// current resource section flag
-	int section = SCENE_SECTION_UNKNOWN;					
-
-	char str[MAX_SCENE_LINE];
-	while (f.getline(str, MAX_SCENE_LINE))
-	{
-		string line(str);
-
-		if (line[0] == '#') continue;	// skip comment lines	
-		if (line == "[OBJECTS]") { 
-			section = SCENE_SECTION_OBJECTS; continue; }
-		if (line == "[MAP]")
-		{
-			section = SCENE_SECTION_MAP; continue;
-		
-		}
-		if (line == "[CAMERA]")
-		{
-			section = SCENE_SECTION_CAMERA; continue;
-
-		}
-		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }	
-
-		//
-		// data section
-		//
-		switch (section)
-		{ 
-			case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
-			case SCENE_SECTION_MAP:  _ParseSection_MAP(line); break;
-			case SCENE_SECTION_CAMERA: _ParseSection_CAMERA(line); break;
-		}
-	}
-
-	f.close();
-
-	CTextures::GetInstance()->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
-
-	this->camera = new Camera();
-	this->camera->SetCamPos(0, 0);
-	this->camera->SetCamLimit(camL, camT, camR, camB);
-	this->camera->SetCamTarget(player);
-
-	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
 
-void CPlayScene::Update(DWORD dt)
+void WorldMapScene::Load()
+{
+	
+}
+
+void WorldMapScene::Update(DWORD dt)
 {
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
@@ -207,38 +137,23 @@ void CPlayScene::Update(DWORD dt)
 		addobjects.clear();
 	}
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
-	if (player == NULL) return; 
+	if (player == NULL) return;
 
 	if (camera != NULL)
 	{
 		camera->Update();
 	}
-	if (GlobalVariables::GetInstance()->GameTimeLeft() <= 0)
-	{
-		EndScene();
-	}
-	if (__Mario->isEndScene)
-	{
-		this->waitEndScene_start = GetTickCount();
-		if (GetTickCount() - this->waitEndScene_start > END_GAME_TIME)
-		{
-			EndScene();
-		}
-	}
 }
 
-void CPlayScene::Render()
+void WorldMapScene::Render()
 {
-	maps->Render(camera);
+	tileMap->Render(camera);
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 	hud->Render();
 }
 
-/*
-	Unload current scene
-*/
-void CPlayScene::Unload()
+void WorldMapScene::Unload()
 {
 	for (int i = 0; i < objects.size(); i++)
 		delete objects[i];
@@ -249,17 +164,12 @@ void CPlayScene::Unload()
 	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
 }
 
-void CPlayScene::OnKeyUp(int KeyCode)
+void WorldMapScene::OnKeyUp(int KeyCode)
 {
 	player->OnKeyUp(KeyCode);
 }
 
-void CPlayScene::OnKeyDown(int KeyCode)
+void WorldMapScene::OnKeyDown(int KeyCode)
 {
 	player->OnKeyDown(KeyCode);
-}
-
-void CPlayScene::EndScene()
-{
-	CGame::GetInstance()->SwitchScene(1);
 }

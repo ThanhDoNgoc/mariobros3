@@ -41,7 +41,7 @@ CMario::CMario(float x, float y) : CGameObject()
 	this->y = y; 
 
 	this->obj = NULL;
-
+	this->isEndScene = false;
 	this->ObjectGroup = Group::player;
 	this->collision = Collision2D::Full;
 

@@ -5,7 +5,7 @@ Deadblock::Deadblock(int width, int height)
 	this->dbWidth = width;
 	this->dbHeight= height;
 
-	this->ObjectGroup = Group::projectile;
+	this->ObjectGroup = Group::dead;
 	this->collision = Collision2D::Full;
 }
 

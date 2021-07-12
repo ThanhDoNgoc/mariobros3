@@ -16,7 +16,7 @@
 #define GOOMBA_ANI_DIE		1
 
 #define GOOMBA_DIE_TIME		300
-
+#define GOOMBA_INSTANCE_DIE_TIME	2000
 enum class GoombaState
 {
 	walk,

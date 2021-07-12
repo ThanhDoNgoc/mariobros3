@@ -1,12 +1,15 @@
 #include "EndGameReward.h"
 #include"Camera.h"
 #include"Game.h"
+#include "Mario.h"
 EndGameReward::EndGameReward()
 {
 	this->isCollected = false;
+	this->isAddCard = false;
 	this->switchTime = GetTickCount();
 	this->state = REWARD_STATE_MUSHROOM;
-	
+	this->ObjectGroup = Group::item;
+	this->collision = Collision2D::None;
 	AddAnimation(ID_ANI_REWARD_MUSHROOM);
 	AddAnimation(ID_ANI_REWARD_FLOWER);
 	AddAnimation(ID_ANI_REWARD_STAR);
@@ -45,6 +48,12 @@ void EndGameReward::OnOverLap(CGameObject* obj)
 	if (obj->ObjectGroup == Group::player)
 	{
 		this->isCollected=true;
+		__Mario->isEndScene = true;
+		if (!isAddCard)
+		{
+			GlobalVariables::GetInstance()->AddCard(this->state + 1);
+			this->isAddCard = true;
+		}
 	}
 }
 
@@ -53,28 +62,39 @@ void EndGameReward::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vector<LPCOLLISIONEVENT> coEvents;
 	coEvents.clear();
 	CalcPotentialCollisions(coObjects, coEvents);
-	switch (state)
+	//CGameObject::Update(dt);
+	//x += dx;
+	//y += dy;
+	if (!isCollected)
 	{
-	case REWARD_STATE_MUSHROOM:
-		if (GetTickCount() - switchTime > SWITCH_TIME)
+		switch (state)
 		{
-			this->switchTime = GetTickCount();
-			this->state = REWARD_STATE_FLOWER;
+		case REWARD_STATE_MUSHROOM:
+			if (GetTickCount() - switchTime > SWITCH_TIME)
+			{
+				this->switchTime = GetTickCount();
+				this->state = REWARD_STATE_FLOWER;
+			}
+			break;
+		case REWARD_STATE_FLOWER:
+			if (GetTickCount() - switchTime > SWITCH_TIME)
+			{
+				this->switchTime = GetTickCount();
+				this->state = REWARD_STATE_STAR;
+			}
+			break;
+		case REWARD_STATE_STAR:
+			if (GetTickCount() - switchTime > SWITCH_TIME)
+			{
+				this->switchTime = GetTickCount();
+				this->state = REWARD_STATE_MUSHROOM;
+			}
+			break;
 		}
-		break;
-	case REWARD_STATE_FLOWER:
-		if (GetTickCount() - switchTime > SWITCH_TIME)
-		{
-			this->switchTime = GetTickCount();
-			this->state = REWARD_STATE_STAR;
-		}
-		break;
-	case REWARD_STATE_STAR:
-		if (GetTickCount() - switchTime > SWITCH_TIME)
-		{
-			this->switchTime = GetTickCount();
-			this->state = REWARD_STATE_MUSHROOM;
-		}
-		break;
+	}
+	else 
+	{
+		this->vy -= FLY_SPEED;
 	}
 }
+

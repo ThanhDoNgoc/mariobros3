@@ -13,6 +13,26 @@ GlobalVariables::GlobalVariables()
 	this->Game_time_start = GetTickCount();
 }
 
+void GlobalVariables::AddCard(int x)
+{
+	for (int i = 0; i < 3; i++)
+	{
+		if (cardCollected[i] == 0)
+		{
+			cardCollected[i] = x;
+			break;
+		}
+	}
+}
+
+void GlobalVariables::ResetCard()
+{
+	for (int i = 0; i < 3; i++)
+	{
+		cardCollected[i] = 0;
+	}
+}
+
 GlobalVariables* GlobalVariables::GetInstance()
 {
 	if (__instance == NULL)

@@ -4,4 +4,5 @@ animations.txt
 start	2
 #scene list
 [SCENES]
-2	scene2.txt
+1	overworld.txt
+2	world1-1.txt

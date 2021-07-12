@@ -14,25 +14,25 @@
 #include "KeyHanler.h"
 #include "Map.h"
 #include "HUD.h"
-
+#define END_GAME_TIME	3000
 class CPlayScene: public CScene
 {
 protected: 
 	CMario *player;					// A play scene has to have player, right? 
 	Map* maps;
-	HUD* hud;
 	float camL, camT, camR, camB;
 
 	void _ParseSection_OBJECTS(string line);
 	void _ParseSection_MAP(string line);
 	void _ParseSection_CAMERA(string line);
-
-	
-public: 
+	DWORD waitEndScene_start;
+	bool isEndGame=false;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> earseobjects;
 	vector<LPGAMEOBJECT> addobjects;
-
+	
+public: 
+	HUD* hud;
 	CPlayScene(int id, LPCWSTR filePath);
 
 	virtual void Load();
@@ -45,8 +45,7 @@ public:
 
 	virtual void AddObject(LPGAMEOBJECT addobject) { addobjects.push_back(addobject); };
 	virtual void DeleteObject(LPGAMEOBJECT object) { earseobjects.push_back(object); };
-
 	CMario * GetPlayer() { return player; } 
-
+	void EndScene();
 	//friend class CPlayScenceKeyHandler;
 };

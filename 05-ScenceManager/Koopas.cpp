@@ -74,10 +74,6 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		//if (rdx != 0 && rdx!=dx)
 		//	x += nx*abs(rdx); 
 
-		// block every object first!
-		/*x += min_tx * dx + nx * 0.4f;
-		y += min_ty * dy + ny * 0.4f;*/
-
 		if (nx != 0)
 		{
 		}
@@ -98,17 +94,25 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				{
 					if (koopaState==KoopaState::walk)
 						this->direction.x *= -1.0f;
-					else if (koopaState == KoopaState::slide || e->obj->ObjectGroup == Group::ground || e->obj->ObjectGroup == Group::block)
+					else if (koopaState == KoopaState::slide)
 					{
-						this->direction.x *= -1.0f;
-						e->obj->TakeDamage();
+						if (e->obj->ObjectGroup == Group::ground || e->obj->ObjectGroup == Group::block)
+						{
+							this->direction.x *= -1.0f;
+							e->obj->TakeDamage();
+						}
 					}
 				}
 			}
-			else if (e->obj->ObjectGroup == Group::marioprojectile) // if e->obj is projectile 
+			if (e->obj->ObjectGroup == Group::marioprojectile)
 			{
 				this->InstanceDead();
 				e->obj->TakeDamage();
+			}
+			else if (e->obj->ObjectGroup == Group::dead) 
+			{
+				CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
+				GlobalVariables::GetInstance()->AddScore(100);
 			}
 		}
 	}
@@ -175,9 +179,8 @@ void CKoopas::TakeDamage()
 
 void CKoopas::InstanceDead()
 {
-	SetState(KoopaState::die);
-	this->direction.y = -1;
 	this->vy = -KOOPAS_INSTANCE_DEAD_VY;
+	this->vx = KOOPAS_SHELL_MOVING_SPEED;
 }
 
 void CKoopas::BeingHold()

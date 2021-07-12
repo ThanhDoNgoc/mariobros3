@@ -36,7 +36,7 @@ class GlobalVariables
 	int plevel;
 	int mariolevel;
 	int playstate = 0;
-
+	int cardCollected[3] = { 1,0,0 };
 	DWORD Ptime_start;
 
 	DWORD Game_time_start;
@@ -54,6 +54,10 @@ public:
 	void ResetLife() { this->life = 4; }
 	void AddLife() { this->life += 1; }
 	int GetLife() { return this->life; }
+
+	int* GetCardCollected() { return cardCollected; }
+	void AddCard(int x);
+	void ResetCard();
 
 	void updatePlevel(int x) { this->plevel = x; }
 	int getPlevel() { return this->plevel; }

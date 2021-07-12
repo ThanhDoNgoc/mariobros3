@@ -37,6 +37,7 @@ public:
 	float width, height;
 	bool isOnGround, isMaxCharge;
 	bool isAttacking, isKicking, isHolding, isWarping;
+	bool isEndScene;
 	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f, 1.0f);
 	float abilytiBar;
 	PlayerState* _playerState;

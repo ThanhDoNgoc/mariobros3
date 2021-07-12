@@ -1,7 +1,3 @@
-[MAP]
-textures\MapData\World_1-1.tmx	textures\MapData\
-[CAMERA]
-0	192	8448	1296
 [OBJECTS]
 # type	x	y	ani_set_id	extra_settings per object type
 # type: 0 = Mario
@@ -10,4 +6,8 @@ textures\MapData\World_1-1.tmx	textures\MapData\
 # --- SCENE PORTAL ----
 # type	l	t	ani_set_id	r	b	scene_id
 50	300	98	0	380	150	2
+[MAP]
+textures\MapData\World_1-1.tmx	textures\MapData\
+[CAMERA]
+0	192	8448	1296
 

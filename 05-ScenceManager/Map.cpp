@@ -14,6 +14,8 @@
 #include "PSPortal.h"
 #include "BrickQBlock.h"
 #include "EndGameReward.h"
+#include "Mario.h"
+#include "Bush.h"
 Map::Map()
 {
 }
@@ -113,6 +115,20 @@ void Map::AddObject(TiXmlElement* RootElement)
 				ghost->SetPosition(x, y);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(ghost);
 				//DebugOut(L"[INFO] map object ghostplatform \n");
+			}
+			else if (name == "mario")
+			{
+				TMXObject->QueryFloatAttribute("x", &x);
+				TMXObject->QueryFloatAttribute("y", &y);
+				__Mario->SetPosition(x, y);
+			}
+			else if (name == "bush")
+			{
+				TMXObject->QueryFloatAttribute("x", &x);
+				TMXObject->QueryFloatAttribute("y", &y);
+				Bush* bush = new Bush();
+				bush->SetPosition(x, y);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(bush);
 			}
 			else if (name == "goomba")
 			{

@@ -128,6 +128,7 @@
     <ClCompile Include="Animations.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="BrickQBlock.cpp" />
+    <ClCompile Include="Bush.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Deadblock.cpp" />
@@ -167,6 +168,7 @@
     <ClCompile Include="QuestionBlock.cpp" />
     <ClCompile Include="RedFireShootingPlant.cpp" />
     <ClCompile Include="RedMushroom.cpp" />
+    <ClCompile Include="SceneMaganer.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="TileSet.cpp" />
     <ClCompile Include="tinyXML\tinyxml\tinystr.cpp" />
@@ -184,12 +186,15 @@
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Warp.cpp" />
+    <ClCompile Include="WorldMapMario.cpp" />
+    <ClCompile Include="WorldMapScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AniMaganer.h" />
     <ClInclude Include="Animations.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="BrickQBlock.h" />
+    <ClInclude Include="Bush.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Deadblock.h" />
@@ -233,6 +238,7 @@
     <ClInclude Include="QuestionBlock.h" />
     <ClInclude Include="RedFireShootingPlant.h" />
     <ClInclude Include="RedMushroom.h" />
+    <ClInclude Include="SceneMaganer.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="TileSet.h" />
     <ClInclude Include="tinyXML\tinyxml\tinystr.h" />
@@ -247,6 +253,8 @@
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="Warp.h" />
+    <ClInclude Include="WorldMapMario.h" />
+    <ClInclude Include="WorldMapScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

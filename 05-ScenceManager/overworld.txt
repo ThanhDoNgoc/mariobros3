@@ -1,0 +1,4 @@
+[MAP]
+textures\MapData\Overworld.tmx	textures\MapData\
+[CAMERA]
+0	0	768	576

@@ -54,7 +54,8 @@ enum class Group
 	item,
 	portal,
 	warp,
-	dead
+	dead,
+	none
 };
 enum class Collision2D
 {

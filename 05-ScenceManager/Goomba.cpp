@@ -69,7 +69,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 		if (nx != 0)
 		{
-			//this->direction.x * -1;
+			this->direction.x *= -1.0f;
 		}
 		if (ny != 0)
 		{
@@ -85,10 +85,6 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			{
 				x += min_tx * dx + nx * 0.4f;
 				y += min_ty * dy + ny * 0.4f;
-				if (e->nx != 0)
-				{
-					this->direction.x *= -1.0f;
-				}
 			}
 			if (e->obj->ObjectGroup == Group::projectile)
 			{
@@ -101,9 +97,17 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 
-	if (goombaState == GoombaState::die || goombaState == GoombaState::instancedead)
+	if (goombaState == GoombaState::die)
 	{
 		if (GetTickCount() - this->die_time > GOOMBA_DIE_TIME)
+		{
+			CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
+			GlobalVariables::GetInstance()->AddScore(100);
+		}
+	}
+	if (goombaState == GoombaState::instancedead)
+	{
+		if (GetTickCount() - this->die_time > GOOMBA_INSTANCE_DIE_TIME)
 		{
 			CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
 			GlobalVariables::GetInstance()->AddScore(100);
