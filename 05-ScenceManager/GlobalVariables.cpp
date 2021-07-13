@@ -1,5 +1,5 @@
 #include "GlobalVariables.h"
-
+#include "Utils.h"
 GlobalVariables* GlobalVariables::__instance = NULL;
 GlobalVariables::GlobalVariables()
 {
@@ -17,9 +17,11 @@ void GlobalVariables::AddCard(int x)
 {
 	for (int i = 0; i < 3; i++)
 	{
+		DebugOut(L" before card: %d \n ", cardCollected[i]);
 		if (cardCollected[i] == 0)
 		{
 			cardCollected[i] = x;
+			DebugOut(L" add card: %d \n ", cardCollected[i]);
 			break;
 		}
 	}

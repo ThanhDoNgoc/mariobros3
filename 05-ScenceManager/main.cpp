@@ -27,9 +27,8 @@
 
 #include "PlayScence.h"
 #include "AniMaganer.h"
+#include "GlobalVariables.h"
 
-#define WINDOW_CLASS_NAME L"SampleWindow"
-#define MAIN_WINDOW_TITLE L"SuperMarioBros3"
 
 #define BACKGROUND_COLOR D3DCOLOR_XRGB(181, 235, 242)
 #define SCREEN_WIDTH 768

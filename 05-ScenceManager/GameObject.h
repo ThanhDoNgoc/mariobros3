@@ -100,7 +100,8 @@ public:
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
 	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
-
+	float GetPositionX() { return this->x; }
+	float GetPositionY() { return this->y; }
 	void setHoldAble(bool holdAble) { this->isHoldAble = holdAble; }
 	void setBeingHold(bool beingHold) { this->isBeingHold = beingHold; }
 	bool getHoldAble() { return isHoldAble; }

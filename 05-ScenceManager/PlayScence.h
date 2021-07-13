@@ -20,6 +20,7 @@ class CPlayScene: public CScene
 protected: 
 	CMario *player;					// A play scene has to have player, right? 
 	Map* maps;
+	HUD* hud;
 	float camL, camT, camR, camB;
 
 	void _ParseSection_OBJECTS(string line);
@@ -32,7 +33,6 @@ protected:
 	vector<LPGAMEOBJECT> addobjects;
 	
 public: 
-	HUD* hud;
 	CPlayScene(int id, LPCWSTR filePath);
 
 	virtual void Load();

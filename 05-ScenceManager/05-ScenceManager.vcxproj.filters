@@ -127,7 +127,7 @@
     <Filter Include="GameObjects\Player\MarioProjectile">
       <UniqueIdentifier>{eec19655-f0fc-49c5-bad9-94761bcbe53d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObjects\Other">
+    <Filter Include="GameObjects\WorldMapObj">
       <UniqueIdentifier>{c4b53696-3d7e-4550-8326-f4696e6ee551}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -306,9 +306,6 @@
     <ClCompile Include="WorldMapScene.cpp">
       <Filter>Scenes\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="WorldMapMario.cpp">
-      <Filter>GameObjects\Player</Filter>
-    </ClCompile>
     <ClCompile Include="MarioFireBall.cpp">
       <Filter>GameObjects\Player\MarioProjectile</Filter>
     </ClCompile>
@@ -316,7 +313,22 @@
       <Filter>GameObjects\Player\MarioProjectile</Filter>
     </ClCompile>
     <ClCompile Include="Bush.cpp">
-      <Filter>GameObjects\Other</Filter>
+      <Filter>GameObjects\WorldMapObj</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeMap.cpp">
+      <Filter>GameObjects\WorldMapObj</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldMapMario.cpp">
+      <Filter>GameObjects\WorldMapObj</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>GameObjects\WorldMapObj</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroScene.cpp">
+      <Filter>Scenes\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Curtain.cpp">
+      <Filter>GameObjects\WorldMapObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -499,9 +511,6 @@
     <ClInclude Include="WorldMapScene.h">
       <Filter>Scenes\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="WorldMapMario.h">
-      <Filter>GameObjects\Player</Filter>
-    </ClInclude>
     <ClInclude Include="MarioFireBall.h">
       <Filter>GameObjects\Player\MarioProjectile</Filter>
     </ClInclude>
@@ -509,7 +518,22 @@
       <Filter>GameObjects\Player\MarioProjectile</Filter>
     </ClInclude>
     <ClInclude Include="Bush.h">
-      <Filter>GameObjects\Other</Filter>
+      <Filter>GameObjects\WorldMapObj</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeMap.h">
+      <Filter>GameObjects\WorldMapObj</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldMapMario.h">
+      <Filter>GameObjects\WorldMapObj</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>GameObjects\WorldMapObj</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroScene.h">
+      <Filter>Scenes\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Curtain.h">
+      <Filter>GameObjects\WorldMapObj</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

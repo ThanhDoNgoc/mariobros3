@@ -7,17 +7,13 @@
 
 #include "KeyHanler.h"
 #include "Map.h"
-#include "HUD.h"
-#include "WorldMapMario.h"
 #define MAX_SCENE_LINE 1024
-
-class WorldMapScene : public CScene
+class IntroScene : public CScene
 {
-	WorldMapMario* player;
 	Map* maps;
-	HUD* hud;
 	float camL, camT, camR, camB;
-
+	int option = 0;
+	DWORD startTime;
 	void _ParseSection_OBJECTS(string line);
 	void _ParseSection_MAP(string line);
 	void _ParseSection_CAMERA(string line);
@@ -26,9 +22,8 @@ class WorldMapScene : public CScene
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> earseobjects;
 	vector<LPGAMEOBJECT> addobjects;
-
 public:
-	WorldMapScene(int id, LPCWSTR filePath);
+	IntroScene(int id, LPCWSTR filePath);
 
 	virtual void Load();
 	virtual void Update(DWORD dt);
@@ -40,8 +35,10 @@ public:
 
 	virtual void AddObject(LPGAMEOBJECT addobject) { addobjects.push_back(addobject); };
 	virtual void DeleteObject(LPGAMEOBJECT object) { earseobjects.push_back(object); };
-	WorldMapMario * GetPlayer() { return player; }
-	//void EndScene();
-	//friend class CPlayScenceKeyHandler;
+	void DrawCurtain();
+	void DrawBushs();
+	void DrawFloor();
+	void DrawTittle();
+	void DrawSelection();
 };
 

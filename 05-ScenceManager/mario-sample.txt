@@ -1,8 +1,9 @@
 [ANIMATIONS]
 animations.txt
 [SETTINGS]
-start	2
+start	0
 #scene list
 [SCENES]
-1	overworld.txt
-2	world1-1.txt
+0	intro.txt	0
+1	overworld.txt	1
+2	world1-1.txt	2

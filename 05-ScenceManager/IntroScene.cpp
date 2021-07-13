@@ -1,7 +1,6 @@
-#include "WorldMapScene.h"
+#include "IntroScene.h"
 #include <iostream>
 #include <fstream>
-
 using namespace std;
 
 #define SCENE_SECTION_UNKNOWN -1
@@ -13,14 +12,11 @@ using namespace std;
 #define SCENE_SECTION_MAP	7
 #define SCENE_SECTION_CAMERA	8
 
-
-#define OBJECT_TYPE_PORTAL	50
-
-void WorldMapScene::_ParseSection_OBJECTS(string line)
+void IntroScene::_ParseSection_OBJECTS(string line)
 {
 }
 
-void WorldMapScene::_ParseSection_MAP(string line)
+void IntroScene::_ParseSection_MAP(string line)
 {
 	maps = new Map();
 	vector<string> tokens = split(line);
@@ -29,7 +25,7 @@ void WorldMapScene::_ParseSection_MAP(string line)
 	maps->LoadMap(filepath, path);
 }
 
-void WorldMapScene::_ParseSection_CAMERA(string line)
+void IntroScene::_ParseSection_CAMERA(string line)
 {
 	vector<string> tokens = split(line);
 	if (tokens.size() < 4) return;
@@ -39,18 +35,17 @@ void WorldMapScene::_ParseSection_CAMERA(string line)
 	this->camB = atof(tokens[3].c_str());
 }
 
-WorldMapScene::WorldMapScene(int id, LPCWSTR filePath) : CScene(id, filePath)
+IntroScene::IntroScene(int id, LPCWSTR filePath) : CScene(id, filePath)
 {
+	
 }
 
-void WorldMapScene::Load()
+void IntroScene::Load()
 {
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", sceneFilePath);
 
 	ifstream f;
 	f.open(sceneFilePath);
-	this->player = new WorldMapMario();
-	player->SetPosition(96, 144);
 	// current resource section flag
 	int section = SCENE_SECTION_UNKNOWN;
 
@@ -92,16 +87,13 @@ void WorldMapScene::Load()
 	this->camera = new Camera();
 	this->camera->SetCamPos(0, 0);
 	this->camera->SetCamLimit(camL, camT, camR, camB);
-	
+
 
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
 
-void WorldMapScene::Update(DWORD dt)
+void IntroScene::Update(DWORD dt)
 {
-	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
-	// TO-DO: This is a "dirty" way, need a more organized way 
-
 	vector<LPGAMEOBJECT> coObjects;
 
 
@@ -136,41 +128,93 @@ void WorldMapScene::Update(DWORD dt)
 
 		addobjects.clear();
 	}
-	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
-	if (player != NULL) player->Update();
-
-	if (camera != NULL)
-	{
-		camera->Update();
-	}
 }
 
-void WorldMapScene::Render()
+void IntroScene::Render()
 {
 	maps->Render(camera);
+	DrawCurtain();
+	DrawBushs();
+	DrawFloor();
+	DrawTittle();
+	DrawSelection();
+	DrawBushs();
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
-	player->Render();
-	hud->Render();
 }
 
-void WorldMapScene::Unload()
+void IntroScene::Unload()
 {
 	for (int i = 0; i < objects.size(); i++)
 		delete objects[i];
 
 	objects.clear();
-	player = NULL;
+
 
 	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
 }
 
-void WorldMapScene::OnKeyUp(int KeyCode)
+void IntroScene::OnKeyUp(int KeyCode)
 {
-	player->OnKeyUp(KeyCode);
 }
 
-void WorldMapScene::OnKeyDown(int KeyCode)
+void IntroScene::OnKeyDown(int KeyCode)
 {
-	player->OnKeyDown(KeyCode);
+	switch (KeyCode)
+	{
+	case DIK_UP:
+		this->option = 0;
+		break;
+	case DIK_DOWN:
+		this->option = 1;
+		break;
+	case DIK_A:
+		if (this->option == 0)
+		{
+			CGame::GetInstance()->SwitchScene(1);
+		}
+		break;
+	}
+
+}
+
+void IntroScene::DrawCurtain()
+{
+	auto sprite = CSprites::GetInstance();
+	CSprite* cutrain = sprite->Get(90010);
+	cutrain->Draw(0,0);
+}
+
+void IntroScene::DrawBushs()
+{
+	auto sprite = CSprites::GetInstance();
+	CSprite* bushleft = sprite->Get(90003);
+	CSprite* bushright = sprite->Get(90002);
+	bushleft->Draw(0, SCREEN_HEIGHT - 102-192);
+	bushright->Draw(SCREEN_WIDTH-165, SCREEN_HEIGHT - 102 - 288);
+}
+
+void IntroScene::DrawFloor()
+{
+	auto sprite = CSprites::GetInstance();
+	CSprite* floor = sprite->Get(90001);
+	floor->Draw(0, SCREEN_HEIGHT-102);
+}
+
+void IntroScene::DrawTittle()
+{
+	auto animation = CAnimations::GetInstance();
+	CAnimation* tittle = animation->Get(105);
+	tittle->Render(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2-140);
+}
+
+void IntroScene::DrawSelection()
+{
+	auto sprite = CSprites::GetInstance();
+	CSprite* choose = sprite->Get(90008);
+	if (this->option == 0)
+		choose = sprite->Get(90008);
+	else choose = sprite->Get(90009);
+	choose->Draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2+150);
+	//p2->Draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 }

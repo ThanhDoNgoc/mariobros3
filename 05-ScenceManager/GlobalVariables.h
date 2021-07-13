@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 
-#define WINDOW_CLASS_NAME L"SampleWindow"
+#define WINDOW_CLASS_NAME L"SuperMarioBros3"
 #define MAIN_WINDOW_TITLE L"SuperMarioBros3"
 
 #define BACKGROUND_COLOR D3DCOLOR_XRGB(181, 235, 242)

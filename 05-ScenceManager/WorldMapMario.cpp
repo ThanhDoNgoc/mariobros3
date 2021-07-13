@@ -9,6 +9,7 @@ WorldMapMario::WorldMapMario()
 	AddAnimation(ID_ANI_WORLDMAP_MARIO_RACC);
 	this->ObjectGroup = Group::player;
 	this->collision = Collision2D::None;
+	this->curentNode = 0;
 }
 
 void WorldMapMario::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -19,7 +20,7 @@ void WorldMapMario::GetBoundingBox(float& left, float& top, float& right, float&
 	bottom = right + WORLD_MAP_MARIO_HEIGHT;
 }
 
-void WorldMapMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void WorldMapMario::Update()
 {
 }
 
@@ -43,30 +44,58 @@ void WorldMapMario::Render()
 	}
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 
-	animation_set[ani]->Render(x - camera->GetCamPosX() + WORLD_MAP_MARIO_WIDTH / 2, y - camera->GetCamPosY() + WORLD_MAP_MARIO_HEIGHT / 2, direction, 255);
+	animation_set[ani]->Render(x - camera->GetCamPosX() + WORLD_MAP_MARIO_WIDTH / 2, y - camera->GetCamPosY() + WORLD_MAP_MARIO_HEIGHT / 2);
 
-	RenderBoundingBox();
-}
-
-void WorldMapMario::OnOverLap(CGameObject* obj)
-{
-}
-
-void WorldMapMario::OnKeyUp(int KeyCode)
-{
 }
 
 void WorldMapMario::OnKeyDown(int KeyCode)
 {
-	switch (KeyCode)
+	if (this->ismovingx || this->ismovingy) 
+		return;
+
+	auto currentnode = map->getNode(this->curentNode);
+
+	if (KeyCode == DIK_A)
 	{
-	case DIK_UP:
-		break;
-	case DIK_RIGHT:
-		break;
-	case DIK_LEFT:
-		break;
-	case DIK_DOWN:
-		break;
+		if (currentnode->getScence() != 0)
+			CGame::GetInstance()->SwitchScene(currentnode->getScence());
 	}
+
+
+	int acceptedKey;
+	for (auto adj : *currentnode->getAdjacentList())
+	{
+		switch (adj.direction)
+		{
+		case NextNode::left: acceptedKey = (DIK_LEFT); break;
+		case NextNode::right: acceptedKey = (DIK_RIGHT); break;
+		case NextNode::up: acceptedKey = (DIK_UP); break;
+		case NextNode::down: acceptedKey = (DIK_DOWN); break;
+		}
+
+		if (KeyCode == acceptedKey)
+		{
+			auto adjNode = map->getNode(adj.nodeID);
+			if (adjNode)
+			{
+				//this->x = currentnode->GetPositionX();
+				//this->y = currentnode->GetPositionY();
+
+				curentNode = adj.nodeID;
+				this->x = adjNode->GetPositionX();
+				this->y = adjNode->GetPositionY();
+			}
+			break;
+		}
+	}
+}
+
+void WorldMapMario::setMap(NodeMap* map)
+{
+	this->map = map;
+}
+
+NodeMap* WorldMapMario::getMap()
+{
+	return nullptr;
 }

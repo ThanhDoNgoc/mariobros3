@@ -165,6 +165,7 @@ void CPlayScene::Load()
 	this->camera->SetCamTarget(player);
 
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
+	GlobalVariables::GetInstance()->StartGameTime();
 }
 
 void CPlayScene::Update(DWORD dt)
@@ -220,7 +221,7 @@ void CPlayScene::Update(DWORD dt)
 	if (__Mario->isEndScene)
 	{
 		this->waitEndScene_start = GetTickCount();
-		if (GetTickCount() - this->waitEndScene_start > END_GAME_TIME)
+		if (GetTickCount() - this->waitEndScene_start >= END_GAME_TIME)
 		{
 			EndScene();
 		}

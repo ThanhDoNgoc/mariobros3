@@ -1,0 +1,4 @@
+[MAP]
+textures\MapData\Intro.tmx	textures\MapData\
+[CAMERA]
+0	0	768	576

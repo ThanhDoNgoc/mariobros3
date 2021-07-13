@@ -131,6 +131,7 @@
     <ClCompile Include="Bush.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Coin.cpp" />
+    <ClCompile Include="Curtain.cpp" />
     <ClCompile Include="Deadblock.cpp" />
     <ClCompile Include="EndGameReward.cpp" />
     <ClCompile Include="Flower.cpp" />
@@ -141,6 +142,7 @@
     <ClCompile Include="GreenMushroom.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="HUD.cpp" />
+    <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="KeyHanler.cpp" />
     <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="Leaf.cpp" />
@@ -151,6 +153,8 @@
     <ClCompile Include="MarioLevelRaccoon.cpp" />
     <ClCompile Include="MarioLevelSmall.cpp" />
     <ClCompile Include="MarioRaccoonTail.cpp" />
+    <ClCompile Include="Node.cpp" />
+    <ClCompile Include="NodeMap.cpp" />
     <ClCompile Include="PButton.cpp" />
     <ClCompile Include="PlantFireBall.cpp" />
     <ClCompile Include="PlayerStateAttack.cpp" />
@@ -197,6 +201,7 @@
     <ClInclude Include="Bush.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Coin.h" />
+    <ClInclude Include="Curtain.h" />
     <ClInclude Include="Deadblock.h" />
     <ClInclude Include="defineAni.h" />
     <ClInclude Include="defineMario.h" />
@@ -209,6 +214,7 @@
     <ClInclude Include="GreenMushroom.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="HUD.h" />
+    <ClInclude Include="IntroScene.h" />
     <ClInclude Include="KeyHanler.h" />
     <ClInclude Include="Koopas.h" />
     <ClInclude Include="Leaf.h" />
@@ -220,6 +226,8 @@
     <ClInclude Include="MarioLevelRaccoon.h" />
     <ClInclude Include="MarioLevelSmall.h" />
     <ClInclude Include="MarioRaccoonTail.h" />
+    <ClInclude Include="Node.h" />
+    <ClInclude Include="NodeMap.h" />
     <ClInclude Include="PButton.h" />
     <ClInclude Include="PlantFireBall.h" />
     <ClInclude Include="PlayerState.h" />

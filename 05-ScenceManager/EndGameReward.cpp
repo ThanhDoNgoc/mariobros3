@@ -51,7 +51,8 @@ void EndGameReward::OnOverLap(CGameObject* obj)
 		__Mario->isEndScene = true;
 		if (!isAddCard)
 		{
-			GlobalVariables::GetInstance()->AddCard(this->state + 1);
+			GlobalVariables::GetInstance()->AddCard(this->state+1);
+			DebugOut(L" endgamecard: %d \n ", this->state + 1);
 			this->isAddCard = true;
 		}
 	}

@@ -16,6 +16,11 @@
 #include "EndGameReward.h"
 #include "Mario.h"
 #include "Bush.h"
+#include "NodeMap.h"
+#include "Node.h"
+#include"Scence.h"
+#include "WorldMapScene.h"
+#include "Curtain.h"
 Map::Map()
 {
 }
@@ -76,6 +81,7 @@ void Map::AddObject(TiXmlElement* RootElement)
 {
 	for (TiXmlElement* TMXObjectsgroup = RootElement->FirstChildElement("objectgroup"); TMXObjectsgroup != NULL; TMXObjectsgroup = TMXObjectsgroup->NextSiblingElement("objectgroup"))
 	{
+		NodeMap* nodemap = new NodeMap();
 		for (TiXmlElement* TMXObject = TMXObjectsgroup->FirstChildElement("object"); TMXObject != NULL; TMXObject = TMXObject->NextSiblingElement("object"))
 		{
 			int id;
@@ -90,7 +96,7 @@ void Map::AddObject(TiXmlElement* RootElement)
 				Ground* ground = new Ground(width, height);
 				ground->SetPosition(x, y);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(ground);
-				DebugOut(L"[INFO] map object ground %f \n", x);
+				DebugOut(L"[INFO] map object ground %f \n", x); 
 
 			}
 			else if (name == "deadblock")
@@ -207,11 +213,85 @@ void Map::AddObject(TiXmlElement* RootElement)
 			}
 			else if (name == "endgamereward")
 			{
-			TMXObject->QueryFloatAttribute("x", &x);
-			TMXObject->QueryFloatAttribute("y", &y);
-			EndGameReward* reward = new EndGameReward();
-			reward->SetPosition(x+9, y+9);
-			CGame::GetInstance()->GetCurrentScene()->AddObject(reward);
+				TMXObject->QueryFloatAttribute("x", &x);
+				TMXObject->QueryFloatAttribute("y", &y);
+				EndGameReward* reward = new EndGameReward();
+				reward->SetPosition(x+9, y+9);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(reward);
+			}
+			if (name == "curtain")
+			{
+				TMXObject->QueryFloatAttribute("x", &x);
+				TMXObject->QueryFloatAttribute("y", &y);
+				Curtain* curtain = new Curtain();
+				curtain->SetPosition(x, y);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(curtain);
+
+			}
+			else if (name == "node")
+			{
+				int nodename = 0;
+				std::vector<std::string> adlist;
+				std::vector<std::string> weight;
+				int scence=0;
+				TMXObject->QueryFloatAttribute("x", &x);
+				TMXObject->QueryFloatAttribute("y", &y);
+				TMXObject->QueryFloatAttribute("width", &width);
+				TMXObject->QueryFloatAttribute("height", &height);
+				TiXmlElement* TMXproperties = TMXObject->FirstChildElement("properties");
+
+				if (TMXproperties != nullptr)
+				{
+					for (TiXmlElement* TMXproperty = TMXproperties->FirstChildElement("property"); TMXproperty != NULL; TMXproperty = TMXproperty->NextSiblingElement("property"))
+					{
+						std::string propertyname = TMXproperty->Attribute("name");
+
+						if (propertyname == "adjacent_list")
+						{
+							adlist = split(TMXproperty->Attribute("value"), ",");
+						}
+						else if (propertyname == "adjacent_weight")
+						{
+							weight = split(TMXproperty->Attribute("value"), ",");
+						}
+						else if (propertyname == "node_id")
+						{
+							nodename = std::stoi(TMXproperty->Attribute("value"));
+						}
+						else if (propertyname == "scene")
+						{
+							scence = std::stoi(TMXproperty->Attribute("value"));
+						}
+					}
+				}
+				Node* node = new Node();
+				node->SetPosition(x, y);
+				node->setNodeID(nodename);
+				node->setScence(scence);
+
+				auto adjacentlist = node->getAdjacentList();
+
+				for (int i = 0; i < adlist.size(); i++)
+				{
+					auto id = std::stoi(adlist[i]);
+
+					Edge edge;
+					edge.nodeID = id;
+
+					NextNode next = NextNode::none;
+
+					if (weight[i] == "l") next = NextNode::left;
+					else if (weight[i] == "r") next = NextNode::right;
+					else if (weight[i] == "u") next = NextNode::up;
+					else if (weight[i] == "d") next = NextNode::down;
+	
+					edge.direction = next;
+
+					adjacentlist->push_back(edge);
+				}
+
+				nodemap->InsertNode(node);
+				
 			}
 			else if (name == "wrap")
 			{
@@ -233,79 +313,88 @@ void Map::AddObject(TiXmlElement* RootElement)
 			}
 			else if (name == "psportal")
 			{
-			TMXObject->QueryFloatAttribute("x", &x);
-			TMXObject->QueryFloatAttribute("y", &y);
-			TMXObject->QueryFloatAttribute("width", &width);
-			TMXObject->QueryFloatAttribute("height", &height);
-			PSPortal* portal = new PSPortal(width, height);
-			portal->SetPosition(x, y);
+				TMXObject->QueryFloatAttribute("x", &x);
+				TMXObject->QueryFloatAttribute("y", &y);
+				TMXObject->QueryFloatAttribute("width", &width);
+				TMXObject->QueryFloatAttribute("height", &height);
+				PSPortal* portal = new PSPortal(width, height);
+				portal->SetPosition(x, y);
 
-			bool isstatic = false, isfollow = false, scrollx = false, scrolly = false;
-			float camL, camR, camT, camB;
-			float posX, posY;
+				bool isstatic = false, isfollow = false, scrollx = false, scrolly = false;
+				float camL, camR, camT, camB;
+				float posX, posY;
 
-			TiXmlElement* TMXproperties = TMXObject->FirstChildElement("properties");
+				TiXmlElement* TMXproperties = TMXObject->FirstChildElement("properties");
 
-			if (TMXproperties != nullptr)
-			{
-				for (TiXmlElement* TMXproperty = TMXproperties->FirstChildElement("property"); TMXproperty != NULL; TMXproperty = TMXproperty->NextSiblingElement("property"))
+				if (TMXproperties != nullptr)
 				{
+					for (TiXmlElement* TMXproperty = TMXproperties->FirstChildElement("property"); TMXproperty != NULL; TMXproperty = TMXproperty->NextSiblingElement("property"))
+					{
 
 
-					std::string propertyname = TMXproperty->Attribute("name");
+						std::string propertyname = TMXproperty->Attribute("name");
 					 
-					if (propertyname == "limitL")
-					{
-						TMXproperty->QueryFloatAttribute("value", &camL);
-					}
-					if (propertyname == "limitT")
-					{
-						TMXproperty->QueryFloatAttribute("value", &camT);
-					}
-					if (propertyname == "limitR")
-					{
-						TMXproperty->QueryFloatAttribute("value", &camR);
-					}
-					if (propertyname == "limitB")
-					{
-						TMXproperty->QueryFloatAttribute("value", &camB);
-					}
-					if (propertyname == "scrollx")
-					{
-						TMXproperty->QueryBoolAttribute("value", &scrollx);
-					}
-					if (propertyname == "scrolly")
-					{
-						TMXproperty->QueryBoolAttribute("value", &scrolly);
-					}
-					if (propertyname == "isstatic")
-					{
-						TMXproperty->QueryBoolAttribute("value", &isstatic);
-					}
-					if (propertyname == "isfollow")
-					{
-						TMXproperty->QueryBoolAttribute("value", &isfollow);
-					}
+						if (propertyname == "limitL")
+						{
+							TMXproperty->QueryFloatAttribute("value", &camL);
+						}
+						if (propertyname == "limitT")
+						{
+							TMXproperty->QueryFloatAttribute("value", &camT);
+						}
+						if (propertyname == "limitR")
+						{
+							TMXproperty->QueryFloatAttribute("value", &camR);
+						}
+						if (propertyname == "limitB")
+						{
+							TMXproperty->QueryFloatAttribute("value", &camB);
+						}
+						if (propertyname == "scrollx")
+						{
+							TMXproperty->QueryBoolAttribute("value", &scrollx);
+						}
+						if (propertyname == "scrolly")
+						{
+							TMXproperty->QueryBoolAttribute("value", &scrolly);
+						}
+						if (propertyname == "isstatic")
+						{
+							TMXproperty->QueryBoolAttribute("value", &isstatic);
+						}
+						if (propertyname == "isfollow")
+						{
+							TMXproperty->QueryBoolAttribute("value", &isfollow);
+						}
 
-					if (propertyname == "posx")
-					{
-						TMXproperty->QueryFloatAttribute("value", &posX);
-					}
-					if (propertyname == "posy")
-					{
-						TMXproperty->QueryFloatAttribute("value", &posY);
+						if (propertyname == "posx")
+						{
+							TMXproperty->QueryFloatAttribute("value", &posX);
+						}
+						if (propertyname == "posy")
+						{
+							TMXproperty->QueryFloatAttribute("value", &posY);
+						}
 					}
 				}
+
+				portal->scrollX = scrollx;
+				portal->scrollY = scrolly;
+				portal->isStatic = isstatic;
+				portal->isFolow = isfollow;
+				portal->setcam(camL, camT, camR, camB);
+				portal->setpos(posX, posY);
+
+				CGame::GetInstance()->GetCurrentScene()->AddObject(portal);
 			}
-
-			portal->scrollX = scrollx;
-			portal->scrollY = scrolly;
-			portal->isStatic = isstatic;
-			portal->isFolow = isfollow;
-			portal->setcam(camL, camT, camR, camB);
-			portal->setpos(posX, posY);
-
-			CGame::GetInstance()->GetCurrentScene()->AddObject(portal);
+		}
+		CScene* scence = CGame::GetInstance()->GetCurrentScene();
+		if (scence != NULL)
+		{
+			auto mapscence = dynamic_cast<WorldMapScene*>(scence);
+			if (mapscence != NULL)
+			{
+				mapscence->GetPlayer()->setMap(nodemap);
 			}
 		}
 	}

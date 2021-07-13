@@ -154,7 +154,8 @@ void HUD::DrawEndGame()
 	{
 		if (cardCollected[i] != 0)
 		{
-			card = sprites->Get(17 + i);
+			DebugOut(L" get card end: %d \n ", cardCollected[i]);
+			card = sprites->Get(16 + cardCollected[i]);
 			card->Draw(SCREEN_WIDTH / 2+150, SCREEN_HEIGHT / 2 - 200);
 			break;
 		}

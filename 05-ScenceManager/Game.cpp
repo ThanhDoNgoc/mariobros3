@@ -6,7 +6,11 @@
 
 #include "PlayScence.h"
 #include "AniMaganer.h"
-
+#include "WorldMapScene.h"
+#include "IntroScene.h"
+#define PLAY_SCENCE		2
+#define MAP_SCENCE		1
+#define INTRO_SCENCE	0
 CGame * CGame::__instance = NULL;
 
 /*
@@ -282,12 +286,28 @@ void CGame::_ParseSection_SCENES(string line)
 {
 	vector<string> tokens = split(line);
 
-	if (tokens.size() < 2) return;
+	if (tokens.size() < 3) return;
 	int id = atoi(tokens[0].c_str());
 	LPCWSTR path = ToLPCWSTR(tokens[1]);
+	int type = atoi(tokens[2].c_str());
 
-	LPSCENE scene = new CPlayScene(id, path);
-	scenes[id] = scene;
+	LPSCENE scene;
+	switch (type)
+	{
+	case PLAY_SCENCE:
+		scene = new CPlayScene(id, path);
+		scenes[id] = scene;
+		break;
+	case MAP_SCENCE:
+		scene = new WorldMapScene(id, path);
+		scenes[id] = scene;
+		break;
+	case INTRO_SCENCE:
+		scene = new IntroScene(id, path);
+		scenes[id] = scene;
+		break;
+	}
+	//scenes[id] = scene;
 }
 
 void CGame::_ParseSection_ANIMATIONS(string line)
@@ -347,6 +367,6 @@ void CGame::SwitchScene(int scene_id)
 	current_scene = scene_id;
 	LPSCENE s = scenes[scene_id];
 	s->Load();	
-	GlobalVariables::GetInstance()->StartGameTime();
+	//GlobalVariables::GetInstance()->StartGameTime();
 	__Mario->isEndScene = false;
 }
