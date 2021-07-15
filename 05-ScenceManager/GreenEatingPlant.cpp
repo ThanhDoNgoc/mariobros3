@@ -65,10 +65,9 @@ void GreenEatingPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	case GreeneatingState::slideup:
 	{
 		this->vy = -GREENEATING_SPEED;
-		distance += abs(vy * dt);
-		if (distance > GREENEATING_HEIGHT)
+		if (abs(this->y - this->startY) > GREENEATING_HEIGHT)
 		{
-			distance = GREENEATING_HEIGHT;
+			this->y = this->startY - GREENEATING_HEIGHT;
 			this->waitTime_start = GetTickCount();
 			state = GreeneatingState::idleup;
 		}
@@ -87,10 +86,9 @@ void GreenEatingPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	case GreeneatingState::slidedown:
 	{
 		this->vy = +GREENEATING_SPEED;
-		distance += abs(vy * dt);
-		if (distance > GREENEATING_HEIGHT)
+		if (this->y > this->startY)
 		{
-			distance = GREENEATING_HEIGHT;
+			this->y = this->startY;
 			this->hideTime_start = GetTickCount();
 			state = GreeneatingState::idledown;
 		}

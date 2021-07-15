@@ -30,7 +30,7 @@ void MarioRaccoonTail::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void MarioRaccoonTail::Render()
 {
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void MarioRaccoonTail::TakeDamage()

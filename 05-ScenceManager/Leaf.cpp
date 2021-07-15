@@ -81,6 +81,8 @@ void Leaf::OnOverLap(CGameObject* obj)
 	{
 		CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
 		GlobalVariables::GetInstance()->AddScore(1000);
+		if (__Mario->level = MARIO_LEVEL_SMALL)
+			__Mario->y -= MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT;
 		__Mario->_marioLevel = new MarioLevelRaccoon();
 	}
 }

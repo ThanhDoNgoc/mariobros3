@@ -48,7 +48,7 @@ void PlayerStateAttack::Update()
 	{
 		__Mario->SetState(new PlayerStateIdle);
 	}
-	if (__Mario->level = MARIO_LEVEL_RACCOON)
+	if (__Mario->level == MARIO_LEVEL_RACCOON)
 	{
 		if (GetTickCount() - raccoonAttackDelay > RACCOON_ATTACK_DELAY && cantailattack)
 		{

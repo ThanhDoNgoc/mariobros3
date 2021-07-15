@@ -171,6 +171,7 @@
     <ClCompile Include="PSPortal.cpp" />
     <ClCompile Include="QuestionBlock.cpp" />
     <ClCompile Include="RedFireShootingPlant.cpp" />
+    <ClCompile Include="RedKoopas.cpp" />
     <ClCompile Include="RedMushroom.cpp" />
     <ClCompile Include="SceneMaganer.cpp" />
     <ClCompile Include="TileMap.cpp" />
@@ -245,6 +246,7 @@
     <ClInclude Include="PSPortal.h" />
     <ClInclude Include="QuestionBlock.h" />
     <ClInclude Include="RedFireShootingPlant.h" />
+    <ClInclude Include="RedKoopas.h" />
     <ClInclude Include="RedMushroom.h" />
     <ClInclude Include="SceneMaganer.h" />
     <ClInclude Include="TileMap.h" />

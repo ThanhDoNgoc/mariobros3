@@ -7,3 +7,4 @@ start	0
 0	intro.txt	0
 1	overworld.txt	1
 2	world1-1.txt	2
+3	world1-3.txt	2

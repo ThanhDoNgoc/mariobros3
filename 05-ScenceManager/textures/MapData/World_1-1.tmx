@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="8" nextobjectid="267">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="8" nextobjectid="273">
  <tileset firstgid="1" name="world-1-1" tilewidth="48" tileheight="48" tilecount="870" columns="29">
   <image source="world-1-1.png" width="1392" height="1440"/>
  </tileset>
@@ -153,7 +153,7 @@
   <object id="92" name="ground" x="4944" y="1104" width="48" height="48"/>
   <object id="93" name="ground" x="4944" y="1152" width="96" height="48"/>
   <object id="94" name="ground" x="4944" y="1200" width="144" height="48"/>
-  <object id="95" name="ground" x="4944" y="1248" width="1728" height="48"/>
+  <object id="95" name="ground" x="4944" y="1248" width="1725" height="48"/>
   <object id="96" name="ground" x="5328" y="1152" width="96" height="96"/>
   <object id="97" name="ground" x="5520" y="1104" width="96" height="144"/>
   <object id="98" name="ground" x="6720" y="480" width="96" height="528"/>
@@ -170,13 +170,13 @@
   <object id="112" name="ground" x="7152" y="1776" width="48" height="96"/>
   <object id="113" name="ground" x="7104" y="1824" width="48" height="48"/>
   <object id="115" name="ground" x="6816" y="1392" width="576" height="48"/>
-  <object id="127" name="mario" x="96" y="1104">
+  <object id="127" name="mario" x="96" y="1152">
    <point/>
   </object>
   <object id="129" name="goomba" x="960" y="1152">
    <point/>
   </object>
-  <object id="130" name="koopa" x="624" y="1152">
+  <object id="130" name="koopa" x="4320" y="1152">
    <point/>
   </object>
   <object id="131" name="ghostplatform" x="720" y="1104" width="144" height="48"/>
@@ -372,13 +372,13 @@
    <point/>
   </object>
   <object id="213" name="deadblock" x="0" y="1296" width="8448" height="48"/>
-  <object id="218" name="redfiretree" x="1080" y="1104">
+  <object id="218" name="redfiretree" x="1080" y="1109">
    <point/>
   </object>
-  <object id="219" name="greenfiretree" x="5544" y="1104">
+  <object id="219" name="greenfiretree" x="5544" y="1109">
    <point/>
   </object>
-  <object id="220" name="greeneating" x="5352" y="1152">
+  <object id="220" name="greeneating" x="5352" y="1157">
    <point/>
   </object>
   <object id="222" name="wrap" type="down" x="6744" y="456">
@@ -427,6 +427,21 @@
    <point/>
   </object>
   <object id="266" name="qblock" type="leaf" x="4368" y="1104">
+   <point/>
+  </object>
+  <object id="267" name="redkoopa" x="1632" y="1056">
+   <point/>
+  </object>
+  <object id="268" name="redkoopa" x="6240" y="1056">
+   <point/>
+  </object>
+  <object id="269" name="goomba" x="2544" y="1152">
+   <point/>
+  </object>
+  <object id="270" name="goomba" x="2688" y="1152">
+   <point/>
+  </object>
+  <object id="271" name="goomba" x="1488" y="1200">
    <point/>
   </object>
  </objectgroup>

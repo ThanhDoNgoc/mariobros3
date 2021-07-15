@@ -15,7 +15,6 @@ RedMushroom::RedMushroom()
 void RedMushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGame* game = CGame::GetInstance();
-	CGameObject::Update(dt);
 	this->x += dx;
 	this->y += dy;
 
@@ -57,8 +56,7 @@ void RedMushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-
-
+	CGameObject::Update(dt);
 }
 
 void RedMushroom::Render()

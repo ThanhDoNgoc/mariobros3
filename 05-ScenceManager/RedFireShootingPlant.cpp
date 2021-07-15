@@ -70,10 +70,16 @@ void RedFireShootingPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	case ShootPlantState::slideup:
 	{
 		this->vy = -RED_FIRE_SHOOTING_PLANT_SPEED;
-		distance += abs(vy * dt);
+		/*distance += abs(vy * dt);
 		if (distance> fsheight)
 		{
 			distance = fsheight;
+			this->waitTime_start = GetTickCount();
+			state = ShootPlantState::idleup;
+		}*/
+		if (abs(this->y - this->startY) > fsheight)
+		{
+			this->y = this->startY - fsheight;
 			this->waitTime_start = GetTickCount();
 			state = ShootPlantState::idleup;
 		}
@@ -94,10 +100,16 @@ void RedFireShootingPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	case ShootPlantState::slidedown:
 	{
 		this->vy = +RED_FIRE_SHOOTING_PLANT_SPEED;
-		distance += abs(vy * dt);
+		/*distance += abs(vy * dt);
 		if (distance > fsheight)
 		{
 			distance = fsheight;
+			this->hideTime_start = GetTickCount();
+			state = ShootPlantState::idledown;
+		}*/
+		if (this->y > this->startY)
+		{
+			this->y = this->startY;
 			this->hideTime_start = GetTickCount();
 			state = ShootPlantState::idledown;
 		}

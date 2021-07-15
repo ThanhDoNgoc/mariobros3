@@ -1,7 +1,5 @@
 #pragma once
-
 #include "GameObject.h"
-
 #define KOOPAS_WALKING_SPEED		0.03f
 #define KOOPAS_SHELL_MOVING_SPEED	0.35f
 #define KOOPAS_INSTANCE_DEAD_VY		0.8f
@@ -20,15 +18,16 @@
 
 #define TIME_RESTORE_MOVE 4000
 
-enum class KoopaState
+enum class RedKoopaState
 {
 	walk,
 	shell,
 	slide,
-	die
+	die,
+	troppa
 };
 
-class CKoopas : public CGameObject
+class RedKoopas : public CGameObject
 {
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -36,11 +35,12 @@ class CKoopas : public CGameObject
 	DWORD startShellTime;
 	float velocity;
 public:
-	CKoopas();
-	KoopaState koopaState;
+	RedKoopas();
+	RedKoopaState koopaState;
 	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f, 1.0f);
-	void SetState(KoopaState state);
+	void SetState(RedKoopaState state);
 	virtual void TakeDamage();
 	void InstanceDead();
 	virtual void OnOverLap(CGameObject* obj);
 };
+

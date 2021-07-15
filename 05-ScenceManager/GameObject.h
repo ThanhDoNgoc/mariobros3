@@ -47,6 +47,7 @@ enum class Group
 	enemy,
 	ground,
 	block,
+	brick,
 	projectile,
 	projectile2,
 	marioprojectile,
@@ -107,7 +108,7 @@ public:
 	bool getHoldAble() { return isHoldAble; }
 	bool getBeingHold() { return isBeingHold; }
 
-	//int GetState() { return this->state; }
+	int GetState() { return this->state; }
 	virtual void OnOverLap(CGameObject* object) {};
 	bool IsOverLapped(CGameObject* object);
 	bool CheckOverlapped(float left, float top, float right, float bottom, float left1, float top1, float right1, float bottom1);
@@ -127,7 +128,16 @@ public:
 		float &ny, 
 		float &rdx, 
 		float &rdy);
-
+	void FilterCollisionX(
+		vector<LPCOLLISIONEVENT>& coEvents,
+		vector<LPCOLLISIONEVENT>& coEventsResult,
+		float& min_tx, float& nx, float& rdx);
+	void FilterCollisionY(
+		vector<LPCOLLISIONEVENT>& coEvents,
+		vector<LPCOLLISIONEVENT>& coEventsResult,
+		float& min_ty,
+		float& ny,
+		float& rdy);
 	void AddAnimation(int aniID);
 
 	CGameObject();

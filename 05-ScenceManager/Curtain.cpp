@@ -1,5 +1,5 @@
 #include "Curtain.h"
-#define ID_ANI_CURTAIN	106
+#define ID_ANI_CURTAIN	1006
 Curtain::Curtain()
 {
 	AddAnimation(ID_ANI_CURTAIN);

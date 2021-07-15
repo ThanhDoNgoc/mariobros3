@@ -21,6 +21,7 @@
 #include"Scence.h"
 #include "WorldMapScene.h"
 #include "Curtain.h"
+#include "RedKoopas.h"
 Map::Map()
 {
 }
@@ -168,6 +169,14 @@ void Map::AddObject(TiXmlElement* RootElement)
 				obj->SetPosition(x, y);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(obj);
 				DebugOut(L"[INFO] greeneating \n");
+			}
+			else if (name == "redkoopa")
+			{
+				TMXObject->QueryFloatAttribute("x", &x);
+				TMXObject->QueryFloatAttribute("y", &y);
+				RedKoopas* koopa = new RedKoopas();
+				koopa->SetPosition(x, y);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(koopa);
 			}
 			else if (name == "koopa")
 			{

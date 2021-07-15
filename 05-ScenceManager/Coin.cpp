@@ -8,13 +8,31 @@ Coin::Coin()
 	AddAnimation(ID_ANI_COIN);
 	ObjectGroup = Group::item;
 	collision = Collision2D::None;
+	this->isSprouting = false;
+	this->vx = 0;
+	this->vy = 0;
 }
 
 void Coin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	CGameObject::Update(dt);
 	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
 	coEvents.clear();
 	CalcPotentialCollisions(coObjects, coEvents);
+	if (isSprouting)
+	{
+		vy += 0.0015 * dt;
+		if (this->y > this->startY)
+		{
+				CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
+				GlobalVariables::GetInstance()->AddCoin(1);
+		}
+	}
+
+	x += dx;
+	y += dy;
 }
 
 void Coin::Render()
@@ -40,4 +58,10 @@ void Coin::OnOverLap(CGameObject* obj)
 		CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
 		GlobalVariables::GetInstance()->AddCoin(1);
 	}
+}
+
+void Coin::Sprout()
+{
+	this->vy = -0.5;
+	this->isSprouting = true;
 }

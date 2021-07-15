@@ -36,7 +36,7 @@ class GlobalVariables
 	int plevel;
 	int mariolevel;
 	int playstate = 0;
-	int cardCollected[3] = { 1,0,0 };
+	int cardCollected[3] = { 0,0,0 };
 	DWORD Ptime_start;
 
 	DWORD Game_time_start;

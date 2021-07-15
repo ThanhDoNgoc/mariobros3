@@ -24,4 +24,5 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void BrickToCoin();
 	virtual void OnOverLap(CGameObject* obj);
+	void Bound();
 };

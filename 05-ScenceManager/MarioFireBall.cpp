@@ -76,7 +76,8 @@ void MarioFireBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			if (e->obj->ObjectGroup == Group ::enemy)
 			{
-				this->TakeDamage();
+				if (ny != 0)
+					this->TakeDamage();
 			}
 		}
 	}
@@ -91,7 +92,7 @@ void MarioFireBall::Render()
 
 	animation_set[FIREBALL_ANI]->Render(x - camera->GetCamPosX() + FIREBALL_BBOX_WIDTH / 2, y - camera->GetCamPosY() + FIREBALL_BBOX_HEIGHT / 2, direction, 255);
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void MarioFireBall::TakeDamage()

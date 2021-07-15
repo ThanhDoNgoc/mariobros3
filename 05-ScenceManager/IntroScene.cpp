@@ -204,7 +204,7 @@ void IntroScene::DrawFloor()
 void IntroScene::DrawTittle()
 {
 	auto animation = CAnimations::GetInstance();
-	CAnimation* tittle = animation->Get(105);
+	CAnimation* tittle = animation->Get(1005);
 	tittle->Render(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2-140);
 }
 

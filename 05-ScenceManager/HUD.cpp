@@ -182,7 +182,7 @@ void HUD::DrawCard()
 	{
 		if (cardCollected[i] != 0)
 		{
-			card = sprites->Get(14+i);
+			card = sprites->Get(13+ cardCollected[i]);
 			card->Draw(SCREEN_WIDTH / 2 +168 +i*CARD_WIDTH, (SCREEN_HEIGHT - 90));
 		}
 	}

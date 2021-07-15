@@ -9,6 +9,7 @@
 class Coin:public CGameObject
 {
 	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f, 1.0f);
+	bool isSprouting;
 public:
 	Coin();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -16,5 +17,6 @@ public:
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
 	virtual void TakeDamage() {};
 	virtual void OnOverLap(CGameObject* obj);
+	void Sprout();
 };
 

@@ -63,7 +63,7 @@ void QuestionBlock::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 }
 
-void QuestionBlock::SetItem(string item)
+void QuestionBlock:: SetItem(string item)
 {
 	if (item == "coin")
 		this->qblockItem = Item::Coin;
@@ -87,6 +87,10 @@ void QuestionBlock::SpawnItem()
 	{
 	case Item::Coin:
 	{
+		Coin* coin = new Coin();
+		coin->SetPosition(this->x, this->y);
+		CGame::GetInstance()->GetCurrentScene()->AddObject(coin);
+		coin->Sprout();
 		break;
 	}
 	case Item::RedMushroom:

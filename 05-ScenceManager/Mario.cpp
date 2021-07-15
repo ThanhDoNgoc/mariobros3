@@ -12,6 +12,8 @@
 #include "Warp.h"
 #include "Leaf.h"
 #include "PSPortal.h"
+#include "Brick.h"
+#include "RedKoopas.h"
 
 #include "PlayerState.h"
 #include "PlayerStateIdle.h"
@@ -193,6 +195,34 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					}
 				}
 			}
+			else if (dynamic_cast<RedKoopas*>(e->obj))
+			{
+				RedKoopas* koopa = dynamic_cast<RedKoopas*>(e->obj);
+				if (koopa->koopaState == RedKoopaState::shell)
+				{
+					if (KeyHanler::GetInstance()->IsKeyDown(DIK_A))
+					{
+						koopa->isBeingHold = true;
+						this->obj = koopa;
+						this->isHolding = true;
+					}
+					else
+					{
+						koopa->direction.x = this->direction.x;
+						koopa->SetState(RedKoopaState::slide);
+						StartKick();
+					}
+				}
+			}
+			else if (dynamic_cast<CBrick*>(e->obj))
+			{
+				CBrick* brick = dynamic_cast<CBrick*>(e->obj);
+				if (e->ny > 0)
+				{
+					if (this->level != MARIO_LEVEL_SMALL)
+						brick->TakeDamage();
+				}
+			}
 			else if (e->obj->ObjectGroup == Group::projectile)
 			{
 				this->TakeDamage();
@@ -204,7 +234,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			}
 			else if (e->obj->ObjectGroup == Group::item)
 			{
-					e->obj->TakeDamage();
+				e->obj->TakeDamage();
 			}
 		}
 	}
@@ -255,7 +285,8 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 
 void CMario::TakeDamage()
 {
-	this->_marioLevel->LevelDown();
+	if (!untouchable)
+		this->_marioLevel->LevelDown();
 }
 
 /*
@@ -346,6 +377,19 @@ void CMario::OnOverLap(CGameObject* obj)
 			}
 		}
 	}
+	else if (dynamic_cast<RedKoopas*>(obj))
+	{
+		RedKoopas* koopa = dynamic_cast<RedKoopas*>(obj);
+		if (koopa->koopaState == RedKoopaState::shell)
+		{
+			if (!isHolding)
+			{
+				koopa->direction.x = this->direction.x;
+				koopa->SetState(RedKoopaState::slide);
+				StartKick();
+			}
+		}
+	}
 	else if (obj->ObjectGroup == Group::warp)
 	{
 		auto warp = static_cast<Warp*>(obj);
@@ -382,6 +426,10 @@ void CMario::OnOverLap(CGameObject* obj)
 			this->_marioLevel = new MarioLevelRaccoon();
 			break;
 		}
+	}
+	if (obj->ObjectGroup == Group::item)
+	{
+		obj->TakeDamage();
 	}
 
 }

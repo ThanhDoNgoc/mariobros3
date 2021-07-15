@@ -1,7 +1,7 @@
 #include "Brick.h"
 #include "Game.h"
 #include "Camera.h"
-
+#include "Mario.h"
 CBrick::CBrick()
 {
 	AddAnimation(ID_ANI_BRICK);
@@ -9,6 +9,8 @@ CBrick::CBrick()
 	ObjectGroup = Group::block;
 	collision = Collision2D::Full;
 	this->state = STATE_BRICK;
+	this->vy = 0;
+	this->vx = 0;
 }
 
 void CBrick::Render()
@@ -32,7 +34,10 @@ void CBrick::GetBoundingBox(float &l, float &t, float &r, float &b)
 
 void CBrick::TakeDamage()
 {
-	CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
+	if (state == STATE_BRICK)
+	{
+		CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
+	}
 }
 
 void CBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -54,6 +59,15 @@ void CBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			this->state = STATE_BRICK;
 			this->collision = Collision2D::Full;
 		}
+
+	this->y += vy * dt;
+
+	if (this->y > this->startY)
+	{
+		this->y = this->startY;
+		vy = 0;
+	}
+
 }
 
 void CBrick::BrickToCoin()
@@ -83,4 +97,10 @@ void CBrick::OnOverLap(CGameObject* obj)
 		break;		
 	}
 	}
+}
+
+void CBrick::Bound()
+{
+	this->y -= 12;
+	this->vy = 0.05f;
 }

@@ -1,27 +1,11 @@
-#include "Koopas.h"
+#include "RedKoopas.h"
 #include "Game.h"
 #include "Camera.h"
 #include "Goomba.h"
 #include "Mario.h"
-
-CKoopas::CKoopas()
+void RedKoopas::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	AddAnimation(ID_ANI_KOOPAS_WALK);
-	AddAnimation(ID_ANI_KOOPAS_SHELL);
-	AddAnimation(ID_ANI_KOOPAS_SHELL_MOVING);
-	this->SetState(KoopaState::walk);
-
-	this->ObjectGroup = Group::enemy;
-	this->collision = Collision2D::Full;
-
-	isBeingHold = false;
-	//this->direction.x *= -1.0f;
-	this->startShellTime = 0;
-}
-
-void CKoopas::GetBoundingBox(float &left, float &top, float &right, float &bottom)
-{
-	if (koopaState == KoopaState::die) return;
+	if (koopaState == RedKoopaState::die) return;
 
 	left = x;
 	top = y;
@@ -29,31 +13,30 @@ void CKoopas::GetBoundingBox(float &left, float &top, float &right, float &botto
 	bottom = y + KOOPAS_BBOX_HEIGHT;
 }
 
-void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
+void RedKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-
 	CGame* game = CGame::GetInstance();
-	
+
 	if (isBeingHold)
 	{
-		if (__Mario->direction.x<0)
+		if (__Mario->direction.x < 0)
 			this->x = __Mario->x - __Mario->width;
-		else this->x = __Mario->x + __Mario->width-3;
+		else this->x = __Mario->x + __Mario->width - 3;
 		if (__Mario->level == MARIO_LEVEL_SMALL)
 			this->y = __Mario->y - __Mario->height / 2;
-		else this->y = __Mario->y + __Mario->height / 4 ;
+		else this->y = __Mario->y + __Mario->height / 4;
 		return;
 	}
 	CGameObject::Update(dt);
 
-	this->vy += KOOPAS_GRAVITY*dt;
+	this->vy += KOOPAS_GRAVITY * dt;
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
 	coEvents.clear();
 
-	if (koopaState!=KoopaState::die)
+	if (koopaState != RedKoopaState::die)
 		CalcPotentialCollisions(coObjects, coEvents);
 
 	// No collision occured, proceed normally
@@ -82,7 +65,7 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			{
 				if (e->nx != 0)
 				{
-					if (koopaState == KoopaState::slide)
+					if (koopaState == RedKoopaState::slide)
 					{
 						if (e->obj->ObjectGroup == Group::block)
 						{
@@ -96,9 +79,8 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			if (e->obj->ObjectGroup == Group::marioprojectile || e->obj->ObjectGroup == Group::projectile)
 			{
 				this->InstanceDead();
-				//e->obj->TakeDamage();
 			}
-			else if (e->obj->ObjectGroup == Group::dead) 
+			else if (e->obj->ObjectGroup == Group::dead)
 			{
 				CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
 				GlobalVariables::GetInstance()->AddScore(100);
@@ -106,32 +88,57 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 		if (nx != 0)
 		{
-			this->direction.x = -this->direction.x;
+ 			this->direction.x = -this->direction.x;
 			DebugOut(L" change direc x: \n ");
 		}
 		if (ny != 0)
 		{
 			this->vy = 0;
 		}
+		if (coEvents.size() == 1 && koopaState == RedKoopaState::walk)
+		{
+
+			LPCOLLISIONEVENT e = coEvents[0];
+			LPGAMEOBJECT obj = e->obj;
+			if (e->ny < 0)
+			{
+				float left, top, right, bottom;
+				obj->GetBoundingBox(left,top, right, bottom);
+				if (left > this->x +KOOPAS_BBOX_WIDTH/3)
+				{
+					this->direction.x = 1.0f;
+				}
+				else if (right < this->x +KOOPAS_BBOX_WIDTH - KOOPAS_BBOX_WIDTH/3)
+				{
+					this->direction.x = -1.0f;
+				}
+			}
+
+		}
 	}
 	this->vx = this->velocity * this->direction.x;
+	DebugOut(L" direction x koopas: %f \n ", this->direction.x);
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
-void CKoopas::Render()
+void RedKoopas::Render()
 {
 	int ani = KOOPAS_ANI_WALKING;
 	switch (koopaState)
 	{
-	case KoopaState::walk:
+	case RedKoopaState::walk:
 		ani = KOOPAS_ANI_WALKING;
 		break;
-	case KoopaState::shell:
+	case RedKoopaState::shell:
 		ani = KOOPAS_ANI_SHELL;
 		break;
-	case KoopaState::slide:
+	case RedKoopaState::slide:
 		ani = KOOPAS_ANI_SHELLMOVING;
+		break;
+	case RedKoopaState::die:
+		direction.y = -1.0f;
+		collision = Collision2D::None;
 		break;
 	}
 	D3DXVECTOR2 renderdirec = direction;
@@ -141,50 +148,63 @@ void CKoopas::Render()
 	animation_set[ani]->Render(x - camera->GetCamPosX() + KOOPAS_BBOX_WIDTH / 2, y - camera->GetCamPosY() + KOOPAS_BBOX_HEIGHT / 2, renderdirec, 255);
 
 	RenderBoundingBox();
-
 }
 
-void CKoopas::SetState(KoopaState state)
+RedKoopas::RedKoopas()
 {
-	//CGameObject::SetState(state);
+	AddAnimation(ID_ANI_KOOPAS_WALK);
+	AddAnimation(ID_ANI_KOOPAS_SHELL);
+	AddAnimation(ID_ANI_KOOPAS_SHELL_MOVING);
+	this->SetState(RedKoopaState::walk);
+
+	this->ObjectGroup = Group::enemy;
+	this->collision = Collision2D::Full;
+
+	isBeingHold = false;
+	this->direction.x *= -1.0f;
+	this->startShellTime = 0;
+}
+
+void RedKoopas::SetState(RedKoopaState state)
+{
 	this->koopaState = state;
 	switch (koopaState)
 	{
-	case KoopaState::walk:
+	case RedKoopaState::walk:
 		this->velocity = KOOPAS_WALKING_SPEED;
 		this->ObjectGroup = Group::enemy;
 		break;
-	case KoopaState::shell:
+	case RedKoopaState::shell:
 		this->velocity = 0;
 		this->ObjectGroup = Group::shell;
 		this->y -= 0.4;
 		break;
-	case KoopaState::slide:
+	case RedKoopaState::slide:
 		this->velocity = KOOPAS_SHELL_MOVING_SPEED;
 		this->ObjectGroup = Group::projectile;
 		this->y -= 0.4;
 		break;
-	case KoopaState::die:
+	case RedKoopaState::die:
 		break;
 	}
 	DebugOut(L" velocity x: %f \n ", this->vx);
 }
 
-void CKoopas::TakeDamage()
+void RedKoopas::TakeDamage()
 {
-	if (koopaState == KoopaState::walk)
-		SetState(KoopaState::shell);
+	if (koopaState == RedKoopaState::walk)
+		SetState(RedKoopaState::shell);
 }
 
-void CKoopas::InstanceDead()
+void RedKoopas::InstanceDead()
 {
-	if (koopaState == KoopaState::walk)
-		SetState(KoopaState::shell);
+	if (koopaState == RedKoopaState::walk)
+		SetState(RedKoopaState::die);
 	this->vy = -KOOPAS_INSTANCE_DEAD_VY;
 	this->vx = KOOPAS_SHELL_MOVING_SPEED;
 }
 
-void CKoopas::OnOverLap(CGameObject* obj)
+void RedKoopas::OnOverLap(CGameObject* obj)
 {
 	if (obj->ObjectGroup == Group::marioprojectile)
 	{

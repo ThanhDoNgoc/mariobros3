@@ -103,14 +103,19 @@ void CGameObject::FilterCollision(
 	float &min_tx, float &min_ty, 
 	float &nx, float &ny, float &rdx, float &rdy)
 {
+	vector<LPGAMEOBJECT> coObjectsResult;
+	for (UINT i = 0; i < coEvents.size(); i++)  coObjectsResult.push_back(coEvents[i]->obj);
+
+	vector<LPCOLLISIONEVENT> coEventsxy;
+	float tempx, tempy;
 	min_tx = 1.0f;
 	min_ty = 1.0f;
 	int min_ix = -1;
 	int min_iy = -1;
-
 	nx = 0.0f;
 	ny = 0.0f;
-
+	tempx = this->x;
+	tempy = this->y;
 	coEventsResult.clear();
 
 	for (UINT i = 0; i < coEvents.size(); i++)
@@ -126,8 +131,104 @@ void CGameObject::FilterCollision(
 		}
 	}
 
-	if (min_ix>=0) coEventsResult.push_back(coEvents[min_ix]);
-	if (min_iy>=0) coEventsResult.push_back(coEvents[min_iy]);
+	if (min_tx > min_ty)
+	{
+		x += min_ty * dx;
+		y += min_ty * dy + ny * 0.4f;
+		dy = 0;
+		coEventsResult.push_back(coEvents[min_iy]);
+		coEventsxy.clear();
+
+		CalcPotentialCollisions(&coObjectsResult, coEventsxy);
+		if (coEvents.size() > 0)
+		{
+			FilterCollisionX(coEventsxy, coEventsResult, min_tx, nx, rdx);
+			if (min_ty + min_tx < 1) min_tx = min_ty + min_tx;
+			else min_tx = 1;
+
+		}
+		else
+		{
+			nx = 0;
+			min_tx = 1;
+		}
+		dy = vy * dt;
+		y -= min_ty * dy + ny * 0.4f;
+		x -= min_ty * dx;
+
+	}
+	else
+	{
+
+
+		x += min_tx * dx + nx * 0.4f;
+		y += min_tx * dy;
+		dx = 0;
+		coEventsResult.push_back(coEvents[min_ix]);
+		coEventsxy.clear();
+		CalcPotentialCollisions(&coObjectsResult, coEventsxy);
+		if (coEvents.size() > 0)
+		{
+			FilterCollisionY(coEventsxy, coEventsResult, min_ty, ny, rdy);
+			if (min_ty + min_tx < 1) min_ty = min_ty + min_tx;
+			else min_ty = 1;
+		}
+
+		else
+		{
+
+			ny = 0;
+			min_ty = 1;
+		}
+		dx = vx * dt;
+		x -= min_tx * dx + nx * 0.4f;
+		y -= min_tx * dy;
+	}
+	for (UINT i = 0; i < coEventsxy.size(); i++)  coEvents.push_back(coEventsxy[i]);
+}
+
+void CGameObject::FilterCollisionX(
+	vector<LPCOLLISIONEVENT>& coEvents, 
+	vector<LPCOLLISIONEVENT>& coEventsResult, 
+	float& min_tx, float& nx, float& rdx)
+{
+	min_tx = 1.0f;
+	int min_ix = -1;
+	int min_iy = -1;
+	nx = 0.0f;
+
+	for (UINT i = 0; i < coEvents.size(); i++)
+	{
+
+		LPCOLLISIONEVENT c = coEvents[i];
+
+		if (c->t < min_tx && c->nx != 0) {
+			min_tx = c->t; nx = c->nx; min_ix = i; rdx = c->dx;
+		}
+	}
+	if (min_ix >= 0) coEventsResult.push_back(coEvents[min_ix]);
+}
+
+void CGameObject::FilterCollisionY(
+	vector<LPCOLLISIONEVENT>& coEvents, 
+	vector<LPCOLLISIONEVENT>& coEventsResult, 
+	float& min_ty, float& ny, float& rdy)
+{
+	min_ty = 1.0f;
+	int min_ix = -1;
+	int min_iy = -1;
+	ny = 0.0f;
+
+
+	for (UINT i = 0; i < coEvents.size(); i++)
+	{
+
+		LPCOLLISIONEVENT c = coEvents[i];
+		if (c->t < min_ty && c->ny != 0) {
+			min_ty = c->t; ny = c->ny; min_iy = i; rdy = c->dy;
+		}
+	}
+	if (min_iy >= 0) coEventsResult.push_back(coEvents[min_iy]);
 }
 
 void CGameObject::AddAnimation(int aniID)

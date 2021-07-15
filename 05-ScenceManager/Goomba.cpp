@@ -9,7 +9,7 @@ CGoomba::CGoomba()
 	SetState(GoombaState::walk);
 	this->width = GOOMBA_BBOX_WIDTH;
 	this->height = GOOMBA_BBOX_HEIGHT;
-	this->direction.x = -1.0f;
+	this->direction.x = 1.0f;
 
 	this->ObjectGroup = Group::enemy;
 	this->collision = Collision2D::Full;
@@ -86,7 +86,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				x += min_tx * dx + nx * 0.4f;
 				y += min_ty * dy + ny * 0.4f;
 			}
-			if (e->obj->ObjectGroup == Group::projectile)
+			if (e->obj->ObjectGroup == Group::projectile|| e->obj->ObjectGroup == Group::dead)
 			{
 				this->InstanceDead();
 				e->obj->TakeDamage();
