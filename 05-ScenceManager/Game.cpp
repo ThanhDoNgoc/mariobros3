@@ -367,6 +367,7 @@ void CGame::SwitchScene(int scene_id)
 	current_scene = scene_id;
 	LPSCENE s = scenes[scene_id];
 	s->Load();	
-	//GlobalVariables::GetInstance()->StartGameTime();
+	GlobalVariables::GetInstance()->StartGameTime();
 	__Mario->isEndScene = false;
+	__Mario->SetState(new PlayerStateIdle());
 }

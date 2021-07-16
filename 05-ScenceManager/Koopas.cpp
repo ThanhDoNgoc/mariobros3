@@ -26,7 +26,9 @@ void CKoopas::GetBoundingBox(float &left, float &top, float &right, float &botto
 	left = x;
 	top = y;
 	right = x + KOOPAS_BBOX_WIDTH;
-	bottom = y + KOOPAS_BBOX_HEIGHT;
+	if (koopaState==KoopaState::walk)
+		bottom = y + KOOPAS_BBOX_HEIGHT;
+	else bottom = y + KOOPAS_SHELL_BBOX_HEIGHT;
 }
 
 void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -78,13 +80,13 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (e->obj->ObjectGroup == Group::ground || e->obj->ObjectGroup == Group::enemy || e->obj->ObjectGroup == Group::block)
+			if (e->obj->ObjectGroup == Group::ground || e->obj->ObjectGroup == Group::enemy || e->obj->ObjectGroup == Group::block|| e->obj->ObjectGroup == Group::musicblock)
 			{
 				if (e->nx != 0)
 				{
 					if (koopaState == KoopaState::slide)
 					{
-						if (e->obj->ObjectGroup == Group::block)
+						if (e->obj->ObjectGroup == Group::block || e->obj->ObjectGroup == Group::musicblock)
 						{
 							e->obj->TakeDamage();
 						}
@@ -174,6 +176,7 @@ void CKoopas::TakeDamage()
 {
 	if (koopaState == KoopaState::walk)
 		SetState(KoopaState::shell);
+	GlobalVariables::GetInstance()->AddScore(100);
 }
 
 void CKoopas::InstanceDead()

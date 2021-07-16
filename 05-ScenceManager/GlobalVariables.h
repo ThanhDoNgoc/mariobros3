@@ -53,6 +53,7 @@ public:
 
 	void ResetLife() { this->life = 4; }
 	void AddLife() { this->life += 1; }
+	void MinusLife() { this->life --; }
 	int GetLife() { return this->life; }
 
 	int* GetCardCollected() { return cardCollected; }

@@ -86,8 +86,12 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				x += min_tx * dx + nx * 0.4f;
 				y += min_ty * dy + ny * 0.4f;
 			}
-			if (e->obj->ObjectGroup == Group::projectile|| e->obj->ObjectGroup == Group::dead)
+			if (e->obj->ObjectGroup == Group::projectile|| e->obj->ObjectGroup == Group::dead || e->obj->ObjectGroup == Group::marioprojectile)
 			{
+				if (e->obj->ObjectGroup == Group::marioprojectile)
+				{
+					GlobalVariables::GetInstance()->AddScore(100);
+				}
 				this->InstanceDead();
 				e->obj->TakeDamage();
 			}
@@ -145,6 +149,7 @@ void CGoomba::SetState(GoombaState state)
 	switch (state)
 	{
 	case GoombaState::die:
+		collision = Collision2D::None;
 		velocity = 0;
 		vy = 0;
 		break;
@@ -152,6 +157,7 @@ void CGoomba::SetState(GoombaState state)
 		velocity = -GOOMBA_WALKING_SPEED;
 		break;
 	case GoombaState::instancedead:
+		collision = Collision2D::None;
 		velocity = -GOOMBA_WALKING_SPEED;
 		vy = -GOOMBA_INSTANCE_DEAD_VY;
 		break;

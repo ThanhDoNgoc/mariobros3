@@ -82,9 +82,6 @@
     <Filter Include="GameObjects\Blocks\GhostPlatform">
       <UniqueIdentifier>{27ed9ab0-0f83-45c5-a939-fcba9c5374b6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObjects\Pickups\Coin">
-      <UniqueIdentifier>{460720f8-56a3-4ab9-b422-436cd9194454}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObjects\Blocks\QuestionBlock">
       <UniqueIdentifier>{cbf629f7-abd0-4f6e-9cbe-849580f465b5}</UniqueIdentifier>
     </Filter>
@@ -100,35 +97,20 @@
     <Filter Include="GameObjects\Enemies\EatingPlant">
       <UniqueIdentifier>{e45b9b27-71e3-40a5-bebd-5448539fe3a7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObjects\Pickups\PButton">
-      <UniqueIdentifier>{4c498ad0-1405-443f-8f1a-987a896ab3c7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObjects\Pickups\RedMushroom">
-      <UniqueIdentifier>{06b35f54-837d-4cbf-852d-734e031dd631}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObjects\Pickups\GreenMushroom">
-      <UniqueIdentifier>{ba6fe69e-e5c6-4aa7-9c5f-cc979ecb3dc3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObjects\Pickups\Leaf">
-      <UniqueIdentifier>{ca7b58c3-9eed-4257-aefb-e64f71eacf3c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObjects\Pickups\Flower">
-      <UniqueIdentifier>{d9853b28-3b8f-41ac-aa56-ffd0e6e07a46}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObjects\Blocks\Warp">
       <UniqueIdentifier>{ffa9ad44-a7a9-404b-93f6-bf7d287d6b03}</UniqueIdentifier>
     </Filter>
     <Filter Include="HUD">
       <UniqueIdentifier>{44d90460-4719-4d40-b03d-1587a24c3343}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObjects\Pickups\EndReward">
-      <UniqueIdentifier>{e778ddfd-c4f1-453e-aeab-94fecd1cda40}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObjects\Player\MarioProjectile">
       <UniqueIdentifier>{eec19655-f0fc-49c5-bad9-94761bcbe53d}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameObjects\WorldMapObj">
       <UniqueIdentifier>{c4b53696-3d7e-4550-8326-f4696e6ee551}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Blocks\MusicNode">
+      <UniqueIdentifier>{6347a8ea-7839-430a-bbe4-c0a427d3b625}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -245,9 +227,6 @@
     <ClCompile Include="GhostPlatform.cpp">
       <Filter>GameObjects\Blocks\GhostPlatform</Filter>
     </ClCompile>
-    <ClCompile Include="Coin.cpp">
-      <Filter>GameObjects\Pickups\Coin</Filter>
-    </ClCompile>
     <ClCompile Include="QuestionBlock.cpp">
       <Filter>GameObjects\Blocks\QuestionBlock</Filter>
     </ClCompile>
@@ -266,21 +245,6 @@
     <ClCompile Include="PlantFireBall.cpp">
       <Filter>GameObjects\Enemies\FireShootingPlant</Filter>
     </ClCompile>
-    <ClCompile Include="PButton.cpp">
-      <Filter>GameObjects\Pickups\PButton</Filter>
-    </ClCompile>
-    <ClCompile Include="RedMushroom.cpp">
-      <Filter>GameObjects\Pickups\RedMushroom</Filter>
-    </ClCompile>
-    <ClCompile Include="Leaf.cpp">
-      <Filter>GameObjects\Pickups\Leaf</Filter>
-    </ClCompile>
-    <ClCompile Include="Flower.cpp">
-      <Filter>GameObjects\Pickups\Flower</Filter>
-    </ClCompile>
-    <ClCompile Include="GreenMushroom.cpp">
-      <Filter>GameObjects\Pickups\GreenMushroom</Filter>
-    </ClCompile>
     <ClCompile Include="Warp.cpp">
       <Filter>GameObjects\Blocks\Warp</Filter>
     </ClCompile>
@@ -294,9 +258,6 @@
       <Filter>HUD</Filter>
     </ClCompile>
     <ClCompile Include="GlobalVariables.cpp" />
-    <ClCompile Include="EndGameReward.cpp">
-      <Filter>GameObjects\Pickups\EndReward</Filter>
-    </ClCompile>
     <ClCompile Include="BrickQBlock.cpp">
       <Filter>GameObjects\Blocks\QuestionBlock</Filter>
     </ClCompile>
@@ -332,6 +293,42 @@
     </ClCompile>
     <ClCompile Include="RedKoopas.cpp">
       <Filter>GameObjects\Enemies\Koopas</Filter>
+    </ClCompile>
+    <ClCompile Include="GreenMushroom.cpp">
+      <Filter>GameObjects\Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>GameObjects\Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="RedMushroom.cpp">
+      <Filter>GameObjects\Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="Leaf.cpp">
+      <Filter>GameObjects\Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="PButton.cpp">
+      <Filter>GameObjects\Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="EndGameReward.cpp">
+      <Filter>GameObjects\Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="Flower.cpp">
+      <Filter>GameObjects\Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="MusicNode.cpp">
+      <Filter>GameObjects\Blocks\MusicNode</Filter>
+    </ClCompile>
+    <ClCompile Include="RedMusicNode.cpp">
+      <Filter>GameObjects\Blocks\MusicNode</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateWarpJump.cpp">
+      <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateEndGame.cpp">
+      <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateDead.cpp">
+      <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -468,24 +465,6 @@
     <ClInclude Include="PlantFireBall.h">
       <Filter>GameObjects\Enemies\FireShootingPlant</Filter>
     </ClInclude>
-    <ClInclude Include="PButton.h">
-      <Filter>GameObjects\Pickups\PButton</Filter>
-    </ClInclude>
-    <ClInclude Include="Coin.h">
-      <Filter>GameObjects\Pickups\Coin</Filter>
-    </ClInclude>
-    <ClInclude Include="RedMushroom.h">
-      <Filter>GameObjects\Pickups\RedMushroom</Filter>
-    </ClInclude>
-    <ClInclude Include="GreenMushroom.h">
-      <Filter>GameObjects\Pickups\GreenMushroom</Filter>
-    </ClInclude>
-    <ClInclude Include="Flower.h">
-      <Filter>GameObjects\Pickups\Flower</Filter>
-    </ClInclude>
-    <ClInclude Include="Leaf.h">
-      <Filter>GameObjects\Pickups\Leaf</Filter>
-    </ClInclude>
     <ClInclude Include="Warp.h">
       <Filter>GameObjects\Blocks\Warp</Filter>
     </ClInclude>
@@ -499,9 +478,6 @@
       <Filter>HUD</Filter>
     </ClInclude>
     <ClInclude Include="GlobalVariables.h" />
-    <ClInclude Include="EndGameReward.h">
-      <Filter>GameObjects\Pickups\EndReward</Filter>
-    </ClInclude>
     <ClInclude Include="BrickQBlock.h">
       <Filter>GameObjects\Blocks\QuestionBlock</Filter>
     </ClInclude>
@@ -540,6 +516,42 @@
     </ClInclude>
     <ClInclude Include="RedKoopas.h">
       <Filter>GameObjects\Enemies\Koopas</Filter>
+    </ClInclude>
+    <ClInclude Include="GreenMushroom.h">
+      <Filter>GameObjects\Pickups</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>GameObjects\Pickups</Filter>
+    </ClInclude>
+    <ClInclude Include="RedMushroom.h">
+      <Filter>GameObjects\Pickups</Filter>
+    </ClInclude>
+    <ClInclude Include="Leaf.h">
+      <Filter>GameObjects\Pickups</Filter>
+    </ClInclude>
+    <ClInclude Include="PButton.h">
+      <Filter>GameObjects\Pickups</Filter>
+    </ClInclude>
+    <ClInclude Include="EndGameReward.h">
+      <Filter>GameObjects\Pickups</Filter>
+    </ClInclude>
+    <ClInclude Include="Flower.h">
+      <Filter>GameObjects\Pickups</Filter>
+    </ClInclude>
+    <ClInclude Include="MusicNode.h">
+      <Filter>GameObjects\Blocks\MusicNode</Filter>
+    </ClInclude>
+    <ClInclude Include="RedMusicNode.h">
+      <Filter>GameObjects\Blocks\MusicNode</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateWarpJump.h">
+      <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateEndGame.h">
+      <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateDead.h">
+      <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

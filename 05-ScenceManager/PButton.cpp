@@ -30,6 +30,7 @@ void PButton::GetBoundingBox(float& l, float& t, float& r, float& b)
 void PButton::TakeDamage()
 {
 	isClaimed = true;
+	GlobalVariables::GetInstance()->StartPtime();
 }
 
 void PButton::OnOverLap(CGameObject* obj)

@@ -5,6 +5,7 @@
 #include "Leaf.h"
 #include "PButton.h"
 #include "RedMushroom.h"
+#include "GreenMushroom.h"
 QuestionBlock::QuestionBlock()
 {
 	AddAnimation(ID_ANI_QUESTION_BLOCK);
@@ -102,6 +103,9 @@ void QuestionBlock::SpawnItem()
 	}
 	case Item::GreenMushroom:
 	{
+		GreenMushroom* green = new GreenMushroom();
+		green->SetPosition(this->x, this->y);
+		CGame::GetInstance()->GetCurrentScene()->AddObject(green);
 		break;
 	}
 	case Item::Leaf:

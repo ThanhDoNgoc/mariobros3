@@ -22,6 +22,8 @@
 #include "WorldMapScene.h"
 #include "Curtain.h"
 #include "RedKoopas.h"
+#include "MusicNode.h"
+#include "RedMusicNode.h"
 Map::Map()
 {
 }
@@ -194,6 +196,22 @@ void Map::AddObject(TiXmlElement* RootElement)
 				brick->SetPosition(x, y);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(brick);
 			}
+			else if (name == "music")
+			{
+			TMXObject->QueryFloatAttribute("x", &x);
+			TMXObject->QueryFloatAttribute("y", &y);
+			MusicNode* brick = new MusicNode();
+			brick->SetPosition(x, y);
+			CGame::GetInstance()->GetCurrentScene()->AddObject(brick);
+			}
+			else if (name == "hiddenmusic")
+			{
+			TMXObject->QueryFloatAttribute("x", &x);
+			TMXObject->QueryFloatAttribute("y", &y);
+			RedMusicNode* brick = new RedMusicNode();
+			brick->SetPosition(x, y);
+			CGame::GetInstance()->GetCurrentScene()->AddObject(brick);
+			}
 			else if (name == "qblock")
 			{
 				TMXObject->QueryFloatAttribute("x", &x);
@@ -359,14 +377,14 @@ void Map::AddObject(TiXmlElement* RootElement)
 						{
 							TMXproperty->QueryFloatAttribute("value", &camB);
 						}
-						if (propertyname == "scrollx")
+						/*if (propertyname == "scrollx")
 						{
 							TMXproperty->QueryBoolAttribute("value", &scrollx);
 						}
 						if (propertyname == "scrolly")
 						{
 							TMXproperty->QueryBoolAttribute("value", &scrolly);
-						}
+						}*/
 						if (propertyname == "isstatic")
 						{
 							TMXproperty->QueryBoolAttribute("value", &isstatic);
@@ -386,9 +404,6 @@ void Map::AddObject(TiXmlElement* RootElement)
 						}
 					}
 				}
-
-				portal->scrollX = scrollx;
-				portal->scrollY = scrolly;
 				portal->isStatic = isstatic;
 				portal->isFolow = isfollow;
 				portal->setcam(camL, camT, camR, camB);

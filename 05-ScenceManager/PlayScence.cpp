@@ -5,7 +5,6 @@
 #include "Utils.h"
 #include "Textures.h"
 #include "Sprites.h"
-#include "Portal.h"
 #include "Map.h"
 #include "GlobalVariables.h"
 #include "MarioFireBall.h"
@@ -14,7 +13,6 @@ using namespace std;
 CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 	CScene(id, filePath)
 {
-
 }
 
 /*
@@ -73,14 +71,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		player = (CMario*)obj; 
 		__Mario->isEndScene = false;
 		DebugOut(L"[INFO] Player object created!\n");
-		break;
-	case OBJECT_TYPE_PORTAL:
-		{	
-			float r = atof(tokens[4].c_str());
-			float b = atof(tokens[5].c_str());
-			int scene_id = atoi(tokens[6].c_str());
-			obj = new CPortal(x, y, r, b, scene_id);
-		}
 		break;
 	default:
 		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
@@ -163,7 +153,8 @@ void CPlayScene::Load()
 	this->camera->SetCamPos(0, 0);
 	this->camera->SetCamLimit(camL, camT, camR, camB);
 	this->camera->SetCamTarget(player);
-
+	this->isEndGame = false;
+	this->waitEndScene_start = 0;
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 	GlobalVariables::GetInstance()->StartGameTime();
 }
@@ -218,9 +209,15 @@ void CPlayScene::Update(DWORD dt)
 	{
 		EndScene();
 	}
+
 	if (__Mario->isEndScene)
 	{
-		this->waitEndScene_start = GetTickCount();
+		if (!isEndGame)
+		{
+			this->waitEndScene_start = GetTickCount();
+			isEndGame = true;
+			camera->setIsFollow(false);
+		}
 		if (GetTickCount() - this->waitEndScene_start >= END_GAME_TIME)
 		{
 			EndScene();
@@ -258,6 +255,15 @@ void CPlayScene::OnKeyUp(int KeyCode)
 void CPlayScene::OnKeyDown(int KeyCode)
 {
 	player->OnKeyDown(KeyCode);
+	switch (KeyCode)
+	{
+	case DIK_O:
+		EndScene();
+		break;
+	case DIK_I:
+		CGame::GetInstance()->SwitchScene(1);
+		break;
+	}
 }
 
 void CPlayScene::EndScene()

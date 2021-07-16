@@ -56,7 +56,9 @@ enum class Group
 	portal,
 	warp,
 	dead,
-	none
+	none,
+	musicblock,
+	hiddenmusicblock
 };
 enum class Collision2D
 {

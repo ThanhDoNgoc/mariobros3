@@ -1,6 +1,7 @@
 #include "MarioLevelSmall.h"
 #include "Mario.h"
-
+#include "PlayerStateDead.h"
+#include "GlobalVariables.h"
 MarioLevelSmall::MarioLevelSmall()
 {
 	__Mario->animation_set.clear();
@@ -28,4 +29,6 @@ MarioLevelSmall::MarioLevelSmall()
 
 void MarioLevelSmall::LevelDown()
 {
+	__Mario->SetState(new PlayerStateDead());
+	__Mario->StartUntouchable();
 }

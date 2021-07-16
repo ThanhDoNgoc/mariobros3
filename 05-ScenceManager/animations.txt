@@ -2,13 +2,13 @@
 [TEXTURES]
 0	textures\Mario48.png	167	231	255
 1	textures\enemy.png	0	255	255
-20	textures\misc.png	176	224	248
 2	textures\misc_x3.png	117	255	255
 3	textures\uix3.png	255	127	39
 4	textures\reward_x3.png	255	255	255
 5	textures\goal.png	0	0	0
 6	textures\owx3.png	8	212	248
 7	textures\Introx3.png	255	216	154
+8	textures\blackbg.png	167	231	255
 #change litte bit: id	left	top	witdth	 height	tex_id
 [SPRITES]
 #--------intro------
@@ -70,7 +70,8 @@
 19	696	477	72	84	0	0	3
 #endgametext
 20	12	1044	744	219	372	110	5
-
+#blackbg
+21	0	0	816	150	0	0	8
 #MARIO (idle - walk - skid - jump  - run - die - hold idle - hold run - kick)
 # SMALL MARIO
 # idle
@@ -217,6 +218,13 @@
 20202	96	447	48	48	24	24	1
 20203	159	444	48	48	24	24	1
 20204	222	444	48	48	24	24	1
+
+#redkoopas
+20300	84	201	48	78	24	54	1
+20301	141	198	48	81	24	57	1
+20302	87	291	48	48	24	24	1
+20303	150	288	48	48	24	24	1
+20304	213	288	48	48	24	24	1
 
 #BRICK
 30000	822	564	48	48	24	24	2
@@ -367,6 +375,9 @@
 701	20202	100
 702	20203	100	20204	100	20202	100
 
+703	20300	100	20301	100
+704	20302	100
+705	20303	100	20304	100	20302	100
 #question block
 800	30100	100	30101	100	30102	100	30103	100
 801	30104	100

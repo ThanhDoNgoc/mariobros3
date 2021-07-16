@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #define KOOPAS_WALKING_SPEED		0.03f
-#define KOOPAS_SHELL_MOVING_SPEED	0.35f
+#define KOOPAS_SHELL_MOVING_SPEED	0.45f
 #define KOOPAS_INSTANCE_DEAD_VY		0.8f
 #define KOOPAS_GRAVITY				0.003f
 #define KOOPAS_FLY 0.7f
@@ -10,7 +10,7 @@
 #define KOOPAS_BBOX_WIDTH	45
 #define KOOPAS_BBOX_HEIGHT	51 
 #define KOOPAS_BBOX_HEIGHT_DIE 16
-
+#define KOOPAS_SHELL_BBOX_HEIGHT	47
 
 #define KOOPAS_ANI_WALKING		0
 #define KOOPAS_ANI_SHELL		1

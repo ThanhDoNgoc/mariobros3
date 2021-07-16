@@ -23,6 +23,8 @@
 #include "PlayerStateCrouch.h"
 #include "PlayerStateWarp.h"
 #include "PlayerStateFall.h"
+#include "PlayerStateWarpJump.h"
+#include "PlayerStateDead.h"
 
 CMario* CMario::__instance = NULL;
 
@@ -82,6 +84,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	// Simple fall down
 	vy += MARIO_GRAVITY * dt;
+
 
 	if (abs(this->vx) > MARIO_MAX_WALKING_SPEED)
 		this->abilytiBar += 1.2 * dt;
@@ -189,7 +192,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					}
 					else
 					{
-						koopa->direction.x = this->direction.x;
+						if (e->nx > 0)
+							koopa->direction.x = -1.0f;
+						else koopa->direction.x = 1.0f;
 						koopa->SetState(KoopaState::slide);
 						StartKick();
 					}
@@ -208,7 +213,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					}
 					else
 					{
-						koopa->direction.x = this->direction.x;
+						if (e->nx > 0 )
+							koopa->direction.x = -1.0f;
+						else koopa->direction.x = 1.0f;
 						koopa->SetState(RedKoopaState::slide);
 						StartKick();
 					}
@@ -232,9 +239,25 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				if (e->ny > 0)
 					e->obj->TakeDamage();
 			}
-			else if (e->obj->ObjectGroup == Group::item)
+			else if (e->obj->ObjectGroup == Group::musicblock)
 			{
-				e->obj->TakeDamage();
+				if (e->ny < 0)
+					this->SetState(new PlayerStateJump());
+				else if (e->ny > 0)
+					e->obj->TakeDamage();
+			}
+			else if (e->obj->ObjectGroup == Group::hiddenmusicblock)
+			{
+				if (e->ny < 0)
+				{
+					if (KeyHanler::GetInstance()->IsKeyDown(DIK_S))
+					{
+						this->SetState(new PlayerStateWarpJump());
+					}
+					else this->SetState(new PlayerStateJump());
+				}
+				else if (e->ny > 0)
+					e->obj->TakeDamage();
 			}
 		}
 	}
@@ -253,7 +276,7 @@ void CMario::Render()
 	if (isKicking)
 		ani = MARIO_ANI_KICK;
 	int alpha = 255;
-	if (untouchable) alpha = 128;
+	if (untouchable && state!=MARIO_STATE_DIE) alpha = 128;
 
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 
@@ -264,7 +287,6 @@ void CMario::Render()
 
 void CMario::SetState(PlayerState* newState)
 {
-	delete _playerState;
 	_playerState = newState;
 }
 
@@ -285,6 +307,8 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 
 void CMario::TakeDamage()
 {
+	if (this->state == MARIO_STATE_ATTACK|| this->state == MARIO_STATE_FLY|| this->state == MARIO_STATE_SLOW_FALL)
+		this->SetState(new PlayerStateIdle());
 	if (!untouchable)
 		this->_marioLevel->LevelDown();
 }
@@ -335,17 +359,17 @@ void CMario::OnKeyDown(int KeyCode)
 		this->_marioLevel = new MarioLevelSmall();
 		break;
 	case DIK_2:
-		if (this->level = MARIO_LEVEL_SMALL)
+		if (this->level == MARIO_LEVEL_SMALL)
 			this->y -= MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT;
 		this->_marioLevel = new MarioLevelBig();
 		break;
 	case DIK_3:
-		if (this->level = MARIO_LEVEL_SMALL)
+		if (this->level == MARIO_LEVEL_SMALL)
 			this->y -= MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT;
 		this->_marioLevel = new MarioLevelFire();
 		break;
 	case DIK_4:
-		if (this->level = MARIO_LEVEL_SMALL)
+		if (this->level == MARIO_LEVEL_SMALL)
 			this->y -= MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT;
 		this->_marioLevel = new MarioLevelRaccoon();
 		break;
@@ -362,6 +386,11 @@ void CMario::OnOverLap(CGameObject* obj)
 {
 	if (obj->ObjectGroup == Group::projectile2)
 	{
+		this->TakeDamage();
+	}
+	if (obj->ObjectGroup == Group::dead)
+	{
+		this->_marioLevel = new MarioLevelSmall();
 		this->TakeDamage();
 	}
 	else if (dynamic_cast<CKoopas*>(obj))
@@ -395,42 +424,46 @@ void CMario::OnOverLap(CGameObject* obj)
 		auto warp = static_cast<Warp*>(obj);
 		if (KeyHanler::GetInstance()->IsKeyDown(warp->getKeyDirection()))
 		{
-
 			this->SetState(new PlayerStateWarp(warp->isDown(), warp->toX, warp->toY));
 		}
 	}
 	else if (dynamic_cast<PSPortal*>(obj))
 	{
-		PSPortal* portal = dynamic_cast<PSPortal*>(obj);
-		Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
-		camera->SetCamLimit(portal->camL, portal->camT, portal->camR, portal->camB);
-		if (this->level == MARIO_LEVEL_SMALL)
-			this->SetPosition(portal->posX, portal->posY);
-		else
-			this->SetPosition(portal->posX, portal->posY - 100);
-		this->SetState(new PlayerStateJump());
-		this->isWarping = false;
-		this->vy = 0;
-		switch (level)
+		if (this->state == MARIO_STATE_WARP)
 		{
-		case MARIO_LEVEL_SMALL:
-			this->_marioLevel = new MarioLevelSmall();
-			break;
-		case MARIO_LEVEL_BIG:
-			this->_marioLevel = new MarioLevelBig();
-			break;
-		case MARIO_LEVEL_FIRE:
-			this->_marioLevel = new MarioLevelFire();
-			break;
-		case MARIO_LEVEL_RACCOON:
-			this->_marioLevel = new MarioLevelRaccoon();
-			break;
+			PSPortal* portal = dynamic_cast<PSPortal*>(obj);
+			Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
+			camera->SetCamLimit(portal->camL, portal->camT, portal->camR, portal->camB);
+			camera->setIsFollow(portal->isFolow);
+			camera->setIsStatic(portal->isStatic);
+			if (this->level == MARIO_LEVEL_SMALL)
+				this->SetPosition(portal->posX, portal->posY);
+			else
+				this->SetPosition(portal->posX, portal->posY - 100);
+			this->SetState(new PlayerStateJump());
+			this->isWarping = false;
+			this->vy = 0;
+			switch (level)
+			{
+			case MARIO_LEVEL_SMALL:
+				this->_marioLevel = new MarioLevelSmall();
+				break;
+			case MARIO_LEVEL_BIG:
+				this->_marioLevel = new MarioLevelBig();
+				break;
+			case MARIO_LEVEL_FIRE:
+				this->_marioLevel = new MarioLevelFire();
+				break;
+			case MARIO_LEVEL_RACCOON:
+				this->_marioLevel = new MarioLevelRaccoon();
+				break;
+			}
 		}
 	}
-	if (obj->ObjectGroup == Group::item)
+	/*if (obj->ObjectGroup == Group::item)
 	{
 		obj->TakeDamage();
-	}
+	}*/
 
 }
 

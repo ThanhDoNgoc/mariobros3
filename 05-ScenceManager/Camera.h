@@ -1,6 +1,7 @@
 #pragma once
 #define CAMERA_WIDTH	768
 #define CAMERA_HEIGHT	576
+#define CAMERA_SPEED	1.0f
 class CGameObject;
 
 class Camera
@@ -21,8 +22,6 @@ class Camera
 	bool isFollow;
 	bool isStatic;
 
-	bool scrollX;
-	bool scrollY;
 
 
 public:

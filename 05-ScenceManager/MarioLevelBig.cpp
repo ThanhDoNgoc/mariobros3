@@ -29,5 +29,6 @@ void MarioLevelBig::LevelDown()
 {
 	__Mario->_marioLevel = new MarioLevelSmall();
 	__Mario->StartUntouchable();
+	__Mario->y += MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT;
 }
 

@@ -7,23 +7,28 @@ RedMushroom::RedMushroom()
 	AddAnimation(ID_ANI_MUSHROOM_RED);
 
 	this->ObjectGroup = Group::item;
-	this->collision = Collision2D::Full;
+	this->collision = Collision2D::None;
 	this->isOut = false;
+	this->setVx = false;
+	this->velocity = 0;
 
 }
 
 void RedMushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGame* game = CGame::GetInstance();
-	this->x += dx;
-	this->y += dy;
 
 	if (this->distance >= MUSHROOM_HEIGHT)
 		this->isOut = true;
 
 	if (isOut)
 	{
-		vx = MUSHROOM_SPEED * direction.x;
+		if (!setVx)
+		{
+			//vx = MUSHROOM_SPEED * direction.x;
+			this->velocity = MUSHROOM_SPEED;
+			this->setVx = true;
+		}
 		vy += MUSHROOM_GRAVITY * dt;
 	}
 
@@ -47,7 +52,15 @@ void RedMushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		this->x += min_tx * dx + nx * 0.4f;
 		this->y += min_ty * dy + ny * 0.4f;
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+			LPCOLLISIONEVENT e = coEventsResult[i];
 
+			if (e->obj->ObjectGroup == Group::player)
+			{
+				this->TakeDamage();
+			}
+		}
 		if (ny != 0) 
 			vy = 0;
 
@@ -55,6 +68,7 @@ void RedMushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			direction.x = -direction.x; 
 
 	}
+	this->vx = this->velocity * direction.x;
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	CGameObject::Update(dt);
 }
@@ -75,6 +89,16 @@ void RedMushroom::GetBoundingBox(float& l, float& t, float& r, float& b)
 	b = y + MUSHROOM_HEIGHT;
 }
 
+void RedMushroom::TakeDamage()
+{
+	if (__Mario->level < 1)
+	{
+		__Mario->y -= MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT;
+		__Mario->_marioLevel = new MarioLevelBig();
+	}
+	CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
+}
+
 void RedMushroom::OnOverLap(CGameObject* obj)
 {
 	if (obj->ObjectGroup == Group::player)
@@ -82,7 +106,7 @@ void RedMushroom::OnOverLap(CGameObject* obj)
 		CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
 		if (__Mario->level < 1)
 		{
-			__Mario->y -= MARIO_BIG_BBOX_HEIGHT - MARIO_CROUCH_BBOX_HEIGHT;
+			__Mario->y -= MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT;
 			__Mario->_marioLevel = new MarioLevelBig();
 		}
 	}

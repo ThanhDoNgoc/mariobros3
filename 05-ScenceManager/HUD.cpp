@@ -27,13 +27,15 @@ void HUD::Render()
 	DrawWorld();
 	DrawAbilityBar();
 	DrawCard();
-	if (__Mario->isEndScene)
+	if (__Mario->isEndScene && __Mario->state!= MARIO_STATE_DIE)
 		DrawEndGame();
 }
 
 void HUD::DrawBackground()
 {
-	
+	auto sprites = CSprites::GetInstance();
+	LPSPRITE bg = sprites->Get(21);
+	bg->Draw(0, (SCREEN_HEIGHT - 144));
 }
 
 void HUD::DrawCoin()
@@ -137,7 +139,7 @@ void HUD::DrawAbilityBar()
 		num->Draw(SCREEN_WIDTH / 2 - 180 + i * NUM_WIDTH, (SCREEN_HEIGHT - 112));
 	}
 	LPSPRITE p = sprites->Get(SPRITE_P_OFF);
-	if (bar == 6)
+	if (bar == 7)
 		p = sprites->Get(SPRITE_P_ON);
 	else p = sprites->Get(SPRITE_P_OFF);
 	p->Draw(SCREEN_WIDTH / 2 - 180 + 7 * NUM_WIDTH, (SCREEN_HEIGHT - 112));

@@ -6,4 +6,4 @@
 [MAP]
 textures\MapData\World_1-3.tmx	textures\MapData\
 [CAMERA]
-0	192	7680	2640
+0	1392	7680	2640

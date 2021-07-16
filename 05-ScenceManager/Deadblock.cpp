@@ -6,7 +6,7 @@ Deadblock::Deadblock(int width, int height)
 	this->dbHeight= height;
 
 	this->ObjectGroup = Group::dead;
-	this->collision = Collision2D::Full;
+	this->collision = Collision2D::None;
 }
 
 void Deadblock::Render()

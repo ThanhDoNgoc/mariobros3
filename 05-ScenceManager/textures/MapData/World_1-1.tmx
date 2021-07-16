@@ -393,7 +393,7 @@
   <object id="252" name="psportal" x="6737.33" y="576.167" width="59.25" height="95.75">
    <properties>
     <property name="isfollow" value="true"/>
-    <property name="isstatic" value="false"/>
+    <property name="isstatic" value="true"/>
     <property name="limitB" type="float" value="1968"/>
     <property name="limitL" type="float" value="6336"/>
     <property name="limitR" type="float" value="7872"/>
@@ -412,7 +412,7 @@
   <object id="260" name="psportal" x="7404" y="1363" width="73.5" height="33">
    <properties>
     <property name="isfollow" value="true"/>
-    <property name="isstatic" value="false"/>
+    <property name="isstatic" value="true"/>
     <property name="limitB" type="float" value="1296"/>
     <property name="limitL" type="float" value="0"/>
     <property name="limitR" type="float" value="8448"/>

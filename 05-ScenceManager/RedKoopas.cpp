@@ -10,7 +10,9 @@ void RedKoopas::GetBoundingBox(float& left, float& top, float& right, float& bot
 	left = x;
 	top = y;
 	right = x + KOOPAS_BBOX_WIDTH;
-	bottom = y + KOOPAS_BBOX_HEIGHT;
+	if (koopaState == RedKoopaState::walk)
+		bottom = y + KOOPAS_BBOX_HEIGHT;
+	else bottom = y + KOOPAS_SHELL_BBOX_HEIGHT;
 }
 
 void RedKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -61,13 +63,13 @@ void RedKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (e->obj->ObjectGroup == Group::ground || e->obj->ObjectGroup == Group::enemy || e->obj->ObjectGroup == Group::block)
+			if (e->obj->ObjectGroup == Group::ground || e->obj->ObjectGroup == Group::enemy || e->obj->ObjectGroup == Group::block || e->obj->ObjectGroup == Group::musicblock)
 			{
 				if (e->nx != 0)
 				{
 					if (koopaState == RedKoopaState::slide)
 					{
-						if (e->obj->ObjectGroup == Group::block)
+						if (e->obj->ObjectGroup == Group::block || e->obj->ObjectGroup == Group::musicblock)
 						{
 							e->obj->TakeDamage();
 						}
@@ -117,7 +119,7 @@ void RedKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 	this->vx = this->velocity * this->direction.x;
-	DebugOut(L" direction x koopas: %f \n ", this->direction.x);
+	//DebugOut(L" direction x koopas: %f \n ", this->direction.x);
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
@@ -152,9 +154,9 @@ void RedKoopas::Render()
 
 RedKoopas::RedKoopas()
 {
-	AddAnimation(ID_ANI_KOOPAS_WALK);
-	AddAnimation(ID_ANI_KOOPAS_SHELL);
-	AddAnimation(ID_ANI_KOOPAS_SHELL_MOVING);
+	AddAnimation(ID_ANI_KOOPAS_RED_WALK);
+	AddAnimation(ID_ANI_KOOPAS_RED_SHELL);
+	AddAnimation(ID_ANI_KOOPAS_RED_SHELL_MOVING);
 	this->SetState(RedKoopaState::walk);
 
 	this->ObjectGroup = Group::enemy;
@@ -187,7 +189,7 @@ void RedKoopas::SetState(RedKoopaState state)
 	case RedKoopaState::die:
 		break;
 	}
-	DebugOut(L" velocity x: %f \n ", this->vx);
+	//DebugOut(L" velocity x: %f \n ", this->vx);
 }
 
 void RedKoopas::TakeDamage()
@@ -199,9 +201,9 @@ void RedKoopas::TakeDamage()
 void RedKoopas::InstanceDead()
 {
 	if (koopaState == RedKoopaState::walk)
-		SetState(RedKoopaState::die);
+		SetState(RedKoopaState::shell);
 	this->vy = -KOOPAS_INSTANCE_DEAD_VY;
-	this->vx = KOOPAS_SHELL_MOVING_SPEED;
+	this->vx = KOOPAS_SHELL_MOVING_SPEED*direction.x;
 }
 
 void RedKoopas::OnOverLap(CGameObject* obj)

@@ -6,8 +6,6 @@
 
 Camera::Camera()
 {
-	this->scrollX = true;
-	this->scrollY = false;
 
 	this->isFollow = false;
 	this->isStatic = true;
@@ -31,6 +29,7 @@ void Camera::SetCamSize(float CamWidth, float CamHeight)
 void Camera::SetCamTarget(CGameObject* target)
 {
 	this->target = target;
+	this->isFollow = true;
 }
 
 int Camera::GetCamPosX()
@@ -99,10 +98,17 @@ void Camera::Update()
 	cx -= CamWidth/2;
 	cy -= CamHeight/2;
 
-	//update cam pos -> player (1:1)
-	CamPosX = cx;
-	CamPosY = cy;
-
+	if (isFollow)
+	{
+		//update cam pos -> player (1:1)
+		CamPosX = cx;
+		CamPosY = cy;
+	}
+	if (!isFollow && !isStatic)
+	{
+		CamPosX += CAMERA_SPEED ;
+		CamPosY = cy;
+	}
 	if (this->CamPosX < this->limitLeft)
 		this->CamPosX = this->limitLeft;
 

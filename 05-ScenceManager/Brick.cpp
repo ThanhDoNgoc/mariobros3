@@ -53,12 +53,16 @@ void CBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 
-	if (state == STATE_COIN)
-		if (GetTickCount() - coinTime > COIN_TIME)
-		{
-			this->state = STATE_BRICK;
-			this->collision = Collision2D::Full;
-		}
+	if (GlobalVariables::GetInstance()->isPtime())
+	{
+		this->state = STATE_COIN;
+		this->collision = Collision2D::None;
+	}
+	else
+	{
+		this->state = STATE_BRICK;
+		this->collision = Collision2D::Full;
+	}
 
 	this->y += vy * dt;
 
@@ -67,12 +71,12 @@ void CBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		this->y = this->startY;
 		vy = 0;
 	}
+	
 
 }
 
 void CBrick::BrickToCoin()
 {
-	coinTime = GetTickCount();
 	this->collision = Collision2D::None;
 	this->state = STATE_COIN;
 }
@@ -93,7 +97,10 @@ void CBrick::OnOverLap(CGameObject* obj)
 	case STATE_COIN:
 	{
 		if (obj->ObjectGroup == Group::player)
+		{
+			GlobalVariables::GetInstance()->AddCoin(1);
 			CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
+		}
 		break;		
 	}
 	}

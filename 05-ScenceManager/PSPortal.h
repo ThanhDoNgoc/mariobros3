@@ -8,7 +8,7 @@ public:
 	PSPortal(int psWidth, int psHeight);
 	float camT, camL, camR, camB;
 
-	bool isStatic, isFolow, scrollX, scrollY;
+	bool isStatic, isFolow;
 
 	float posX, posY;
 

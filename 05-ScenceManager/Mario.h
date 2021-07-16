@@ -8,6 +8,7 @@
 #include "PlayerStateIdle.h"
 #include "PlayerStateWalk.h"
 #include "PlayerStateRun.h"
+#include "PlayerStateEndGame.h"
 
 #include "MarioLevel.h"
 #include "MarioLevelSmall.h"

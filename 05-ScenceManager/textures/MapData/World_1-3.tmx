@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="160" height="56" tilewidth="48" tileheight="48" infinite="0" nextlayerid="5" nextobjectid="141">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="160" height="56" tilewidth="48" tileheight="48" infinite="0" nextlayerid="5" nextobjectid="159">
  <tileset firstgid="1" name="world-1-1" tilewidth="48" tileheight="48" tilecount="870" columns="29">
   <image source="world-1-1.png" width="1392" height="1440"/>
  </tileset>
@@ -191,7 +191,7 @@
   <object id="5" name="ground" x="2208" y="2400" width="192" height="48"/>
   <object id="6" name="ground" x="2832" y="2496" width="48" height="96"/>
   <object id="7" name="ground" x="3216" y="2400" width="48" height="192"/>
-  <object id="8" name="ground" x="3696" y="1248" width="3168" height="48"/>
+  <object id="8" name="ground" x="3696" y="1254.28" width="3168" height="48"/>
   <object id="10" name="ground" x="6288" y="1392" width="96" height="240"/>
   <object id="11" name="ground" x="6192" y="1344" width="288" height="48"/>
   <object id="12" name="ghostplatform" x="720" y="2352" width="192" height="48"/>
@@ -507,7 +507,50 @@
   <object id="135" name="endgamereward" x="7248" y="2304">
    <point/>
   </object>
-  <object id="137" name="mario" x="96" y="2448">
+  <object id="137" name="mario" x="96" y="2496">
+   <point/>
+  </object>
+  <object id="141" name="redkoopa" x="1872" y="2256">
+   <point/>
+  </object>
+  <object id="143" name="music" x="1584" y="2352">
+   <point/>
+  </object>
+  <object id="144" name="music" x="1488" y="2448">
+   <point/>
+  </object>
+  <object id="145" name="hiddenmusic" x="1680" y="2448">
+   <point/>
+  </object>
+  <object id="147" name="psportal" x="1584" y="1680" width="172.911" height="94.4718">
+   <properties>
+    <property name="isfollow" value="false"/>
+    <property name="isstatic" value="false"/>
+    <property name="limitB" type="float" value="1296"/>
+    <property name="limitL" type="float" value="3696"/>
+    <property name="limitR" type="float" value="6896"/>
+    <property name="limitT" type="float" value="192"/>
+    <property name="posx" type="float" value="3984"/>
+    <property name="posy" type="float" value="1056"/>
+    <property name="scrollx" value="true"/>
+    <property name="scrolly" value="false"/>
+   </properties>
+  </object>
+  <object id="152" name="psportal" x="6302.04" y="1259.5" width="66.911" height="36.5576">
+   <properties>
+    <property name="isfollow" value="true"/>
+    <property name="isstatic" value="true"/>
+    <property name="limitB" type="float" value="2640"/>
+    <property name="limitL" type="float" value="0"/>
+    <property name="limitR" type="float" value="7680"/>
+    <property name="limitT" type="float" value="1392"/>
+    <property name="posx" type="float" value="6288"/>
+    <property name="posy" type="float" value="1632"/>
+    <property name="scrollx" value="false"/>
+    <property name="scrolly" value="false"/>
+   </properties>
+  </object>
+  <object id="155" name="wrap" type="down" x="6312" y="1128">
    <point/>
   </object>
  </objectgroup>

@@ -8,6 +8,7 @@
 
 PlayerStateAttack::PlayerStateAttack()
 {
+	__Mario->state = MARIO_STATE_ATTACK;
 	this->cantailattack = false;
 	switch (__Mario->level)
 	{
