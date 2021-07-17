@@ -137,7 +137,7 @@ void WorldMapScene::Update(DWORD dt)
 		addobjects.clear();
 	}
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
-	if (player != NULL) player->Update();
+	if (player != NULL) player->Update(dt);
 
 	if (camera != NULL)
 	{

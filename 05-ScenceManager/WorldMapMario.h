@@ -12,17 +12,24 @@
 #define WORLD_MAP_MARIO_WIDTH	48
 #define WORLD_MAP_MARIO_HEIGHT	48
 
+enum WMMarioState {
+	idle,
+	up,
+	down,
+	left,
+	right
+};
 class WorldMapMario :public CGameObject
 {
 	int level;
 	int curentNode;
-	bool ismovingx, ismovingy;
 	NodeMap* map;
+	WMMarioState wmmstate;
 public:
 	WorldMapMario();
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
-	virtual void Update();
+	virtual void Update(DWORD dt);
 	virtual void Render();
 	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f, 1.0f);
 	int width, height;
@@ -31,6 +38,7 @@ public:
 	void OnKeyUp(int KeyCode) {};
 	void OnKeyDown(int KeyCode);
 	void setMap(NodeMap* map);
+	void switchstate(WMMarioState state);
 	NodeMap* getMap();
 };
 

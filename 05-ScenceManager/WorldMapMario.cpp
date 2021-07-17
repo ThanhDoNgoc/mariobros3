@@ -10,6 +10,7 @@ WorldMapMario::WorldMapMario()
 	this->ObjectGroup = Group::player;
 	this->collision = Collision2D::None;
 	this->curentNode = 0;
+	//this->wmmstate = WMMarioState::idle;
 }
 
 void WorldMapMario::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -20,8 +21,31 @@ void WorldMapMario::GetBoundingBox(float& left, float& top, float& right, float&
 	bottom = right + WORLD_MAP_MARIO_HEIGHT;
 }
 
-void WorldMapMario::Update()
+void WorldMapMario::Update(DWORD dt)
 {
+	this->startX += vx * dt;
+	this->startY += vy * dt;
+	switch (wmmstate)
+	{
+	case WMMarioState::idle:
+		break;
+	case WMMarioState::up:
+		if (this->startY < this->y)
+			switchstate(WMMarioState::idle);
+		break;
+	case WMMarioState::down:
+		if (this->startY > this->y)
+			switchstate(WMMarioState::idle);
+		break;
+	case WMMarioState::left:
+		if (this->startX < this->x)
+			switchstate(WMMarioState::idle);
+		break;
+	case WMMarioState::right:
+		if (this->startX > this->x)
+			switchstate(WMMarioState::idle);
+		break;
+	}
 }
 
 void WorldMapMario::Render()
@@ -44,15 +68,15 @@ void WorldMapMario::Render()
 	}
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 
-	animation_set[ani]->Render(x - camera->GetCamPosX() + WORLD_MAP_MARIO_WIDTH / 2, y - camera->GetCamPosY() + WORLD_MAP_MARIO_HEIGHT / 2);
+	animation_set[ani]->Render(startX - camera->GetCamPosX() + WORLD_MAP_MARIO_WIDTH / 2, startY - camera->GetCamPosY() + WORLD_MAP_MARIO_HEIGHT / 2);
 
 }
 
 void WorldMapMario::OnKeyDown(int KeyCode)
 {
-	if (this->ismovingx || this->ismovingy) 
-		return;
-
+	/*if (this->ismovingx || this->ismovingy) 
+		return;*/
+	if (wmmstate != WMMarioState::idle) return;
 	auto currentnode = map->getNode(this->curentNode);
 
 	if (KeyCode == DIK_A)
@@ -75,6 +99,21 @@ void WorldMapMario::OnKeyDown(int KeyCode)
 
 		if (KeyCode == acceptedKey)
 		{
+			switch (KeyCode)
+			{
+			case DIK_LEFT:
+				switchstate(WMMarioState::left);
+				break;
+			case DIK_RIGHT:
+				switchstate(WMMarioState::right);
+				break;
+			case DIK_UP:
+				switchstate(WMMarioState::up);
+				break;
+			case DIK_DOWN:
+				switchstate(WMMarioState::down);
+				break;
+			}
 			auto adjNode = map->getNode(adj.nodeID);
 			if (adjNode)
 			{
@@ -95,7 +134,37 @@ void WorldMapMario::setMap(NodeMap* map)
 	this->map = map;
 }
 
+void WorldMapMario::switchstate(WMMarioState state)
+{
+	this->wmmstate = state;
+	switch (wmmstate)
+	{
+	case WMMarioState::idle:
+		this->vx = 0;
+		this->vy = 0;
+		this->startX = this->x;
+		this->startY = this->y;
+		break;
+	case WMMarioState::up:
+		this->vx = 0;
+		this->vy = -WORLD_MAP_MARIO_MOVE_SPEED;
+		break;
+	case WMMarioState::down:
+		this->vx = 0;
+		this->vy = WORLD_MAP_MARIO_MOVE_SPEED;
+		break;
+	case WMMarioState::left:
+		this->vx = -WORLD_MAP_MARIO_MOVE_SPEED;
+		this->vy = 0;
+		break;
+	case WMMarioState::right:
+		this->vx = WORLD_MAP_MARIO_MOVE_SPEED;
+		this->vy = 0;
+		break;
+	}
+}
+
 NodeMap* WorldMapMario::getMap()
 {
-	return nullptr;
+	return map;
 }
