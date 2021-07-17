@@ -20,14 +20,13 @@ void PlayerStateRun::Update()
 	if (!KeyHanler::GetInstance()->IsKeyDown(DIK_RIGHT) && !KeyHanler::GetInstance()->IsKeyDown(DIK_LEFT))
 		__Mario->SetState(new PlayerStateWalk());
 
-	if (KeyHanler::GetInstance()->IsKeyDown(DIK_RIGHT) && __Mario->direction.x != 1.0f)
+	if (KeyHanler::GetInstance()->IsKeyDown(DIK_RIGHT))
 	{
-		__Mario->SetState(new PlayerStateWalk());
 		__Mario->direction.x = 1.0f;
 	}
-	else if (KeyHanler::GetInstance()->IsKeyDown(DIK_LEFT) && __Mario->direction.x != -1.0f)
+
+	if (KeyHanler::GetInstance()->IsKeyDown(DIK_LEFT))
 	{
-		__Mario->SetState(new PlayerStateWalk());
 		__Mario->direction.x = -1.0f;
 	}
 
@@ -38,6 +37,9 @@ void PlayerStateRun::Update()
 
 void PlayerStateRun::SetAnimation()
 {
+	if (__Mario->vx * __Mario->direction.x < 0)
+		__Mario->ani = MARIO_ANI_SKID;
+	else
 		__Mario->ani = MARIO_ANI_RUN;
 }
 

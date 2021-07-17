@@ -42,7 +42,7 @@ void GreenEatingPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 
-			if (e->obj->ObjectGroup == Group::projectile)
+			if (e->obj->ObjectGroup == Group::projectile|| e->obj->ObjectGroup == Group::marioprojectile)
 			{
 				this->TakeDamage();
 			}

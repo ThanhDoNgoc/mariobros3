@@ -12,6 +12,7 @@ PlayerStateIdle::PlayerStateIdle()
 {
 	DebugOut(L"[INFO] idle \n");
 	__Mario->state = MARIO_STATE_IDLE;
+	__Mario->isEndScene = false;
 }
 
 void PlayerStateIdle::Update()

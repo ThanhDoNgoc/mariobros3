@@ -48,7 +48,8 @@ void EndGameReward::OnOverLap(CGameObject* obj)
 	if (obj->ObjectGroup == Group::player)
 	{
 		this->isCollected=true;
-		__Mario->isEndScene = true;
+		__Mario->SetState(new PlayerStateEndGame());
+		//__Mario->isEndScene = true;
 		//__Mario->SetState(new PlayerStateEndGame());
 		if (!isAddCard)
 		{
@@ -65,8 +66,8 @@ void EndGameReward::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	coEvents.clear();
 	CalcPotentialCollisions(coObjects, coEvents);
 	//CGameObject::Update(dt);
-	//x += dx;
-	//y += dy;
+	x += dx;
+	y += dy;
 	if (!isCollected)
 	{
 		switch (state)
@@ -96,7 +97,7 @@ void EndGameReward::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else 
 	{
-		this->vy -= FLY_SPEED;
+		this->y -= FLY_SPEED*dt;
 	}
 }
 

@@ -269,4 +269,5 @@ void CPlayScene::OnKeyDown(int KeyCode)
 void CPlayScene::EndScene()
 {
 	CGame::GetInstance()->SwitchScene(1);
+	__Mario->isEndScene = false;
 }

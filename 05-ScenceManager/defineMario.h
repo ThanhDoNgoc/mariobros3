@@ -5,7 +5,7 @@
 #define MARIO_MAX_RUNNING_SPEED		0.6f
 #define MARIO_ACCELERATION			0.0005f
 
-#define MARIO_DRAG					0.0005f
+#define MARIO_DRAG					0.003f
 #define MARIO_DRAG_RUN				0.015f
 
 #define MARIO_FLY_SPEED				0.5f

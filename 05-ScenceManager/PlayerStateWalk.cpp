@@ -42,12 +42,18 @@ void PlayerStateWalk::Update()
 	if (KeyHanler::GetInstance()->IsKeyDown(DIK_RIGHT))
 	{
 		__Mario->direction.x = 1.0f;
-		__Mario->vx += MARIO_ACCELERATION * __Mario->dt;
+		if (__Mario->vx * __Mario->direction.x < 0 && abs(__Mario->vx)>MARIO_MAX_WALKING_SPEED)
+			__Mario->vx += MARIO_DRAG * __Mario->dt;
+		else
+			__Mario->vx += MARIO_ACCELERATION * __Mario->dt;
 	}
 	if (KeyHanler::GetInstance()->IsKeyDown(DIK_LEFT))
 	{
 		__Mario->direction.x = -1.0f;
-		__Mario->vx -= MARIO_ACCELERATION  * __Mario->dt;
+		if (__Mario->vx * __Mario->direction.x < 0 && abs(__Mario->vx)>MARIO_MAX_WALKING_SPEED)
+			__Mario->vx -= MARIO_DRAG * __Mario->dt;
+		else
+			__Mario->vx -= MARIO_ACCELERATION  * __Mario->dt;
 	}
 
 	if (!KeyHanler::GetInstance()->IsKeyDown(DIK_RIGHT) && !KeyHanler::GetInstance()->IsKeyDown(DIK_LEFT))

@@ -13,7 +13,7 @@
 #define REWARD_BBOX_WIDTH	78
 #define REWARD_BBOX_HEIGHT	78
 
-#define FLY_SPEED	0.15f
+#define FLY_SPEED	0.25f
 class EndGameReward : public CGameObject
 {
 	bool isCollected;

@@ -3,9 +3,7 @@
 # type: 0 = Mario
 # MARIO
 0	1104	1056	1
-# --- SCENE PORTAL ----
-# type	l	t	ani_set_id	r	b	scene_id
-50	300	98	0	380	150	2
+
 [MAP]
 textures\MapData\World_1-1.tmx	textures\MapData\
 [CAMERA]

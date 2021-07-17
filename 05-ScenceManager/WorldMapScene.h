@@ -4,7 +4,7 @@
 #include "Scence.h"
 #include "GameObject.h"
 #include "Camera.h"
-
+#include "Game.h"
 #include "KeyHanler.h"
 #include "Map.h"
 #include "HUD.h"

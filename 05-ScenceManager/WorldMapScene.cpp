@@ -53,7 +53,7 @@ void WorldMapScene::Load()
 	player->SetPosition(96, 144);
 	// current resource section flag
 	int section = SCENE_SECTION_UNKNOWN;
-
+	__Mario->isEndScene = false;
 	char str[MAX_SCENE_LINE];
 	while (f.getline(str, MAX_SCENE_LINE))
 	{
