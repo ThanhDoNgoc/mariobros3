@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="160" height="56" tilewidth="48" tileheight="48" infinite="0" nextlayerid="5" nextobjectid="159">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="160" height="56" tilewidth="48" tileheight="48" infinite="0" nextlayerid="5" nextobjectid="161">
  <tileset firstgid="1" name="world-1-1" tilewidth="48" tileheight="48" tilecount="870" columns="29">
   <image source="world-1-1.png" width="1392" height="1440"/>
  </tileset>
@@ -503,7 +503,6 @@
    <point/>
   </object>
   <object id="133" name="deadblock" x="0" y="2640" width="7680" height="48"/>
-  <object id="134" name="ground" x="6864" y="48" width="48" height="1248"/>
   <object id="135" name="endgamereward" x="7248" y="2304">
    <point/>
   </object>
@@ -522,13 +521,13 @@
   <object id="145" name="hiddenmusic" x="1680" y="2448">
    <point/>
   </object>
-  <object id="147" name="psportal" x="1584" y="1680" width="172.911" height="94.4718">
+  <object id="147" name="psportal" x="1584" y="1680" width="190.911" height="94.4718">
    <properties>
     <property name="isfollow" value="false"/>
     <property name="isstatic" value="false"/>
     <property name="limitB" type="float" value="1296"/>
     <property name="limitL" type="float" value="3696"/>
-    <property name="limitR" type="float" value="6896"/>
+    <property name="limitR" type="float" value="6672"/>
     <property name="limitT" type="float" value="192"/>
     <property name="posx" type="float" value="3984"/>
     <property name="posy" type="float" value="1056"/>

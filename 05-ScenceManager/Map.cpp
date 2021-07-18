@@ -18,12 +18,15 @@
 #include "Bush.h"
 #include "NodeMap.h"
 #include "Node.h"
-#include"Scence.h"
+#include "Scence.h"
 #include "WorldMapScene.h"
 #include "Curtain.h"
 #include "RedKoopas.h"
 #include "MusicNode.h"
 #include "RedMusicNode.h"
+#include "ParaGoomba.h"
+#include "FlyKoopas.h"
+#include "Pipe.h"
 Map::Map()
 {
 }
@@ -102,6 +105,46 @@ void Map::AddObject(TiXmlElement* RootElement)
 				DebugOut(L"[INFO] map object ground %f \n", x); 
 
 			}
+			if (name == "pipe")
+			{
+				TMXObject->QueryFloatAttribute("x", &x);
+				TMXObject->QueryFloatAttribute("y", &y);
+				TMXObject->QueryFloatAttribute("width", &width);
+				TMXObject->QueryFloatAttribute("height", &height);
+				Pipe* pipe = new Pipe(width, height);
+				pipe->SetPosition(x, y);
+				std::string type;
+				type = TMXObject->Attribute("type");
+				if (type == "green")
+				{
+					pipe->SetPipeType(PipeType::green);
+				}
+				else if (type == "black")
+				{
+					pipe->SetPipeType(PipeType::black);
+				}
+
+				bool isUp;
+
+				TiXmlElement* TMXproperties = TMXObject->FirstChildElement("properties");
+
+				if (TMXproperties != nullptr)
+				{
+					for (TiXmlElement* TMXproperty = TMXproperties->FirstChildElement("property"); TMXproperty != NULL; TMXproperty = TMXproperty->NextSiblingElement("property"))
+					{
+						std::string propertyname = TMXproperty->Attribute("name");
+
+						if (propertyname == "isUp")
+						{
+							TMXproperty->QueryBoolAttribute("value", &isUp);
+						}
+					}
+				}
+
+				pipe->isDirectionUp(isUp);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(pipe);
+
+			}
 			else if (name == "deadblock")
 			{
 				TMXObject->QueryFloatAttribute("x", &x);
@@ -147,6 +190,14 @@ void Map::AddObject(TiXmlElement* RootElement)
 				goomba->SetPosition(x, y);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(goomba);
 			}
+			else if (name == "paragoomba")
+			{
+				TMXObject->QueryFloatAttribute("x", &x);
+				TMXObject->QueryFloatAttribute("y", &y);
+				ParaGoomba* goomba = new ParaGoomba();
+				goomba->SetPosition(x, y);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(goomba);
+			}
 			else if (name == "redfiretree")
 			{
 				TMXObject->QueryFloatAttribute("x", &x);
@@ -185,6 +236,14 @@ void Map::AddObject(TiXmlElement* RootElement)
 				TMXObject->QueryFloatAttribute("x", &x);
 				TMXObject->QueryFloatAttribute("y", &y);
 				CKoopas* koopa = new CKoopas();
+				koopa->SetPosition(x, y);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(koopa);
+			}
+			else if (name == "flykoopa")
+			{
+				TMXObject->QueryFloatAttribute("x", &x);
+				TMXObject->QueryFloatAttribute("y", &y);
+				FlyKoopas* koopa = new FlyKoopas();
 				koopa->SetPosition(x, y);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(koopa);
 			}

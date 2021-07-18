@@ -123,5 +123,10 @@ void Camera::Update()
 
 	if (__Mario->x < this->CamPosX)
 		__Mario->x = this->CamPosX;
-
+	if (!__Mario->isEndScene)
+	{
+		if (__Mario->x > this->CamPosX + CAMERA_WIDTH - MARIO_BIG_BBOX_WIDTH)
+			__Mario->x = this->CamPosX + CAMERA_WIDTH - MARIO_BIG_BBOX_WIDTH;
+	}
+		 
 }

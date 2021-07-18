@@ -12,6 +12,7 @@ Leaf::Leaf()
 	leafRevealTime = GetTickCount();
 
 	this -> state = 1;
+	this->objectLayer = 0;
 
 }
 

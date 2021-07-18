@@ -11,6 +11,7 @@ Coin::Coin()
 	this->isSprouting = false;
 	this->vx = 0;
 	this->vy = 0;
+	this->objectLayer = 0;
 }
 
 void Coin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

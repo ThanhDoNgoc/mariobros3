@@ -9,13 +9,15 @@ CKoopas::CKoopas()
 	AddAnimation(ID_ANI_KOOPAS_WALK);
 	AddAnimation(ID_ANI_KOOPAS_SHELL);
 	AddAnimation(ID_ANI_KOOPAS_SHELL_MOVING);
+	AddAnimation(ID_ANI_KOOPAS_FLY);
+
 	this->SetState(KoopaState::walk);
 
 	this->ObjectGroup = Group::enemy;
 	this->collision = Collision2D::Full;
 
 	isBeingHold = false;
-	//this->direction.x *= -1.0f;
+	this->direction.x = -1.0f;
 	this->startShellTime = 0;
 }
 
@@ -35,7 +37,12 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 
 	CGame* game = CGame::GetInstance();
-	
+	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
+	if (koopaState != KoopaState::shell)
+	{
+		if ( camera->GetCamPosX() + CAMERA_WIDTH < this->x)
+			return;
+	}
 	if (isBeingHold)
 	{
 		if (__Mario->direction.x<0)
@@ -113,7 +120,15 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 		if (ny != 0)
 		{
-			this->vy = 0;
+			if (ny < 0 && koopaState == KoopaState::fly)
+			{
+				this->vy = -KOOPAS_FLY_SPEED;
+			}
+			else
+			{
+				this->vy = 0;
+			}
+
 		}
 	}
 	this->vx = this->velocity * this->direction.x;
@@ -135,6 +150,9 @@ void CKoopas::Render()
 	case KoopaState::slide:
 		ani = KOOPAS_ANI_SHELLMOVING;
 		break;
+	case KoopaState::fly:
+		ani = KOOPAS_ANI_FLYING;
+		break;
 	}
 	D3DXVECTOR2 renderdirec = direction;
 	renderdirec.x = -direction.x;
@@ -152,6 +170,11 @@ void CKoopas::SetState(KoopaState state)
 	this->koopaState = state;
 	switch (koopaState)
 	{
+	case KoopaState::fly:
+		this->velocity = KOOPAS_WALKING_SPEED;
+		this->ObjectGroup = Group::enemy;
+		this->vy = -KOOPAS_FLY_SPEED;
+		break;
 	case KoopaState::walk:
 		this->velocity = KOOPAS_WALKING_SPEED;
 		this->ObjectGroup = Group::enemy;
@@ -174,7 +197,9 @@ void CKoopas::SetState(KoopaState state)
 
 void CKoopas::TakeDamage()
 {
-	if (koopaState == KoopaState::walk)
+	if (koopaState == KoopaState::fly)
+		SetState(KoopaState::walk);
+	else if (koopaState == KoopaState::walk)
 		SetState(KoopaState::shell);
 	GlobalVariables::GetInstance()->AddScore(100);
 }

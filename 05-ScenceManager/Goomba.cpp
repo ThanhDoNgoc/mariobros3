@@ -180,7 +180,7 @@ void CGoomba::InstanceDead()
 
 void CGoomba::OnOverLap(CGameObject* obj)
 {
-	if (obj->ObjectGroup == Group::marioprojectile)
+	if (obj->ObjectGroup == Group::marioprojectile|| obj->ObjectGroup == Group::projectile)
 	{
 		this->InstanceDead();
 	}

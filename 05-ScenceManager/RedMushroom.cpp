@@ -11,6 +11,7 @@ RedMushroom::RedMushroom()
 	this->isOut = false;
 	this->setVx = false;
 	this->velocity = 0;
+	this->objectLayer = 0;
 
 }
 

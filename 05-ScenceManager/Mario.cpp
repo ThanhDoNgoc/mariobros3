@@ -95,9 +95,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	if (this->abilytiBar < 0)
 		this->abilytiBar = 0;
 	// turn off collision when die 
-	//if (state!=MARIO_STATE_DIE)
+	if (state != MARIO_STATE_DIE)
+	{
 		CalcPotentialCollisions(coObjects, coEvents);
-
+	}
 	// reset untouchable timer if untouchable time has passed
 	if ( GetTickCount() - untouchable_start > MARIO_UNTOUCHABLE_TIME) 
 	{
@@ -160,6 +161,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 			if (e->obj->ObjectGroup == Group::enemy) // if e->obj is Enemy 
 			{
+				if (ny > 0)
+				{
+					y -= 0.4f;
+				}
 				// jump on top >> kill Enemy and deflect a bit 
 				if (e->ny < 0)
 				{
@@ -384,7 +389,7 @@ void CMario::OnKeyDown(int KeyCode)
 
 void CMario::OnOverLap(CGameObject* obj)
 {
-	if (obj->ObjectGroup == Group::projectile2)
+	if (obj->ObjectGroup == Group::projectile2 || obj->ObjectGroup == Group::enemy)
 	{
 		this->TakeDamage();
 	}

@@ -12,7 +12,9 @@
 using namespace std;
 
 #define ID_TEX_BBOX -100		// special texture to draw object bounding box
-
+#define LAYER_ITEM	0
+#define LAYER_OBJ	1
+#define LAYER_PIPE	2
 class CGameObject; 
 typedef CGameObject * LPGAMEOBJECT;
 
@@ -86,6 +88,7 @@ public:
 	int nx;	 
 
 	int state;
+	int objectLayer=1;
 
 	bool isBeingHold = false;
 	bool isHoldAble = false;

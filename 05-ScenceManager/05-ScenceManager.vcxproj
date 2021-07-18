@@ -135,6 +135,7 @@
     <ClCompile Include="Deadblock.cpp" />
     <ClCompile Include="EndGameReward.cpp" />
     <ClCompile Include="Flower.cpp" />
+    <ClCompile Include="FlyKoopas.cpp" />
     <ClCompile Include="GhostPlatform.cpp" />
     <ClCompile Include="GlobalVariables.cpp" />
     <ClCompile Include="GreenEatingPlant.cpp" />
@@ -156,7 +157,9 @@
     <ClCompile Include="MusicNode.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="NodeMap.cpp" />
+    <ClCompile Include="ParaGoomba.cpp" />
     <ClCompile Include="PButton.cpp" />
+    <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="PlantFireBall.cpp" />
     <ClCompile Include="PlayerStateAttack.cpp" />
     <ClCompile Include="PlayerStateCrouch.cpp" />
@@ -213,6 +216,7 @@
     <ClInclude Include="defineMario.h" />
     <ClInclude Include="EndGameReward.h" />
     <ClInclude Include="Flower.h" />
+    <ClInclude Include="FlyKoopas.h" />
     <ClInclude Include="GhostPlatform.h" />
     <ClInclude Include="GlobalVariables.h" />
     <ClInclude Include="GreenEatingPlant.h" />
@@ -235,7 +239,9 @@
     <ClInclude Include="MusicNode.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="NodeMap.h" />
+    <ClInclude Include="ParaGoomba.h" />
     <ClInclude Include="PButton.h" />
+    <ClInclude Include="Pipe.h" />
     <ClInclude Include="PlantFireBall.h" />
     <ClInclude Include="PlayerState.h" />
     <ClInclude Include="PlayerStateAttack.h" />

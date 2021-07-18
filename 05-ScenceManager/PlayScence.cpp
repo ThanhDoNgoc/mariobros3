@@ -228,8 +228,16 @@ void CPlayScene::Update(DWORD dt)
 void CPlayScene::Render()
 {
 	maps->Render(camera);
-	for (int i = 0; i < objects.size(); i++)
-		objects[i]->Render();
+
+	for (int j = 0; j < 3; j++)
+	{
+		for (int i = 0; i < objects.size(); i++)
+		{
+			if (objects[i]->objectLayer == j)
+				objects[i]->Render();
+		}
+	}
+
 	hud->Render();
 }
 

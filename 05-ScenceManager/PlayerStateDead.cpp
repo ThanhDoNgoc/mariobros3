@@ -4,7 +4,7 @@ PlayerStateDead::PlayerStateDead()
 {
 	__Mario->state = MARIO_STATE_DIE;
 	__Mario->isEndScene = true;
-	__Mario->vy = -MARIO_JUMP_SPEED;
+	__Mario->vy = -1.0f;
 	GlobalVariables::GetInstance()->MinusLife();
 	__Mario->vx = 0;
 }

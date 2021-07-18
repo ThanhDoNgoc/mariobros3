@@ -7,6 +7,7 @@ PButton::PButton()
 	AddAnimation(ID_ANI_P_BUTTON_CLAIMED);
 	ObjectGroup = Group::item;
 	collision = Collision2D::None;
+	this->objectLayer = 0;
 }
 
 void PButton::Render()

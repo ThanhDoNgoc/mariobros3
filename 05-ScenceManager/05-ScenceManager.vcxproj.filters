@@ -112,6 +112,12 @@
     <Filter Include="GameObjects\Blocks\MusicNode">
       <UniqueIdentifier>{6347a8ea-7839-430a-bbe4-c0a427d3b625}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pipe">
+      <UniqueIdentifier>{2cc8c219-e009-416b-b618-6e6b0080402e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Blocks\Pipe">
+      <UniqueIdentifier>{77a0dc29-a312-4eae-b584-cd4696614a2b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -139,7 +145,6 @@
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="KeyHanler.cpp">
       <Filter>KeyHandler</Filter>
     </ClCompile>
@@ -329,6 +334,16 @@
     </ClCompile>
     <ClCompile Include="PlayerStateDead.cpp">
       <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="ParaGoomba.cpp">
+      <Filter>GameObjects\Enemies\Goomba</Filter>
+    </ClCompile>
+    <ClCompile Include="FlyKoopas.cpp">
+      <Filter>GameObjects\Enemies\Koopas</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Pipe.cpp">
+      <Filter>GameObjects\Blocks\Pipe</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -552,6 +567,15 @@
     </ClInclude>
     <ClInclude Include="PlayerStateDead.h">
       <Filter>GameObjects\Player\StateMachine\PlayerFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="ParaGoomba.h">
+      <Filter>GameObjects\Enemies\Goomba</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyKoopas.h">
+      <Filter>GameObjects\Enemies\Koopas</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipe.h">
+      <Filter>GameObjects\Blocks\Pipe</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

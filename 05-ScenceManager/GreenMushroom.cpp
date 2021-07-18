@@ -9,6 +9,7 @@ GreenMushroom::GreenMushroom()
 	this->isOut = false;
 	this->setVx = false;
 	this->velocity = 0;
+	this->objectLayer = 0;
 }
 
 void GreenMushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

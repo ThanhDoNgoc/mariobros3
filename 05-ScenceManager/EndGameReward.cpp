@@ -13,6 +13,7 @@ EndGameReward::EndGameReward()
 	AddAnimation(ID_ANI_REWARD_MUSHROOM);
 	AddAnimation(ID_ANI_REWARD_FLOWER);
 	AddAnimation(ID_ANI_REWARD_STAR);
+	this->objectLayer = 0;
 }
 
 void EndGameReward::Render()

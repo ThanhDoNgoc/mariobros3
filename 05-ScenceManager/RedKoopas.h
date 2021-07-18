@@ -23,8 +23,7 @@ enum class RedKoopaState
 	walk,
 	shell,
 	slide,
-	die,
-	troppa
+	die
 };
 
 class RedKoopas : public CGameObject
