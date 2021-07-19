@@ -1,11 +1,16 @@
 #include "Goomba.h"
 #include "Game.h"
 #include "Camera.h"
-
+#include "Mario.h"
+#include "GoombaPoop.h"
 CGoomba::CGoomba()
 {
 	AddAnimation(ID_ANI_GOOMBA_WALK);
 	AddAnimation(ID_ANI_GOOMBA_DIE);
+	AddAnimation(ID_ANI_GOOMBA_FLY);
+	AddAnimation(ID_ANI_GOOMBA_WALK_FLY);
+	AddAnimation(IA_ANI_GOOMBA_FLOAT);
+
 	SetState(GoombaState::walk);
 	this->width = GOOMBA_BBOX_WIDTH;
 	this->height = GOOMBA_BBOX_HEIGHT;
@@ -74,6 +79,12 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		if (ny != 0)
 		{
 			vy = 0;
+
+			if (goombaState == GoombaState::flydown)
+			{
+				goombaState = GoombaState::walkfly;
+				this->waitFlyTime = GetTickCount();
+			}
 		}
 		// Collision logic with other objects
 		//
@@ -117,6 +128,64 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			GlobalVariables::GetInstance()->AddScore(100);
 		}
 	}
+
+	switch (goombaState)
+	{
+	case GoombaState::flyup:
+	{
+		this->vy = -GOOMBA_FLY_SPEED;
+		if (this->y < CMario::GetInstance()->y - GOOMBA_HIGH_DISTANCE)
+		{
+			flyTime = GetTickCount();
+			poopTime = GetTickCount();
+			goombaState = GoombaState::fly;
+		}
+		break;
+	}
+	case GoombaState::fly:
+	{
+		if (this->x > __Mario->x)
+		{
+			direction.x = 1.0f;
+		}
+		else if (this->x < __Mario->x)
+		{
+			direction.x = -1.0f;
+		}
+		if (this->y < __Mario->y - GOOMBA_HIGH_DISTANCE)
+			this->vy = GOOMBA_FLOAT_SPEED;
+		else this->vy = -GOOMBA_FLOAT_SPEED;
+		if (GetTickCount() - flyTime > GOOBA_FLY_TIME)
+		{
+			goombaState = GoombaState::flydown;
+		}
+		if (GetTickCount() - poopTime > GOOMBA_POOP_TIME)
+		{
+			poopTime = GetTickCount();
+			GoombaPoop* poop = new GoombaPoop();
+			poop->SetPosition(this->x + GOOMBA_BBOX_WIDTH/2, this->y + GOOMBA_BBOX_HEIGHT);
+			CGame::GetInstance()->GetCurrentScene()->AddObject(poop);
+
+		}
+		break;
+	}
+	case GoombaState::flydown:
+		this->vy = GOOMBA_FLY_SPEED;
+		break;
+	case GoombaState::walkfly:
+		if (this->x > __Mario->x)
+		{
+			direction.x = 1.0f;
+		}
+		else if (this->x < __Mario->x)
+		{
+			direction.x = -1.0f;
+		}
+		if (GetTickCount() - waitFlyTime > GOOMBA_WALK_TIME)
+			goombaState = GoombaState::flyup;
+		break;
+		
+	}
 }
 
 void CGoomba::Render()
@@ -134,6 +203,18 @@ void CGoomba::Render()
 		ani = GOOMBA_ANI_WALKING;
 		this->direction.y = -1.0;
 		break;
+	case GoombaState::flyup:
+		ani = GOOMBA_ANI_FLY;
+		break;
+	case GoombaState::fly:
+		ani = GOOMBA_ANI_FLOAT;
+		break;
+	case GoombaState::flydown:
+		ani = GOOMBA_ANI_FLY;
+		break;
+	case GoombaState::walkfly:
+		ani = GOOMBA_ANI_WALK_FLY;
+		break;
 	}
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 
@@ -149,7 +230,6 @@ void CGoomba::SetState(GoombaState state)
 	switch (state)
 	{
 	case GoombaState::die:
-		collision = Collision2D::None;
 		velocity = 0;
 		vy = 0;
 		break;
@@ -157,17 +237,24 @@ void CGoomba::SetState(GoombaState state)
 		velocity = -GOOMBA_WALKING_SPEED;
 		break;
 	case GoombaState::instancedead:
-		collision = Collision2D::None;
 		velocity = -GOOMBA_WALKING_SPEED;
 		vy = -GOOMBA_INSTANCE_DEAD_VY;
+		break;
+	case GoombaState::flyup:
+		velocity = -GOOMBA_FLY_SPEED_X;
 		break;
 	}
 }
 
 void CGoomba::TakeDamage()
 {
-	this->SetState(GoombaState::die);
-	this->die_time = GetTickCount();
+	if (goombaState != GoombaState::walk)
+		SetState(GoombaState::walk);
+	else
+	{
+		this->SetState(GoombaState::die);
+		this->die_time = GetTickCount();
+	}
 }
 
 void CGoomba::InstanceDead()

@@ -206,8 +206,7 @@ void CKoopas::TakeDamage()
 
 void CKoopas::InstanceDead()
 {
-	if (koopaState == KoopaState::walk)
-		SetState(KoopaState::shell);
+	SetState(KoopaState::die);
 	this->vy = -KOOPAS_INSTANCE_DEAD_VY;
 	this->vx = KOOPAS_SHELL_MOVING_SPEED;
 }
@@ -217,6 +216,13 @@ void CKoopas::OnOverLap(CGameObject* obj)
 	if (obj->ObjectGroup == Group::marioprojectile)
 	{
 		this->vy = -KOOPAS_INSTANCE_DEAD_VY;
-		this->InstanceDead();
+		this->TakeDamage();
+	}
+	else if (obj->ObjectGroup == Group::projectile)
+	{
+		if (koopaState != KoopaState::slide)
+		{
+			this->InstanceDead();
+		}
 	}
 }

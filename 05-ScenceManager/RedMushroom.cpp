@@ -98,6 +98,7 @@ void RedMushroom::TakeDamage()
 		__Mario->_marioLevel = new MarioLevelBig();
 	}
 	CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
+	GlobalVariables::GetInstance()->AddScore(1000);
 }
 
 void RedMushroom::OnOverLap(CGameObject* obj)

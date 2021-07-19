@@ -48,15 +48,18 @@ void EndGameReward::OnOverLap(CGameObject* obj)
 {
 	if (obj->ObjectGroup == Group::player)
 	{
-		this->isCollected=true;
-		__Mario->SetState(new PlayerStateEndGame());
-		//__Mario->isEndScene = true;
-		//__Mario->SetState(new PlayerStateEndGame());
-		if (!isAddCard)
+		if (!isCollected)
 		{
-			GlobalVariables::GetInstance()->AddCard(this->state+1);
-			DebugOut(L" endgamecard: %d \n ", this->state + 1);
-			this->isAddCard = true;
+			this->isCollected = true;
+			__Mario->SetState(new PlayerStateEndGame());
+			int point = GlobalVariables::GetInstance()->GameTimeLeft() / 1000;
+			GlobalVariables::GetInstance()->AddScore(point * 50);
+			if (!isAddCard)
+			{
+				GlobalVariables::GetInstance()->AddCard(this->state + 1);
+				DebugOut(L" endgamecard: %d \n ", this->state + 1);
+				this->isAddCard = true;
+			}
 		}
 	}
 }

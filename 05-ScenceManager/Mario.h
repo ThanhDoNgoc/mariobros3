@@ -29,6 +29,8 @@ class CMario : public CGameObject
 	float start_y;
 	LPGAMEOBJECT obj;
 	//D3DXVECTOR2 direction = D3DXVECTOR2(1.0f,1.0f);
+	bool isDebuff = false;
+	int jumpCount = 0;
 
 public:
 	int ani = -1;

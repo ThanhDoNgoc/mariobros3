@@ -14,14 +14,32 @@
 
 #define GOOMBA_ANI_WALKING	0
 #define GOOMBA_ANI_DIE		1
+#define GOOMBA_ANI_FLY		2
+#define GOOMBA_ANI_WALK_FLY	3
+#define GOOMBA_ANI_FLOAT	4
+
 
 #define GOOMBA_DIE_TIME		300
 #define GOOMBA_INSTANCE_DIE_TIME	2000
+
+#define GOOBA_FLY_TIME		2500
+#define GOOMBA_WALK_TIME	1000
+#define GOOMBA_POOP_TIME	600
+
+#define GOOMBA_FLY_SPEED	0.15f
+#define GOOMBA_FLOAT_SPEED	0.05f
+#define GOOMBA_HIGH_DISTANCE	240
+#define GOOMBA_FLY_SPEED_X	0.1f;
 enum class GoombaState
 {
 	walk,
 	die,
-	instancedead
+	instancedead,
+	walkfly,
+	flyup,
+	flydown,
+	fly
+
 };
 
 class CGoomba : public CGameObject
@@ -34,6 +52,10 @@ class CGoomba : public CGameObject
 	int width, height;
 	GoombaState goombaState;
 	float velocity;
+
+	DWORD waitFlyTime;
+	DWORD flyTime;
+	DWORD poopTime;
 public: 	
 	CGoomba();
 	virtual void SetState(GoombaState state);

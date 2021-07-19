@@ -10,17 +10,8 @@
     <Filter Include="GameObjects\Pickups">
       <UniqueIdentifier>{b495ae82-c109-4aaa-a141-0e377cdd2c25}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObjects\Enemies">
-      <UniqueIdentifier>{cc84074f-9c3a-40ef-b8fe-b75bfa17ba28}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObjects\Blocks">
       <UniqueIdentifier>{75ed952a-3fe5-4c6a-8e9a-64b3a2a33e67}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObjects\Enemies\Goomba">
-      <UniqueIdentifier>{2062ccfa-d903-43b7-8cdb-c9701d99297f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObjects\Enemies\Koopas">
-      <UniqueIdentifier>{812aa050-2092-48ef-9501-96483e1274cc}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameObjects\Blocks\Brick">
       <UniqueIdentifier>{9b27ff2d-2caa-44f4-aa30-db71b6ef4f3c}</UniqueIdentifier>
@@ -91,12 +82,6 @@
     <Filter Include="GameObjects\Blocks\Ground">
       <UniqueIdentifier>{6bb2cd9a-b7ec-4b55-9a5f-b327dc2c5670}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObjects\Enemies\FireShootingPlant">
-      <UniqueIdentifier>{33e35312-4210-40a3-9617-275c021ebff1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObjects\Enemies\EatingPlant">
-      <UniqueIdentifier>{e45b9b27-71e3-40a5-bebd-5448539fe3a7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObjects\Blocks\Warp">
       <UniqueIdentifier>{ffa9ad44-a7a9-404b-93f6-bf7d287d6b03}</UniqueIdentifier>
     </Filter>
@@ -117,6 +102,27 @@
     </Filter>
     <Filter Include="GameObjects\Blocks\Pipe">
       <UniqueIdentifier>{77a0dc29-a312-4eae-b584-cd4696614a2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\IntroObject">
+      <UniqueIdentifier>{6bd36c97-020e-42d0-8e46-757fade85a2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Enemies">
+      <UniqueIdentifier>{cc84074f-9c3a-40ef-b8fe-b75bfa17ba28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Enemies\Goomba">
+      <UniqueIdentifier>{2062ccfa-d903-43b7-8cdb-c9701d99297f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Enemies\FireShootingPlant">
+      <UniqueIdentifier>{33e35312-4210-40a3-9617-275c021ebff1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Enemies\EatingPlant">
+      <UniqueIdentifier>{e45b9b27-71e3-40a5-bebd-5448539fe3a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Enemies\BoomerangBro">
+      <UniqueIdentifier>{f207bec9-eae7-4ebb-b611-9c683955052e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Enemies\Koopas">
+      <UniqueIdentifier>{812aa050-2092-48ef-9501-96483e1274cc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -293,9 +299,6 @@
     <ClCompile Include="IntroScene.cpp">
       <Filter>Scenes\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Curtain.cpp">
-      <Filter>GameObjects\WorldMapObj</Filter>
-    </ClCompile>
     <ClCompile Include="RedKoopas.cpp">
       <Filter>GameObjects\Enemies\Koopas</Filter>
     </ClCompile>
@@ -344,6 +347,21 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pipe.cpp">
       <Filter>GameObjects\Blocks\Pipe</Filter>
+    </ClCompile>
+    <ClCompile Include="BoomerangBro.cpp">
+      <Filter>GameObjects\Enemies\BoomerangBro</Filter>
+    </ClCompile>
+    <ClCompile Include="Boomerang.cpp">
+      <Filter>GameObjects\Enemies\BoomerangBro</Filter>
+    </ClCompile>
+    <ClCompile Include="Curtain.cpp">
+      <Filter>GameObjects\IntroObject</Filter>
+    </ClCompile>
+    <ClCompile Include="FlyGoomba.cpp">
+      <Filter>GameObjects\Enemies\Goomba</Filter>
+    </ClCompile>
+    <ClCompile Include="GoombaPoop.cpp">
+      <Filter>GameObjects\Enemies\Goomba</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -526,9 +544,6 @@
     <ClInclude Include="IntroScene.h">
       <Filter>Scenes\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Curtain.h">
-      <Filter>GameObjects\WorldMapObj</Filter>
-    </ClInclude>
     <ClInclude Include="RedKoopas.h">
       <Filter>GameObjects\Enemies\Koopas</Filter>
     </ClInclude>
@@ -576,6 +591,21 @@
     </ClInclude>
     <ClInclude Include="Pipe.h">
       <Filter>GameObjects\Blocks\Pipe</Filter>
+    </ClInclude>
+    <ClInclude Include="BoomerangBro.h">
+      <Filter>GameObjects\Enemies\BoomerangBro</Filter>
+    </ClInclude>
+    <ClInclude Include="Boomerang.h">
+      <Filter>GameObjects\Enemies\BoomerangBro</Filter>
+    </ClInclude>
+    <ClInclude Include="Curtain.h">
+      <Filter>GameObjects\IntroObject</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyGoomba.h">
+      <Filter>GameObjects\Enemies\Goomba</Filter>
+    </ClInclude>
+    <ClInclude Include="GoombaPoop.h">
+      <Filter>GameObjects\Enemies\Goomba</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

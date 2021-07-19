@@ -19,7 +19,7 @@ void ParaGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (this->goombaState != ParaGoombaState::die)
 		vy += GOOMBA_GRAVITY * dt;
 
-	if (this->x + FOLLOW_RANGE > __Mario->x || this->x - FOLLOW_RANGE < __Mario->x)
+	if (this->x + FOLLOW_RANGE > __Mario->x && this->x - FOLLOW_RANGE < __Mario->x)
 	{
 		if (this->x < __Mario->x)
 			this->direction.x = -1;

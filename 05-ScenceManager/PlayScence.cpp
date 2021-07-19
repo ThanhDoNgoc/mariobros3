@@ -223,6 +223,11 @@ void CPlayScene::Update(DWORD dt)
 			EndScene();
 		}
 	}
+	if (GlobalVariables::GetInstance()->GetCoin() >= 100)
+	{
+		GlobalVariables::GetInstance()->ResetCoin();
+		GlobalVariables::GetInstance()->AddLife();
+	}
 }
 
 void CPlayScene::Render()

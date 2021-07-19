@@ -60,7 +60,8 @@ enum class Group
 	dead,
 	none,
 	musicblock,
-	hiddenmusicblock
+	hiddenmusicblock,
+	poop
 };
 enum class Collision2D
 {

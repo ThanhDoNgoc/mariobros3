@@ -164,9 +164,11 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				if (ny > 0)
 				{
 					y -= 0.4f;
+					this->TakeDamage();
+					
 				}
 				// jump on top >> kill Enemy and deflect a bit 
-				if (e->ny < 0)
+				else if (e->ny < 0)
 				{
 					e->obj->TakeDamage();
 					this->SetState(new PlayerStateJump());
@@ -204,6 +206,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						StartKick();
 					}
 				}
+				else if (koopa->koopaState == KoopaState::slide)
+				{
+					this->TakeDamage();
+				}
 			}
 			else if (dynamic_cast<RedKoopas*>(e->obj))
 			{
@@ -224,6 +230,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						koopa->SetState(RedKoopaState::slide);
 						StartKick();
 					}
+				}
+				else if (koopa->koopaState == RedKoopaState::slide)
+				{
+					this->TakeDamage();
 				}
 			}
 			else if (dynamic_cast<CBrick*>(e->obj))
@@ -389,7 +399,7 @@ void CMario::OnKeyDown(int KeyCode)
 
 void CMario::OnOverLap(CGameObject* obj)
 {
-	if (obj->ObjectGroup == Group::projectile2 || obj->ObjectGroup == Group::enemy)
+	if (obj->ObjectGroup == Group::projectile2)
 	{
 		this->TakeDamage();
 	}

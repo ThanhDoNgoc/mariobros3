@@ -27,6 +27,8 @@
 #include "ParaGoomba.h"
 #include "FlyKoopas.h"
 #include "Pipe.h"
+#include "BoomerangBro.h"
+#include "FlyGoomba.h"
 Map::Map()
 {
 }
@@ -198,6 +200,14 @@ void Map::AddObject(TiXmlElement* RootElement)
 				goomba->SetPosition(x, y);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(goomba);
 			}
+			else if (name == "flygoomba")
+			{
+				TMXObject->QueryFloatAttribute("x", &x);
+				TMXObject->QueryFloatAttribute("y", &y);
+				FlyGoomba* goomba = new FlyGoomba();
+				goomba->SetPosition(x, y);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(goomba);
+			}
 			else if (name == "redfiretree")
 			{
 				TMXObject->QueryFloatAttribute("x", &x);
@@ -246,6 +256,14 @@ void Map::AddObject(TiXmlElement* RootElement)
 				FlyKoopas* koopa = new FlyKoopas();
 				koopa->SetPosition(x, y);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(koopa);
+			}
+			else if (name == "bbro")
+			{
+				TMXObject->QueryFloatAttribute("x", &x);
+				TMXObject->QueryFloatAttribute("y", &y);
+				BoomerangBro* bbro = new BoomerangBro();
+				bbro->SetPosition(x, y);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(bbro);
 			}
 			else if (name == "brick")
 			{
@@ -486,9 +504,16 @@ void Map::AddObject(TiXmlElement* RootElement)
 void Map::Render(Camera* camera)
 {
 	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f, 1.0f);
-	for (int i = 0; i < mapWidth; i++)
+	int tileX = camera->GetCamPosX() / 48;
+	int tileY = camera->GetCamPosY() / 48;
+	int tileX_max = (camera->GetCamPosX() + CAMERA_WIDTH ) / 48 +1 ;
+	if (tileX_max > mapWidth)
+		tileX_max = mapWidth;
+
+	int tileY_max = (camera->GetCamPosY() + CAMERA_HEIGHT) / 48 +1 ;
+	for (int i = tileX; i < tileX_max; i++)
 	{
-		for (int j = 0; j < mapHeight; j++)
+		for (int j = tileY; j < tileY_max; j++)
 		{
 			int x = i * tileWidth;
 			int y = j * tileHeight;

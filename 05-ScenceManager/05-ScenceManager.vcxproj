@@ -126,6 +126,8 @@
   <ItemGroup>
     <ClCompile Include="AniMaganer.cpp" />
     <ClCompile Include="Animations.cpp" />
+    <ClCompile Include="Boomerang.cpp" />
+    <ClCompile Include="BoomerangBro.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="BrickQBlock.cpp" />
     <ClCompile Include="Bush.cpp" />
@@ -135,9 +137,11 @@
     <ClCompile Include="Deadblock.cpp" />
     <ClCompile Include="EndGameReward.cpp" />
     <ClCompile Include="Flower.cpp" />
+    <ClCompile Include="FlyGoomba.cpp" />
     <ClCompile Include="FlyKoopas.cpp" />
     <ClCompile Include="GhostPlatform.cpp" />
     <ClCompile Include="GlobalVariables.cpp" />
+    <ClCompile Include="GoombaPoop.cpp" />
     <ClCompile Include="GreenEatingPlant.cpp" />
     <ClCompile Include="GreenFireShootingPlant.cpp" />
     <ClCompile Include="GreenMushroom.cpp" />
@@ -205,6 +209,8 @@
   <ItemGroup>
     <ClInclude Include="AniMaganer.h" />
     <ClInclude Include="Animations.h" />
+    <ClInclude Include="Boomerang.h" />
+    <ClInclude Include="BoomerangBro.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="BrickQBlock.h" />
     <ClInclude Include="Bush.h" />
@@ -216,9 +222,11 @@
     <ClInclude Include="defineMario.h" />
     <ClInclude Include="EndGameReward.h" />
     <ClInclude Include="Flower.h" />
+    <ClInclude Include="FlyGoomba.h" />
     <ClInclude Include="FlyKoopas.h" />
     <ClInclude Include="GhostPlatform.h" />
     <ClInclude Include="GlobalVariables.h" />
+    <ClInclude Include="GoombaPoop.h" />
     <ClInclude Include="GreenEatingPlant.h" />
     <ClInclude Include="GreenFireShootingPlant.h" />
     <ClInclude Include="GreenMushroom.h" />
