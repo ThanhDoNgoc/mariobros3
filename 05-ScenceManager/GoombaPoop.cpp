@@ -12,6 +12,8 @@ GoombaPoop::GoombaPoop()
 	this->vx = POOP_FALL_SPEEDX;
 	this->isDead = false;
 	this->isOnMario = false;
+	this->movingX = 0;
+	this->movingY = 0;
 }
 
 void GoombaPoop::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -25,11 +27,11 @@ void GoombaPoop::GetBoundingBox(float& left, float& top, float& right, float& bo
 void GoombaPoop::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt);
-	this->x += dx * direction.x;
-	this->y += dy * direction.y;
 
 	if (!isOnMario)
 	{
+		this->x += dx * direction.x;
+		this->y += dy * direction.y;
 		if (GetTickCount() - cycleTime > POOP_CYCLE_TIME)
 		{
 			direction.x = -direction.x;
@@ -38,8 +40,25 @@ void GoombaPoop::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else if (isOnMario && !isDead)
 	{
-		this->y = __Mario->y + __Mario->height - POOP_BBOX_HEIGHT;
-		this->x = __Mario->x + __Mario->width/2 - POOP_BBOX_WIDTH/2;
+		this->movingX += dx * direction.x;
+		if (this->movingX < -POOP_BBOX_WIDTH)
+			direction.x = 1.0f;
+		else if (this->movingX > __Mario->width)
+			direction.x = -1.0f;
+
+		this->movingY += vy*dt;
+		if (this->movingY < 0)
+			vy = POOP_FALL_SPEED;
+		else if (this->movingY > __Mario->height - POOP_BBOX_HEIGHT)
+			vy = -POOP_FALL_SPEED;
+
+		this->y = __Mario->y + this->movingY;
+		this->x = __Mario->x + this->movingX;
+	}
+	else 
+	{
+		this->x += dx * direction.x;
+		this->y += dy * direction.y;
 	}
 	vector<LPCOLLISIONEVENT> coEvents;
 
@@ -51,7 +70,12 @@ void GoombaPoop::Render()
 {
 	int ani = ANI_ID_GOOMBA_POOP;
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
-
+	if (isOnMario && !isDead)
+	{
+		if (this->direction.x == -1.0f)
+			this->objectLayer = LAYER_ITEM;
+		else this->objectLayer = LAYER_OBJ;
+	}
 	animation_set[ani]->Render(x - camera->GetCamPosX() + POOP_BBOX_WIDTH / 2, y - camera->GetCamPosY() + POOP_BBOX_HEIGHT / 2, direction, 255);
 
 	RenderBoundingBox();
@@ -62,12 +86,14 @@ void GoombaPoop::TakeDamage()
 	this->isDead = true;
 	this->direction.y = -1;
 	this->vy = -POOP_DIE_FALL_SPEED;
+	//CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
 }
 
 void GoombaPoop::OnOverLap(CGameObject* obj)
 {
 	if (obj->ObjectGroup == Group::player)
 	{
+		if (isDead) return;
 		if (!isOnMario)
 		{
 			this->isOnMario = true;

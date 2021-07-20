@@ -22,15 +22,13 @@ class CMario : public CGameObject
 {
 	int untouchable;
 	DWORD untouchable_start, on_max_charge_start, kickStart;
-
 	static CMario* __instance;
 
 	float start_x;			// initial position of Mario at scene
 	float start_y;
 	LPGAMEOBJECT obj;
 	//D3DXVECTOR2 direction = D3DXVECTOR2(1.0f,1.0f);
-	bool isDebuff = false;
-	int jumpCount = 0;
+	bool canRemovePoop;
 
 public:
 	int ani = -1;
@@ -41,6 +39,9 @@ public:
 	bool isOnGround, isMaxCharge;
 	bool isAttacking, isKicking, isHolding, isWarping;
 	bool isEndScene;
+	bool isDebuff = false;
+	int jumpCount = 0;
+	DWORD removePoop_start;
 	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f, 1.0f);
 	float abilytiBar;
 	PlayerState* _playerState;

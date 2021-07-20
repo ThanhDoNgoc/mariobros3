@@ -14,6 +14,7 @@ class GoombaPoop : public CGameObject
 	DWORD cycleTime;
 	bool isDead;
 	bool isOnMario;
+	float movingX, movingY;
 public:
 	GoombaPoop();
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);

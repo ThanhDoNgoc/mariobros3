@@ -60,7 +60,7 @@ void PlayerStateWalk::Update()
 		__Mario->SetState(new PlayerStateIdle());
 
 
-	if (KeyHanler::GetInstance()->IsKeyDown(DIK_A))
+	if (KeyHanler::GetInstance()->IsKeyDown(DIK_A) && !__Mario->isDebuff)
 	{
 
 		if (abs(__Mario->vx) > MARIO_MAX_RUNNING_SPEED)

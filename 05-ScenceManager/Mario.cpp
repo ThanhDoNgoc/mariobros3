@@ -34,6 +34,7 @@ CMario::CMario(float x, float y) : CGameObject()
 	this->_marioLevel = new MarioLevelSmall();
 	this->isHolding = false;
 	this->isWarping = false;
+	this->isDebuff = false;
 	untouchable = 0;
 	this->abilytiBar = 0;
 	DebugOut(L"[INFO] create new IDLE");
@@ -82,6 +83,11 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		return;
 	}
 
+	if (GetTickCount() - removePoop_start < MARIO_REMOVE_POOP)
+	{
+		this->canRemovePoop = true;
+	}
+	else this->canRemovePoop = false;
 	// Simple fall down
 	vy += MARIO_GRAVITY * dt;
 
@@ -475,6 +481,17 @@ void CMario::OnOverLap(CGameObject* obj)
 			}
 		}
 	}
+
+	if (obj->ObjectGroup == Group::poop)
+	{
+		if (this->canRemovePoop == true)
+		{
+			obj->TakeDamage();
+			this->isDebuff = false;
+		}
+		this->isDebuff = true;
+	}
+	else this->isDebuff = false;
 	/*if (obj->ObjectGroup == Group::item)
 	{
 		obj->TakeDamage();

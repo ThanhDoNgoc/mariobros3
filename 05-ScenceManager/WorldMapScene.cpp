@@ -1,7 +1,7 @@
 #include "WorldMapScene.h"
 #include <iostream>
 #include <fstream>
-
+#include "Mario.h"
 using namespace std;
 
 #define SCENE_SECTION_UNKNOWN -1
@@ -143,6 +143,7 @@ void WorldMapScene::Update(DWORD dt)
 	{
 		camera->Update();
 	}
+	__Mario->isEndScene = false;
 }
 
 void WorldMapScene::Render()

@@ -97,9 +97,6 @@
     <Filter Include="GameObjects\Blocks\MusicNode">
       <UniqueIdentifier>{6347a8ea-7839-430a-bbe4-c0a427d3b625}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pipe">
-      <UniqueIdentifier>{2cc8c219-e009-416b-b618-6e6b0080402e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObjects\Blocks\Pipe">
       <UniqueIdentifier>{77a0dc29-a312-4eae-b584-cd4696614a2b}</UniqueIdentifier>
     </Filter>
