@@ -152,9 +152,11 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			direction.x = -1.0f;
 		}
+
 		if (this->y < __Mario->y - GOOMBA_HIGH_DISTANCE)
 			this->vy = GOOMBA_FLOAT_SPEED;
 		else this->vy = -GOOMBA_FLOAT_SPEED;
+
 		if (GetTickCount() - flyTime > GOOBA_FLY_TIME)
 		{
 			goombaState = GoombaState::flydown;
@@ -164,7 +166,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			poopTime = GetTickCount();
 			GoombaPoop* poop = new GoombaPoop();
 			poop->SetPosition(this->x + GOOMBA_BBOX_WIDTH/2, this->y + GOOMBA_BBOX_HEIGHT);
-			CGame::GetInstance()->GetCurrentScene()->AddObject(poop);
+			CGame::GetInstance()->GetCurrentScene()->AddObjectInGame(poop);
 
 		}
 		break;
@@ -267,7 +269,7 @@ void CGoomba::InstanceDead()
 
 void CGoomba::OnOverLap(CGameObject* obj)
 {
-	if (obj->ObjectGroup == Group::marioprojectile|| obj->ObjectGroup == Group::projectile)
+	if (obj->ObjectGroup == Group::marioprojectile|| obj->ObjectGroup == Group::projectile || obj->ObjectGroup == Group::projectile2)
 	{
 		this->InstanceDead();
 	}

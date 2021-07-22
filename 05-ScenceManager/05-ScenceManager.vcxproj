@@ -132,6 +132,7 @@
     <ClCompile Include="BrickQBlock.cpp" />
     <ClCompile Include="Bush.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Cell.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Curtain.cpp" />
     <ClCompile Include="Deadblock.cpp" />
@@ -145,6 +146,7 @@
     <ClCompile Include="GreenEatingPlant.cpp" />
     <ClCompile Include="GreenFireShootingPlant.cpp" />
     <ClCompile Include="GreenMushroom.cpp" />
+    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="IntroScene.cpp" />
@@ -215,6 +217,7 @@
     <ClInclude Include="BrickQBlock.h" />
     <ClInclude Include="Bush.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Cell.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Curtain.h" />
     <ClInclude Include="Deadblock.h" />
@@ -230,6 +233,7 @@
     <ClInclude Include="GreenEatingPlant.h" />
     <ClInclude Include="GreenFireShootingPlant.h" />
     <ClInclude Include="GreenMushroom.h" />
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="IntroScene.h" />

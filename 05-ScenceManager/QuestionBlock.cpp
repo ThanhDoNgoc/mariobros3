@@ -90,7 +90,7 @@ void QuestionBlock::SpawnItem()
 	{
 		Coin* coin = new Coin();
 		coin->SetPosition(this->x, this->y);
-		CGame::GetInstance()->GetCurrentScene()->AddObject(coin);
+		CGame::GetInstance()->GetCurrentScene()->AddObjectInGame(coin);
 		coin->Sprout();
 		break;
 	}
@@ -98,21 +98,21 @@ void QuestionBlock::SpawnItem()
 	{
 		RedMushroom* red = new RedMushroom();
 		red->SetPosition(this->x, this->y);
-		CGame::GetInstance()->GetCurrentScene()->AddObject(red);
+		CGame::GetInstance()->GetCurrentScene()->AddObjectInGame(red);
 		break;
 	}
 	case Item::GreenMushroom:
 	{
 		GreenMushroom* green = new GreenMushroom();
 		green->SetPosition(this->x, this->y);
-		CGame::GetInstance()->GetCurrentScene()->AddObject(green);
+		CGame::GetInstance()->GetCurrentScene()->AddObjectInGame(green);
 		break;
 	}
 	case Item::Leaf:
 	{
 		Leaf* leaf = new Leaf();
 		leaf->SetPosition(this->x, this->y);
-		CGame::GetInstance()->GetCurrentScene()->AddObject(leaf);
+		CGame::GetInstance()->GetCurrentScene()->AddObjectInGame(leaf);
 		break;
 	}
 	case Item::Flower:
@@ -123,7 +123,7 @@ void QuestionBlock::SpawnItem()
 	{
 		PButton* pbtn = new PButton();
 		pbtn->SetPosition(this->x, this->y - 48);
-		CGame::GetInstance()->GetCurrentScene()->AddObject(pbtn);
+		CGame::GetInstance()->GetCurrentScene()->AddObjectInGame(pbtn);
 		break;
 	}
 	}

@@ -138,7 +138,7 @@ void RedFireShootingPlant::ShootFire()
 		aimfire = -1;
 	else aimfire = 1;
 	PlantFireBall *fireball = new PlantFireBall(this->x+ FIREBALL_POS, this->y+ FIREBALL_POS, -this->direction.x, aimfire);
-	CGame::GetInstance()->GetCurrentScene()->AddObject(fireball);
+	CGame::GetInstance()->GetCurrentScene()->AddObjectInGame(fireball);
 }
 
 RedFireShootingPlant::RedFireShootingPlant()

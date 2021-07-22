@@ -97,24 +97,28 @@ void Map::AddObject(TiXmlElement* RootElement)
 			std::string name = TMXObject->Attribute("name");
 			if (name == "ground")
 			{
+				TMXObject->QueryIntAttribute("id", &id);
 				TMXObject->QueryFloatAttribute("x", &x);
 				TMXObject->QueryFloatAttribute("y", &y);
 				TMXObject->QueryFloatAttribute("width", &width);
 				TMXObject->QueryFloatAttribute("height", &height);
 				Ground* ground = new Ground(width, height);
 				ground->SetPosition(x, y);
+				ground->setId(id);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(ground);
 				DebugOut(L"[INFO] map object ground %f \n", x); 
 
 			}
 			if (name == "pipe")
 			{
+				TMXObject->QueryIntAttribute("id", &id);
 				TMXObject->QueryFloatAttribute("x", &x);
 				TMXObject->QueryFloatAttribute("y", &y);
 				TMXObject->QueryFloatAttribute("width", &width);
 				TMXObject->QueryFloatAttribute("height", &height);
 				Pipe* pipe = new Pipe(width, height);
 				pipe->SetPosition(x, y);
+				pipe->setId(id);
 				std::string type;
 				type = TMXObject->Attribute("type");
 				if (type == "green")
@@ -149,186 +153,230 @@ void Map::AddObject(TiXmlElement* RootElement)
 			}
 			else if (name == "deadblock")
 			{
+				TMXObject->QueryIntAttribute("id", &id);
 				TMXObject->QueryFloatAttribute("x", &x);
 				TMXObject->QueryFloatAttribute("y", &y);
 				TMXObject->QueryFloatAttribute("width", &width);
 				TMXObject->QueryFloatAttribute("height", &height);
 				Deadblock* deadblock = new Deadblock(width, height);
 				deadblock->SetPosition(x, y);
+				deadblock->setId(id);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(deadblock);
 				//DebugOut(L"[INFO] map object ground \n");
 
 			}
 			else if (name == "ghostplatform")
 			{
+				TMXObject->QueryIntAttribute("id", &id);
 				TMXObject->QueryFloatAttribute("x", &x);
 				TMXObject->QueryFloatAttribute("y", &y);
 				TMXObject->QueryFloatAttribute("width", &width);
 				TMXObject->QueryFloatAttribute("height", &height);
 				GhostPlatform* ghost = new GhostPlatform(width, height);
 				ghost->SetPosition(x, y);
+				ghost->setId(id);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(ghost);
 				//DebugOut(L"[INFO] map object ghostplatform \n");
 			}
 			else if (name == "mario")
 			{
+				TMXObject->QueryIntAttribute("id", &id);
 				TMXObject->QueryFloatAttribute("x", &x);
 				TMXObject->QueryFloatAttribute("y", &y);
 				__Mario->SetPosition(x, y);
+				
 			}
 			else if (name == "bush")
 			{
+				TMXObject->QueryIntAttribute("id", &id);
 				TMXObject->QueryFloatAttribute("x", &x);
 				TMXObject->QueryFloatAttribute("y", &y);
 				Bush* bush = new Bush();
 				bush->SetPosition(x, y);
+				bush->setId(id);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(bush);
 			}
 			else if (name == "goomba")
 			{
+				TMXObject->QueryIntAttribute("id", &id);
 				TMXObject->QueryFloatAttribute("x", &x);
 				TMXObject->QueryFloatAttribute("y", &y);
 				CGoomba* goomba = new CGoomba();
 				goomba->SetPosition(x, y);
+				goomba->setId(id);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(goomba);
 			}
 			else if (name == "paragoomba")
 			{
+				TMXObject->QueryIntAttribute("id", &id);
 				TMXObject->QueryFloatAttribute("x", &x);
 				TMXObject->QueryFloatAttribute("y", &y);
 				ParaGoomba* goomba = new ParaGoomba();
 				goomba->SetPosition(x, y);
+				goomba->setId(id);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(goomba);
 			}
 			else if (name == "flygoomba")
 			{
+				TMXObject->QueryIntAttribute("id", &id);
 				TMXObject->QueryFloatAttribute("x", &x);
 				TMXObject->QueryFloatAttribute("y", &y);
 				FlyGoomba* goomba = new FlyGoomba();
 				goomba->SetPosition(x, y);
+				goomba->setId(id);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(goomba);
 			}
 			else if (name == "redfiretree")
 			{
+				TMXObject->QueryIntAttribute("id", &id);
 				TMXObject->QueryFloatAttribute("x", &x);
 				TMXObject->QueryFloatAttribute("y", &y);
 				RedFireShootingPlant* obj = new RedFireShootingPlant();
 				obj->SetPosition(x, y);
+				obj->setId(id);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(obj);
 			}
 			else if (name == "greenfiretree")
 			{
+				TMXObject->QueryIntAttribute("id", &id);
 				TMXObject->QueryFloatAttribute("x", &x);
 				TMXObject->QueryFloatAttribute("y", &y);
 				GreenFireShootingPlant* greenshoot = new GreenFireShootingPlant();
 				greenshoot->SetPosition(x, y);
+				greenshoot->setId(id);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(greenshoot);
 			}
 			else if (name == "greeneating")
 			{
+				TMXObject->QueryIntAttribute("id", &id);
 				TMXObject->QueryFloatAttribute("x", &x);
 				TMXObject->QueryFloatAttribute("y", &y);
 				GreenEatingPlant* obj = new GreenEatingPlant();
 				obj->SetPosition(x, y);
+				obj->setId(id);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(obj);
 				DebugOut(L"[INFO] greeneating \n");
 			}
 			else if (name == "redkoopa")
 			{
+				TMXObject->QueryIntAttribute("id", &id);
 				TMXObject->QueryFloatAttribute("x", &x);
 				TMXObject->QueryFloatAttribute("y", &y);
 				RedKoopas* koopa = new RedKoopas();
 				koopa->SetPosition(x, y);
+				koopa->setId(id);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(koopa);
 			}
 			else if (name == "koopa")
 			{
+				TMXObject->QueryIntAttribute("id", &id);
 				TMXObject->QueryFloatAttribute("x", &x);
 				TMXObject->QueryFloatAttribute("y", &y);
 				CKoopas* koopa = new CKoopas();
 				koopa->SetPosition(x, y);
+				koopa->setId(id);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(koopa);
 			}
 			else if (name == "flykoopa")
 			{
+				TMXObject->QueryIntAttribute("id", &id);
 				TMXObject->QueryFloatAttribute("x", &x);
 				TMXObject->QueryFloatAttribute("y", &y);
 				FlyKoopas* koopa = new FlyKoopas();
 				koopa->SetPosition(x, y);
+				koopa->setId(id);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(koopa);
 			}
 			else if (name == "bbro")
 			{
+				TMXObject->QueryIntAttribute("id", &id);
 				TMXObject->QueryFloatAttribute("x", &x);
 				TMXObject->QueryFloatAttribute("y", &y);
 				BoomerangBro* bbro = new BoomerangBro();
 				bbro->SetPosition(x, y);
+				bbro->setId(id);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(bbro);
 			}
 			else if (name == "brick")
 			{
+				TMXObject->QueryIntAttribute("id", &id);
 				TMXObject->QueryFloatAttribute("x", &x);
 				TMXObject->QueryFloatAttribute("y", &y);
 				CBrick* brick = new CBrick();
 				brick->SetPosition(x, y);
+				brick->setId(id);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(brick);
 			}
 			else if (name == "music")
 			{
-			TMXObject->QueryFloatAttribute("x", &x);
-			TMXObject->QueryFloatAttribute("y", &y);
-			MusicNode* brick = new MusicNode();
-			brick->SetPosition(x, y);
-			CGame::GetInstance()->GetCurrentScene()->AddObject(brick);
+				TMXObject->QueryIntAttribute("id", &id);
+				TMXObject->QueryFloatAttribute("x", &x);
+				TMXObject->QueryFloatAttribute("y", &y);
+				MusicNode* brick = new MusicNode();
+				brick->SetPosition(x, y);
+				brick->setId(id);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(brick);
 			}
 			else if (name == "hiddenmusic")
 			{
-			TMXObject->QueryFloatAttribute("x", &x);
-			TMXObject->QueryFloatAttribute("y", &y);
-			RedMusicNode* brick = new RedMusicNode();
-			brick->SetPosition(x, y);
-			CGame::GetInstance()->GetCurrentScene()->AddObject(brick);
+				TMXObject->QueryIntAttribute("id", &id);
+				TMXObject->QueryFloatAttribute("x", &x);
+				TMXObject->QueryFloatAttribute("y", &y);
+				RedMusicNode* brick = new RedMusicNode();
+				brick->SetPosition(x, y);
+				brick->setId(id);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(brick);
 			}
 			else if (name == "qblock")
 			{
+				TMXObject->QueryIntAttribute("id", &id);
 				TMXObject->QueryFloatAttribute("x", &x);
 				TMXObject->QueryFloatAttribute("y", &y);
 				QuestionBlock* qblock = new QuestionBlock();
 				qblock->SetPosition(x, y);
+				qblock->setId(id);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(qblock);
 				qblock->SetItem(TMXObject->Attribute("type"));
 			}
 			else if (name == "bqblock")
 			{
+				TMXObject->QueryIntAttribute("id", &id);
 				TMXObject->QueryFloatAttribute("x", &x);
 				TMXObject->QueryFloatAttribute("y", &y);
 				BrickQBlock* qblock = new BrickQBlock();
 				qblock->SetPosition(x, y);
+				qblock->setId(id);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(qblock);
 				qblock->SetItem(TMXObject->Attribute("type"));
 			}
 			else if (name == "coin")
 			{
+				TMXObject->QueryIntAttribute("id", &id);
 				TMXObject->QueryFloatAttribute("x", &x);
 				TMXObject->QueryFloatAttribute("y", &y);
 				Coin* coin = new Coin();
 				coin->SetPosition(x, y);
+				coin->setId(id);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(coin);
 			}
 			else if (name == "endgamereward")
 			{
+				TMXObject->QueryIntAttribute("id", &id);
 				TMXObject->QueryFloatAttribute("x", &x);
 				TMXObject->QueryFloatAttribute("y", &y);
 				EndGameReward* reward = new EndGameReward();
 				reward->SetPosition(x+9, y+9);
+				reward->setId(id);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(reward);
 			}
 			if (name == "curtain")
 			{
+				TMXObject->QueryIntAttribute("id", &id);
 				TMXObject->QueryFloatAttribute("x", &x);
 				TMXObject->QueryFloatAttribute("y", &y);
 				Curtain* curtain = new Curtain();
 				curtain->SetPosition(x, y);
+				curtain->setId(id);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(curtain);
 
 			}
@@ -338,6 +386,7 @@ void Map::AddObject(TiXmlElement* RootElement)
 				std::vector<std::string> adlist;
 				std::vector<std::string> weight;
 				int scence=0;
+				TMXObject->QueryIntAttribute("id", &id);
 				TMXObject->QueryFloatAttribute("x", &x);
 				TMXObject->QueryFloatAttribute("y", &y);
 				TMXObject->QueryFloatAttribute("width", &width);
@@ -372,7 +421,7 @@ void Map::AddObject(TiXmlElement* RootElement)
 				node->SetPosition(x, y);
 				node->setNodeID(nodename);
 				node->setScence(scence);
-
+				node->setId(id);
 				auto adjacentlist = node->getAdjacentList();
 
 				for (int i = 0; i < adlist.size(); i++)
@@ -399,13 +448,15 @@ void Map::AddObject(TiXmlElement* RootElement)
 			}
 			else if (name == "wrap")
 			{
-			TMXObject->QueryFloatAttribute("x", &x);
-			TMXObject->QueryFloatAttribute("y", &y);
-			Warp* warp = new Warp();
-			warp->SetPosition(x, y);
-			CGame::GetInstance()->GetCurrentScene()->AddObject(warp);
-			std::string dir;
-			dir = TMXObject->Attribute("type");
+				TMXObject->QueryIntAttribute("id", &id);
+				TMXObject->QueryFloatAttribute("x", &x);
+				TMXObject->QueryFloatAttribute("y", &y);
+				Warp* warp = new Warp();
+				warp->SetPosition(x, y);
+				warp->setId(id);
+				CGame::GetInstance()->GetCurrentScene()->AddObject(warp);
+				std::string dir;
+				dir = TMXObject->Attribute("type");
 				if (dir == "up")
 				{
 					warp->setWarpDirection(WarpDirection::up);
@@ -417,12 +468,14 @@ void Map::AddObject(TiXmlElement* RootElement)
 			}
 			else if (name == "psportal")
 			{
+				TMXObject->QueryIntAttribute("id", &id);
 				TMXObject->QueryFloatAttribute("x", &x);
 				TMXObject->QueryFloatAttribute("y", &y);
 				TMXObject->QueryFloatAttribute("width", &width);
 				TMXObject->QueryFloatAttribute("height", &height);
 				PSPortal* portal = new PSPortal(width, height);
 				portal->SetPosition(x, y);
+				portal->setId(id);
 
 				bool isstatic = false, isfollow = false, scrollx = false, scrolly = false;
 				float camL, camR, camT, camB;

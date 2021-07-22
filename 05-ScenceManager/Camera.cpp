@@ -103,6 +103,12 @@ void Camera::Update()
 		//update cam pos -> player (1:1)
 		CamPosX = cx;
 		CamPosY = cy;
+		/*if (__Mario->state == MARIO_STATE_FLY || __Mario->state == MARIO_STATE_SLOW_FALL)
+		{
+			if (__Mario->y < this->CamPosY - CamHeight/2)
+				CamPosY = cy;
+		}
+		else this->CamPosY = this->limitBottom - this->CamHeight;;*/
 	}
 	if (!isFollow && !isStatic)
 	{

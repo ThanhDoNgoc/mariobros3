@@ -35,6 +35,7 @@ public:
 
 	virtual void AddObject(LPGAMEOBJECT addobject) { addobjects.push_back(addobject); };
 	virtual void DeleteObject(LPGAMEOBJECT object) { earseobjects.push_back(object); };
+	virtual void AddObjectInGame(LPGAMEOBJECT object) {};
 	void DrawCurtain();
 	void DrawBushs();
 	void DrawFloor();

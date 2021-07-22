@@ -28,7 +28,7 @@
 
 #define GOOMBA_FLY_SPEED	0.15f
 #define GOOMBA_FLOAT_SPEED	0.05f
-#define GOOMBA_HIGH_DISTANCE	240
+#define GOOMBA_HIGH_DISTANCE	288
 #define GOOMBA_FLY_SPEED_X	0.1f;
 enum class GoombaState
 {

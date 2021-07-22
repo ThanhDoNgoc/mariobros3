@@ -7,3 +7,5 @@
 textures\MapData\World_1-3.tmx	textures\MapData\
 [CAMERA]
 0	1392	7680	2640
+[GRID]
+textures\MapData\grid_world_1-3.tmx

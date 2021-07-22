@@ -27,6 +27,7 @@ public:
 
 	virtual void AddObject(LPGAMEOBJECT object) = 0;
 	virtual void DeleteObject(LPGAMEOBJECT object) = 0;
+	virtual void AddObjectInGame(LPGAMEOBJECT object) = 0;
 
 	virtual Camera* GetCamera();
 };

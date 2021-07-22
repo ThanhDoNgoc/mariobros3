@@ -31,5 +31,7 @@ public:
 	void AddObject(TiXmlElement* RootElement);
 	void Render(Camera* camera);
 
+	int getMapWidth() { return this->mapWidth * this->tileWidth; }
+	int getMapHeight() { return this->mapHeight * this->tileHeight; }
 };
 

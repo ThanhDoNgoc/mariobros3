@@ -139,7 +139,7 @@ void BoomerangBro::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			this->waitAttack = false;
 			Boomerang* bmr = new Boomerang(this->x, this->y-24, -this->direction.x);
-			CGame::GetInstance()->GetCurrentScene()->AddObject(bmr);
+			CGame::GetInstance()->GetCurrentScene()->AddObjectInGame(bmr);
 			this->bbroAtkState = BBroAttackSate::NoneAttack2;
 		}
 		break;
@@ -155,7 +155,7 @@ void BoomerangBro::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			this->waitAttack = false;
 			Boomerang* bmr = new Boomerang(this->x, this->y-24, -this->direction.x);
-			CGame::GetInstance()->GetCurrentScene()->AddObject(bmr);
+			CGame::GetInstance()->GetCurrentScene()->AddObjectInGame(bmr);
 			this->bbroAtkState = BBroAttackSate::NoneAttack3;
 		}
 		break;

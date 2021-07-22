@@ -19,7 +19,7 @@ PlayerStateAttack::PlayerStateAttack()
 		{
 			__Mario->fireball -= 1;
 			MarioFireBall* fireball1 = new MarioFireBall(__Mario->x + MARIO_BIG_BBOX_WIDTH / 2, __Mario->y, __Mario->direction.x, __Mario->direction.y);
-			CGame::GetInstance()->GetCurrentScene()->AddObject(fireball1);
+			CGame::GetInstance()->GetCurrentScene()->AddObjectInGame(fireball1);
 		}
 		break;
 	}
@@ -30,12 +30,12 @@ PlayerStateAttack::PlayerStateAttack()
 		if (__Mario->direction.x >= 1)
 		{
 			MarioRaccoonTail* tail = new MarioRaccoonTail(__Mario->x + MARIO_BIG_BBOX_WIDTH / 2 - 50, __Mario->y + 50);
-			CGame::GetInstance()->GetCurrentScene()->AddObject(tail);
+			CGame::GetInstance()->GetCurrentScene()->AddObjectInGame(tail);
 		}
 		else if (__Mario->direction.x <= -1)
 		{
 			MarioRaccoonTail* tail = new MarioRaccoonTail(__Mario->x + MARIO_BIG_BBOX_WIDTH / 2, __Mario->y + 50);
-			CGame::GetInstance()->GetCurrentScene()->AddObject(tail);
+			CGame::GetInstance()->GetCurrentScene()->AddObjectInGame(tail);
 		}
 		break;
 	}
@@ -57,12 +57,12 @@ void PlayerStateAttack::Update()
 			if (__Mario->direction.x >= 1)
 			{
 				MarioRaccoonTail* tail = new MarioRaccoonTail(__Mario->x + MARIO_BIG_BBOX_WIDTH / 2, __Mario->y + 50);
-				CGame::GetInstance()->GetCurrentScene()->AddObject(tail);
+				CGame::GetInstance()->GetCurrentScene()->AddObjectInGame(tail);
 			}
 			else if (__Mario->direction.x <= -1)
 			{
 				MarioRaccoonTail* tail = new MarioRaccoonTail(__Mario->x + MARIO_BIG_BBOX_WIDTH / 2 - 50, __Mario->y + 50);
-				CGame::GetInstance()->GetCurrentScene()->AddObject(tail);
+				CGame::GetInstance()->GetCurrentScene()->AddObjectInGame(tail);
 			}
 		}
 	}

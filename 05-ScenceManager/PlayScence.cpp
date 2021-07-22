@@ -28,6 +28,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 #define SCENE_SECTION_OBJECTS	6
 #define SCENE_SECTION_MAP	7
 #define SCENE_SECTION_CAMERA	8
+#define SCENE_SECTION_GRID	9
 
 #define OBJECT_TYPE_MARIO	0
 #define OBJECT_TYPE_BRICK	1
@@ -91,7 +92,9 @@ void CPlayScene::_ParseSection_MAP(string line)
 	vector<string> tokens = split(line);
 	const char* filepath = tokens[0].c_str();
 	const char* path = tokens[1].c_str();
+	//const char* gridfilepath = tokens[3].c_str();
 	maps->LoadMap(filepath, path);
+	grid = new Grid(maps->getMapWidth(), maps->getMapHeight());
 }
 
 void CPlayScene::_ParseSection_CAMERA(string line)
@@ -102,6 +105,13 @@ void CPlayScene::_ParseSection_CAMERA(string line)
 	this->camT = atof(tokens[1].c_str());
 	this->camR = atof(tokens[2].c_str());
 	this->camB = atof(tokens[3].c_str());
+}
+
+void CPlayScene::_ParseSection_GRID(string line)
+{
+	vector<string> tokens = split(line);
+	const char* filepath = tokens[0].c_str();
+	grid->LoadGridFromFile(objects, filepath);
 }
 
 void CPlayScene::Load()
@@ -132,6 +142,11 @@ void CPlayScene::Load()
 			section = SCENE_SECTION_CAMERA; continue;
 
 		}
+		if (line == "[GRID]")
+		{
+			section = SCENE_SECTION_GRID; continue;
+
+		}
 		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }	
 
 		//
@@ -142,6 +157,7 @@ void CPlayScene::Load()
 			case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
 			case SCENE_SECTION_MAP:  _ParseSection_MAP(line); break;
 			case SCENE_SECTION_CAMERA: _ParseSection_CAMERA(line); break;
+			case SCENE_SECTION_GRID: _ParseSection_GRID(line); break;
 		}
 	}
 
@@ -166,16 +182,24 @@ void CPlayScene::Update(DWORD dt)
 
 	vector<LPGAMEOBJECT> coObjects;
 
-
-	for (size_t i = 0; i < objects.size(); i++)
+	grid->Update();
+	activegameobject = grid->getActiveGameObject();
+	activegameobject.push_back(player);
+	for (size_t i = 0; i < activegameobject.size(); i++)
 	{
-		coObjects.push_back(objects[i]);
+		activegameobject[i]->Update(dt, &activegameobject);
+
 	}
 
-	for (size_t i = 0; i < objects.size(); i++)
+	for (size_t i = 0; i < activegameobject.size(); i++)
+	{
+		coObjects.push_back(activegameobject[i]);
+	}
+
+	/*for (size_t i = 0; i < objects.size(); i++)
 	{
 		objects[i]->Update(dt, &coObjects);
-	}
+	}*/
 
 	if (earseobjects.size() > 0)
 	{
@@ -236,10 +260,10 @@ void CPlayScene::Render()
 
 	for (int j = 0; j < 3; j++)
 	{
-		for (int i = 0; i < objects.size(); i++)
+		for (int i = 0; i < activegameobject.size(); i++)
 		{
-			if (objects[i]->objectLayer == j)
-				objects[i]->Render();
+			if (activegameobject[i]->objectLayer == j)
+				activegameobject[i]->Render();
 		}
 	}
 

@@ -489,9 +489,10 @@ void CMario::OnOverLap(CGameObject* obj)
 			obj->TakeDamage();
 			this->isDebuff = false;
 		}
-		this->isDebuff = true;
+		else
+			this->isDebuff = true;
 	}
-	else this->isDebuff = false;
+	//else this->isDebuff = false;
 	/*if (obj->ObjectGroup == Group::item)
 	{
 		obj->TakeDamage();

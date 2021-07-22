@@ -7,7 +7,7 @@
 #include "Sprites.h"
 #include "Animations.h"
 #include "defineAni.h"
-
+#include "Cell.h"
 
 using namespace std;
 
@@ -15,6 +15,9 @@ using namespace std;
 #define LAYER_ITEM	0
 #define LAYER_OBJ	1
 #define LAYER_PIPE	2
+
+class Cell;
+
 class CGameObject; 
 typedef CGameObject * LPGAMEOBJECT;
 
@@ -76,7 +79,7 @@ enum class Collision2D
 class CGameObject
 {
 public:
-
+	int id = -1;
 	float x; 
 	float y;
 
@@ -100,6 +103,9 @@ public:
 	//LPANIMATION_SET animation_set;
 	vector<LPANIMATION> animation_set;
 
+	bool isActive;
+	Cell* ownerCell;
+
 public: 
 	Group ObjectGroup;
 	Collision2D collision;
@@ -120,6 +126,12 @@ public:
 	bool CheckOverlapped(float left, float top, float right, float bottom, float left1, float top1, float right1, float bottom1);
 
 	void RenderBoundingBox();
+
+	void setOwnerCell(Cell* cell);
+	Cell* getOwerCell();
+
+	void setId(int id);
+	int getId() { return this->id; };
 
 	//void SetAnimationSet(LPANIMATION_SET ani_set) { animation_set = ani_set; }
 

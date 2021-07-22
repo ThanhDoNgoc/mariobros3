@@ -121,6 +121,12 @@
     <Filter Include="GameObjects\Enemies\Koopas">
       <UniqueIdentifier>{812aa050-2092-48ef-9501-96483e1274cc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Grid">
+      <UniqueIdentifier>{e2988b5c-1d0d-4e4a-a028-ef18f5787fef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Grid\Cell">
+      <UniqueIdentifier>{4780e807-bb77-46ee-a429-596895e22917}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -359,6 +365,12 @@
     </ClCompile>
     <ClCompile Include="GoombaPoop.cpp">
       <Filter>GameObjects\Enemies\Goomba</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="Cell.cpp">
+      <Filter>Grid\Cell</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -603,6 +615,12 @@
     </ClInclude>
     <ClInclude Include="GoombaPoop.h">
       <Filter>GameObjects\Enemies\Goomba</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="Cell.h">
+      <Filter>Grid\Cell</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

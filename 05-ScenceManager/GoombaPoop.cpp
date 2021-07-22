@@ -48,9 +48,9 @@ void GoombaPoop::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		this->movingY += vy*dt;
 		if (this->movingY < 0)
-			vy = POOP_FALL_SPEED;
+			vy = POOP_ON_MARIO_SPEED;
 		else if (this->movingY > __Mario->height - POOP_BBOX_HEIGHT)
-			vy = -POOP_FALL_SPEED;
+			vy = -POOP_ON_MARIO_SPEED;
 
 		this->y = __Mario->y + this->movingY;
 		this->x = __Mario->x + this->movingX;
@@ -74,7 +74,7 @@ void GoombaPoop::Render()
 	{
 		if (this->direction.x == -1.0f)
 			this->objectLayer = LAYER_ITEM;
-		else this->objectLayer = LAYER_OBJ;
+		else this->objectLayer = LAYER_PIPE;
 	}
 	animation_set[ani]->Render(x - camera->GetCamPosX() + POOP_BBOX_WIDTH / 2, y - camera->GetCamPosY() + POOP_BBOX_HEIGHT / 2, direction, 255);
 

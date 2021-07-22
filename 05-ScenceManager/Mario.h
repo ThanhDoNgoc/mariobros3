@@ -39,7 +39,7 @@ public:
 	bool isOnGround, isMaxCharge;
 	bool isAttacking, isKicking, isHolding, isWarping;
 	bool isEndScene;
-	bool isDebuff = false;
+	bool isDebuff;
 	int jumpCount = 0;
 	DWORD removePoop_start;
 	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f, 1.0f);

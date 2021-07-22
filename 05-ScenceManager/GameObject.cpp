@@ -14,6 +14,7 @@ CGameObject::CGameObject()
 	x = y = 0;
 	vx = vy = 0;
 	nx = 1;	
+	isActive = false;
 }
 
 void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -278,6 +279,21 @@ void CGameObject::RenderBoundingBox()
 	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
 
 	CGame::GetInstance()->Draw(x - camera->GetCamPosX() + (rect.right - rect.left)/2, y - camera->GetCamPosY() + (rect.bottom - rect.top) / 2, (rect.right - rect.left)/2, (rect.bottom-rect.top)/2, bbox, rect.left, rect.top, rect.right, rect.bottom, direction, 32);
+}
+
+void CGameObject::setOwnerCell(Cell* cell)
+{
+	this->ownerCell = cell;
+}
+
+Cell* CGameObject::getOwerCell()
+{
+	return this->ownerCell;
+}
+
+void CGameObject::setId(int id)
+{
+	this->id = id;
 }
 
 CGameObject::~CGameObject()

@@ -7,6 +7,7 @@
 
 #define POOP_FALL_SPEED	0.05f
 #define POOP_FALL_SPEEDX	0.05f
+#define POOP_ON_MARIO_SPEED	0.015f
 #define POOP_CYCLE_TIME	800
 #define POOP_DIE_FALL_SPEED	0.2f;
 class GoombaPoop : public CGameObject
