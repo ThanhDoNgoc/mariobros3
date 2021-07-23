@@ -1,3 +1,5 @@
+#pragma warning (disable : 6011)
+#pragma warning (disable : 28182)
 #include <algorithm>
 #include <assert.h>
 #include "Utils.h"
@@ -31,7 +33,7 @@ CMario* CMario::__instance = NULL;
 CMario::CMario(float x, float y) : CGameObject()
 {
 	this->__instance = this;
-	this->_marioLevel = new MarioLevelSmall();
+	//this->_marioLevel = new MarioLevelSmall();
 	this->isHolding = false;
 	this->isWarping = false;
 	this->isDebuff = false;
@@ -51,6 +53,22 @@ CMario::CMario(float x, float y) : CGameObject()
 	this->collision = Collision2D::Full;
 
 	this->fireball = 2;
+
+	switch (CGame::GetInstance()->mariolvl)
+	{
+	case MARIO_LEVEL_SMALL:
+		this->_marioLevel = new MarioLevelSmall();
+		break;
+	case MARIO_LEVEL_BIG:
+		this->_marioLevel = new MarioLevelBig();
+		break;
+	case MARIO_LEVEL_FIRE:
+		this->_marioLevel = new MarioLevelFire();
+		break;
+	case MARIO_LEVEL_RACCOON:
+		this->_marioLevel = new MarioLevelRaccoon();
+		break;
+	}
 }
 
 CMario* CMario::GetInstance()
@@ -83,7 +101,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		return;
 	}
 
-	if (GetTickCount() - removePoop_start < MARIO_REMOVE_POOP)
+	if (GetTickCount64() - removePoop_start < MARIO_REMOVE_POOP)
 	{
 		this->canRemovePoop = true;
 	}
@@ -93,7 +111,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 
 	if (abs(this->vx) > MARIO_MAX_WALKING_SPEED)
-		this->abilytiBar += 1.2 * dt;
+		this->abilytiBar += (float) 1.2 * dt;
 	else this->abilytiBar -= 1 * dt;
 
 	if (this->abilytiBar > MAX_SPEED_BAR)
@@ -106,16 +124,16 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		CalcPotentialCollisions(coObjects, coEvents);
 	}
 	// reset untouchable timer if untouchable time has passed
-	if ( GetTickCount() - untouchable_start > MARIO_UNTOUCHABLE_TIME) 
+	if ( GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME) 
 	{
 		untouchable_start = 0;
 		untouchable = 0;
 	}
-	if (GetTickCount() - on_max_charge_start > MARIO_MAX_CHARGE_TIME)
+	if (GetTickCount64() - on_max_charge_start > MARIO_MAX_CHARGE_TIME)
 	{
 		this->isMaxCharge = false;
 	}
-	if (GetTickCount() - kickStart > MARIO_KICK_TIME)
+	if (GetTickCount64() - kickStart > MARIO_KICK_TIME)
 	{
 		this->isKicking = false;
 	}
@@ -377,8 +395,14 @@ void CMario::OnKeyDown(int KeyCode)
 		Reset();
 		break;
 	case DIK_1:
-		this->_marioLevel = new MarioLevelSmall();
+	{
+		if (this->level != MARIO_LEVEL_SMALL)
+		{
+			this->y += MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT;
+			this->_marioLevel = new MarioLevelSmall();
+		}
 		break;
+	}
 	case DIK_2:
 		if (this->level == MARIO_LEVEL_SMALL)
 			this->y -= MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT;
@@ -397,7 +421,7 @@ void CMario::OnKeyDown(int KeyCode)
 	case DIK_9:
 		_marioLevel->LevelDown();
 		break;
-	case DIK_P:
+	case DIK_5:
 		this->SetPosition(6744, 330);
 		break;
 	}
@@ -426,6 +450,12 @@ void CMario::OnOverLap(CGameObject* obj)
 				StartKick();
 			}
 		}
+		else if (koopa->koopaState == KoopaState::walk)
+		{
+			if (isHolding)
+				isHolding = false;
+			this->TakeDamage();
+		}
 	}
 	else if (dynamic_cast<RedKoopas*>(obj))
 	{
@@ -438,6 +468,12 @@ void CMario::OnOverLap(CGameObject* obj)
 				koopa->SetState(RedKoopaState::slide);
 				StartKick();
 			}
+		}
+		else if (koopa->koopaState == RedKoopaState::walk)
+		{
+			if (isHolding)
+				isHolding = false;
+			this->TakeDamage();
 		}
 	}
 	else if (obj->ObjectGroup == Group::warp)

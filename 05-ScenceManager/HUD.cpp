@@ -27,7 +27,7 @@ void HUD::Render()
 	DrawWorld();
 	DrawAbilityBar();
 	DrawCard();
-	if (__Mario->isEndScene && __Mario->state!= MARIO_STATE_DIE)
+	if (CGame::GetInstance()->GetCurrentScene()->isEndScene == true && CGame::GetInstance()->GetCurrentScene()->isPlayScene == true)
 		DrawEndGame();
 }
 
@@ -59,7 +59,7 @@ void HUD::DrawCoin()
 			}
 		}
 		if (coin < 10 && i == 0) continue;
-		num->Draw(SCREEN_WIDTH / 2 + 58 + i*NUM_WIDTH, (SCREEN_HEIGHT - 112));
+		num->Draw((float) (SCREEN_WIDTH / 2 + 58 + i*NUM_WIDTH), (float)(SCREEN_HEIGHT - 112));
 	}
 }
 
@@ -82,7 +82,7 @@ void HUD::DrawScore()
 				num = sprites->Get(j);
 			}
 		}
-		num->Draw(SCREEN_WIDTH / 2 - 180 + i * NUM_WIDTH, (SCREEN_HEIGHT - 88));
+		num->Draw((float)(SCREEN_WIDTH / 2 - 180 + i * NUM_WIDTH), (float)(SCREEN_HEIGHT - 88));
 	}
 }
 
@@ -90,7 +90,10 @@ void HUD::DrawTimer()
 {
 	auto sprites = CSprites::GetInstance();
 	LPSPRITE num = sprites->Get(0);
-	int time = GlobalVariables::GetInstance()->GameTimeLeft()/1000;
+	int time =(int)( GlobalVariables::GetInstance()->GameTimeLeft()/1000);
+	if (CGame::GetInstance()->GetCurrentScene()->isPlayScene)
+		time =(int) (GlobalVariables::GetInstance()->GameTimeLeft() / 1000);
+	else time = 0;
 	string scoreString = NumberToString(time, 3);
 	for (int i = 0; (unsigned)i < scoreString.length(); i++)
 	{
@@ -105,7 +108,7 @@ void HUD::DrawTimer()
 				num = sprites->Get(j);
 			}
 		}
-		num->Draw(SCREEN_WIDTH / 2 + 38 + i * NUM_WIDTH, (SCREEN_HEIGHT - 88));
+		num->Draw((float)(SCREEN_WIDTH / 2 + 38 + i * NUM_WIDTH),(float) (SCREEN_HEIGHT - 88));
 	}
 }
 
@@ -130,13 +133,13 @@ void HUD::DrawAbilityBar()
 {
 	auto sprites = CSprites::GetInstance();
 	LPSPRITE num = sprites->Get(SPRITE_ABILITY_OFF);
-	int bar = __Mario->abilytiBar / ABILITY_BAR;
+	int bar = (int)(__Mario->abilytiBar / ABILITY_BAR);
 	for (int i = 0; i < 6; i++)
 	{
 		if (bar > i)
 			num = sprites->Get(SPRITE_ABILITY_ON);
 		else num = sprites->Get(SPRITE_ABILITY_OFF);
-		num->Draw(SCREEN_WIDTH / 2 - 180 + i * NUM_WIDTH, (SCREEN_HEIGHT - 112));
+		num->Draw((float)(SCREEN_WIDTH / 2 - 180 + i * NUM_WIDTH), (float)(SCREEN_HEIGHT - 112));
 	}
 	LPSPRITE p = sprites->Get(SPRITE_P_OFF);
 	if (bar == 7)
@@ -185,7 +188,7 @@ void HUD::DrawCard()
 		if (cardCollected[i] != 0)
 		{
 			card = sprites->Get(13+ cardCollected[i]);
-			card->Draw(SCREEN_WIDTH / 2 +168 +i*CARD_WIDTH, (SCREEN_HEIGHT - 90));
+			card->Draw((float)(SCREEN_WIDTH / 2 +168 +i*CARD_WIDTH),(float) (SCREEN_HEIGHT - 90));
 		}
 	}
 }

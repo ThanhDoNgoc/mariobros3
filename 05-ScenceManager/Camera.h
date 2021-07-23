@@ -6,21 +6,21 @@ class CGameObject;
 
 class Camera
 {
-	int CamPosX;
-	int CamPosY;
+	float CamPosX=0;
+	float CamPosY=0;
 
-	float CamWidth;
-	float CamHeight;
+	float CamWidth=0;
+	float CamHeight=0;
 
-	CGameObject* target;
+	CGameObject* target=0;
 
-	float limitTop;
-	float limitLeft;
-	float limitBottom;
-	float limidRight;
+	float limitTop=0;
+	float limitLeft=0;
+	float limitBottom=0;
+	float limidRight=0;
 
-	bool isFollow;
-	bool isStatic;
+	bool isFollow = true;
+	bool isStatic = false;
 
 
 

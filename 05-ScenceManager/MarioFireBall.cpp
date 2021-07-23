@@ -29,7 +29,11 @@ void MarioFireBall::GetBoundingBox(float& left, float& top, float& right, float&
 void MarioFireBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGame* game = CGame::GetInstance();
-
+	Camera* camera = CGame::GetInstance()->GetCurrentScene()->GetCamera();
+	if (camera->GetCamPosX() + CAMERA_WIDTH < this->x || camera->GetCamPosX() > this->x + FIREBALL_BBOX_WIDTH)
+	{
+		this->TakeDamage();
+	}
 	// Calculate dx, dy 
 	vx = FIREBALL_SPEED * this->direction.x;
 	vy += FIREBALL_GRAVITY * dt;

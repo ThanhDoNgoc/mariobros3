@@ -80,35 +80,35 @@ class CGameObject
 {
 public:
 	int id = -1;
-	float x; 
-	float y;
+	float x=0; 
+	float y=0;
 
-	float dx;	// dx = vx*dt
-	float dy;	// dy = vy*dt
+	float dx=0;	// dx = vx*dt
+	float dy=0;	// dy = vy*dt
 
-	float vx;
-	float vy;
+	float vx=0;
+	float vy=0;
 
-	int nx;	 
+	int nx=0;	 
 
-	int state;
+	int state=0;
 	int objectLayer=1;
 
 	bool isBeingHold = false;
 	bool isHoldAble = false;
 
-	float startX,startY;
-	DWORD dt; 
+	float startX=0,startY=0;
+	DWORD dt=0; 
 
 	//LPANIMATION_SET animation_set;
 	vector<LPANIMATION> animation_set;
 
-	bool isActive;
-	Cell* ownerCell;
+	bool isActive=false;
+	Cell* ownerCell=0;
 
 public: 
-	Group ObjectGroup;
-	Collision2D collision;
+	Group ObjectGroup = Group::none;
+	Collision2D collision = Collision2D::Full;
 	void SetPosition(float x, float y) { this->x = x, this->y = y; this->startX = x; this->startY = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }

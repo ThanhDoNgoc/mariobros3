@@ -37,9 +37,9 @@ class GlobalVariables
 	int mariolevel;
 	int playstate = 0;
 	int cardCollected[3] = { 0,0,0 };
-	DWORD Ptime_start;
+	ULONGLONG Ptime_start;
 
-	DWORD Game_time_start;
+	ULONGLONG Game_time_start;
 
 public:
 	GlobalVariables();
@@ -53,7 +53,7 @@ public:
 
 	void ResetLife() { this->life = 4; }
 	void AddLife() { this->life += 1; }
-	void MinusLife() { this->life -= 1; }
+	void MinusLife();
 	int GetLife() { return this->life; }
 
 	int* GetCardCollected() { return cardCollected; }
@@ -63,11 +63,11 @@ public:
 	void updatePlevel(int x) { this->plevel = x; }
 	int getPlevel() { return this->plevel; }
 
-	void StartPtime() { this->Ptime_start = GetTickCount(); }
-	bool isPtime(){return ((GetTickCount() - Ptime_start) <= PSWITCH_TIME);}
+	void StartPtime() { this->Ptime_start = GetTickCount64(); }
+	bool isPtime(){return ((GetTickCount64() - Ptime_start) <= PSWITCH_TIME);}
 
-	void StartGameTime() { this->Game_time_start = GetTickCount(); }
-	DWORD GameTimeLeft() { return GAME_TIME - (GetTickCount() - this->Game_time_start); }
+	void StartGameTime() { this->Game_time_start = GetTickCount64(); }
+	ULONGLONG GameTimeLeft() { return GAME_TIME - (GetTickCount64() - this->Game_time_start); }
 
 
 	static GlobalVariables* GetInstance();

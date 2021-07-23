@@ -372,6 +372,9 @@
     <ClCompile Include="Cell.cpp">
       <Filter>Grid\Cell</Filter>
     </ClCompile>
+    <ClCompile Include="BreakBrick.cpp">
+      <Filter>GameObjects\Blocks\Brick</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -621,6 +624,9 @@
     </ClInclude>
     <ClInclude Include="Cell.h">
       <Filter>Grid\Cell</Filter>
+    </ClInclude>
+    <ClInclude Include="BreakBrick.h">
+      <Filter>GameObjects\Blocks\Brick</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

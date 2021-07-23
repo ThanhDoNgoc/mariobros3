@@ -13,6 +13,14 @@ GlobalVariables::GlobalVariables()
 	this->Game_time_start = GetTickCount();
 }
 
+void GlobalVariables::MinusLife()
+{
+	if (this->life > 0)
+		this->life -= 1;
+	else if (this->life <= 0)
+		ResetLife();
+}
+
 void GlobalVariables::AddCard(int x)
 {
 	for (int i = 0; i < 3; i++)

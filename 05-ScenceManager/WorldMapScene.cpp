@@ -33,14 +33,15 @@ void WorldMapScene::_ParseSection_CAMERA(string line)
 {
 	vector<string> tokens = split(line);
 	if (tokens.size() < 4) return;
-	this->camL = atof(tokens[0].c_str());
-	this->camT = atof(tokens[1].c_str());
-	this->camR = atof(tokens[2].c_str());
-	this->camB = atof(tokens[3].c_str());
+	this->camL = (float)atof(tokens[0].c_str());
+	this->camT = (float)atof(tokens[1].c_str());
+	this->camR = (float)atof(tokens[2].c_str());
+	this->camB = (float)atof(tokens[3].c_str());
 }
 
 WorldMapScene::WorldMapScene(int id, LPCWSTR filePath) : CScene(id, filePath)
 {
+	camL = camT = camR = camB = 0;
 }
 
 void WorldMapScene::Load()
@@ -53,7 +54,7 @@ void WorldMapScene::Load()
 	player->SetPosition(96, 144);
 	// current resource section flag
 	int section = SCENE_SECTION_UNKNOWN;
-	__Mario->isEndScene = false;
+	this->isEndScene = false;
 	char str[MAX_SCENE_LINE];
 	while (f.getline(str, MAX_SCENE_LINE))
 	{
@@ -92,7 +93,8 @@ void WorldMapScene::Load()
 	this->camera = new Camera();
 	this->camera->SetCamPos(0, 0);
 	this->camera->SetCamLimit(camL, camT, camR, camB);
-	
+
+	this->player->level = CGame::GetInstance()->mariolvl;
 
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
@@ -143,13 +145,12 @@ void WorldMapScene::Update(DWORD dt)
 	{
 		camera->Update();
 	}
-	__Mario->isEndScene = false;
 }
 
 void WorldMapScene::Render()
 {
 	maps->Render(camera);
-	for (int i = 0; i < objects.size(); i++)
+	for (size_t  i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 	player->Render();
 	hud->Render();
@@ -157,7 +158,7 @@ void WorldMapScene::Render()
 
 void WorldMapScene::Unload()
 {
-	for (int i = 0; i < objects.size(); i++)
+	for (size_t  i = 0; i < objects.size(); i++)
 		delete objects[i];
 
 	objects.clear();

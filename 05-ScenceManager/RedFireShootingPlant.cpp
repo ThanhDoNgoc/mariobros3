@@ -60,7 +60,7 @@ void RedFireShootingPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		this->vy = 0;
 		distance = 0;
-		if (GetTickCount() - hideTime_start > RED_FIRE_SHOOTING_PLANT_HIDE_TIME)
+		if (GetTickCount64() - hideTime_start > RED_FIRE_SHOOTING_PLANT_HIDE_TIME)
 		{
 			state = ShootPlantState::slideup;
 		}
@@ -80,7 +80,7 @@ void RedFireShootingPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (abs(this->y - this->startY) > fsheight)
 		{
 			this->y = this->startY - fsheight;
-			this->waitTime_start = GetTickCount();
+			this->waitTime_start = GetTickCount64();
 			state = ShootPlantState::idleup;
 		}
 		break;
@@ -88,7 +88,7 @@ void RedFireShootingPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	case ShootPlantState::idleup:
 	{
 		this->vy = 0;
-		if (GetTickCount() - waitTime_start > RED_FIRE_SHOOTING_PLANT_WAIT_TIME)
+		if (GetTickCount64() - waitTime_start > RED_FIRE_SHOOTING_PLANT_WAIT_TIME)
 		{
 			distance = 0;
 			DebugOut(L"[INFO] slide down \n");
@@ -110,7 +110,7 @@ void RedFireShootingPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (this->y > this->startY)
 		{
 			this->y = this->startY;
-			this->hideTime_start = GetTickCount();
+			this->hideTime_start = GetTickCount64();
 			state = ShootPlantState::idledown;
 		}
 		break;
@@ -137,7 +137,7 @@ void RedFireShootingPlant::ShootFire()
 	if (this->aim == Aim::down)
 		aimfire = -1;
 	else aimfire = 1;
-	PlantFireBall *fireball = new PlantFireBall(this->x+ FIREBALL_POS, this->y+ FIREBALL_POS, -this->direction.x, aimfire);
+	PlantFireBall *fireball = new PlantFireBall(this->x+ FIREBALL_POS, this->y+ FIREBALL_POS, -this->direction.x, (float)aimfire);
 	CGame::GetInstance()->GetCurrentScene()->AddObjectInGame(fireball);
 }
 
@@ -150,11 +150,19 @@ RedFireShootingPlant::RedFireShootingPlant()
 
 	this->ObjectGroup = Group::projectile;
 	this->collision = Collision2D::Full;
-	this->hideTime_start = GetTickCount();
+	this->hideTime_start = GetTickCount64();
 	this->fsheight = RED_FIRE_SHOOTING_PLANT_HEIGHT;
 }
 
 void RedFireShootingPlant::TakeDamage()
 {
 	CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
+}
+
+void RedFireShootingPlant::OnOverLap(CGameObject* obj)
+{
+	if (obj->ObjectGroup == Group::marioprojectile)
+	{
+		this->TakeDamage();
+	}
 }

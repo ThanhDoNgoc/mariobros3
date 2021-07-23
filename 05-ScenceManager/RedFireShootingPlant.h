@@ -34,15 +34,16 @@ class RedFireShootingPlant:public CGameObject
 	virtual void Render();
 	void ShootFire();
 	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f, 1.0f);
-	float velocity;
-	ShootPlantState state;
-	Aim aim;
-	float distance;
-	DWORD waitTime_start, hideTime_start;
+	float velocity=0;
+	ShootPlantState state = ShootPlantState::slideup;
+	Aim aim = Aim::down;
+	float distance=0;
+	ULONGLONG waitTime_start =0, hideTime_start=0;
 public:
 	RedFireShootingPlant();
-	float fsheight;
+	float fsheight=0;
 	virtual void TakeDamage();
-	void startWait() { this->waitTime_start = GetTickCount(); }
-	void startHide() { this->hideTime_start = GetTickCount(); }
+	void startWait() { this->waitTime_start = GetTickCount64(); }
+	void startHide() { this->hideTime_start = GetTickCount64(); }
+	virtual void OnOverLap(CGameObject* obj);
 };

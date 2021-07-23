@@ -43,6 +43,16 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		if ( camera->GetCamPosX() + CAMERA_WIDTH < this->x)
 			return;
 	}
+	if (koopaState == KoopaState::shell)
+	{
+		if (GetTickCount64() - this->startShellTime > TIME_RESTORE_MOVE)
+		{
+			this->y -= KOOPAS_BBOX_HEIGHT - KOOPAS_SHELL_BBOX_HEIGHT;
+			this->SetState(KoopaState::walk);
+			if (isBeingHold)
+				isBeingHold = false;
+		}
+	}
 	if (isBeingHold)
 	{
 		if (__Mario->direction.x<0)
@@ -56,6 +66,7 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	CGameObject::Update(dt);
 
 	this->vy += KOOPAS_GRAVITY*dt;
+
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -134,6 +145,7 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	this->vx = this->velocity * this->direction.x;
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+
 }
 
 void CKoopas::Render()
@@ -180,14 +192,15 @@ void CKoopas::SetState(KoopaState state)
 		this->ObjectGroup = Group::enemy;
 		break;
 	case KoopaState::shell:
+		this->startShellTime = GetTickCount64();
 		this->velocity = 0;
 		this->ObjectGroup = Group::shell;
-		this->y -= 0.4;
+		this->y -=(float) 0.4;
 		break;
 	case KoopaState::slide:
 		this->velocity = KOOPAS_SHELL_MOVING_SPEED;
 		this->ObjectGroup = Group::projectile;
-		this->y -= 0.4;
+		this->y -= (float) 0.4;
 		break;
 	case KoopaState::die:
 		break;

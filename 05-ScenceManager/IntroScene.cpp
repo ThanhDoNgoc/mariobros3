@@ -29,15 +29,18 @@ void IntroScene::_ParseSection_CAMERA(string line)
 {
 	vector<string> tokens = split(line);
 	if (tokens.size() < 4) return;
-	this->camL = atof(tokens[0].c_str());
-	this->camT = atof(tokens[1].c_str());
-	this->camR = atof(tokens[2].c_str());
-	this->camB = atof(tokens[3].c_str());
+	this->camL = (float) atof(tokens[0].c_str());
+	this->camT = (float) atof(tokens[1].c_str());
+	this->camR = (float) atof(tokens[2].c_str());
+	this->camB = (float) atof(tokens[3].c_str());
 }
 
 IntroScene::IntroScene(int id, LPCWSTR filePath) : CScene(id, filePath)
 {
-	
+	this->camB = 0;
+	this->camT = 0;
+	this->camL = 0;
+	this->camR = 0;
 }
 
 void IntroScene::Load()
@@ -139,13 +142,13 @@ void IntroScene::Render()
 	DrawTittle();
 	DrawSelection();
 	DrawBushs();
-	for (int i = 0; i < objects.size(); i++)
+	for (size_t  i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 }
 
 void IntroScene::Unload()
 {
-	for (int i = 0; i < objects.size(); i++)
+	for (size_t  i = 0; i < objects.size(); i++)
 		delete objects[i];
 
 	objects.clear();
@@ -190,22 +193,22 @@ void IntroScene::DrawBushs()
 	auto sprite = CSprites::GetInstance();
 	CSprite* bushleft = sprite->Get(90003);
 	CSprite* bushright = sprite->Get(90002);
-	bushleft->Draw(0, SCREEN_HEIGHT - 102-192);
-	bushright->Draw(SCREEN_WIDTH-165, SCREEN_HEIGHT - 102 - 288);
+	bushleft->Draw((float)0, (float)SCREEN_HEIGHT - 102-192);
+	bushright->Draw((float)SCREEN_WIDTH-165, (float)SCREEN_HEIGHT - 102 - 288);
 }
 
 void IntroScene::DrawFloor()
 {
 	auto sprite = CSprites::GetInstance();
 	CSprite* floor = sprite->Get(90001);
-	floor->Draw(0, SCREEN_HEIGHT-102);
+	floor->Draw((float)0,(float) SCREEN_HEIGHT-102);
 }
 
 void IntroScene::DrawTittle()
 {
 	auto animation = CAnimations::GetInstance();
 	CAnimation* tittle = animation->Get(1005);
-	tittle->Render(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2-140);
+	tittle->Render((float)SCREEN_WIDTH / 2,(float) SCREEN_HEIGHT / 2-140);
 }
 
 void IntroScene::DrawSelection()
@@ -215,6 +218,6 @@ void IntroScene::DrawSelection()
 	if (this->option == 0)
 		choose = sprite->Get(90008);
 	else choose = sprite->Get(90009);
-	choose->Draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2+150);
+	choose->Draw((float)SCREEN_WIDTH / 2, (float)SCREEN_HEIGHT / 2+150);
 	//p2->Draw(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 }

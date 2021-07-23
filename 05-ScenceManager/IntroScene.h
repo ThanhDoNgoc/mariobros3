@@ -10,14 +10,12 @@
 #define MAX_SCENE_LINE 1024
 class IntroScene : public CScene
 {
-	Map* maps;
-	float camL, camT, camR, camB;
+	Map* maps=0;
+	float camL = 0, camT = 0, camR = 0, camB = 0;
 	int option = 0;
-	DWORD startTime;
 	void _ParseSection_OBJECTS(string line);
 	void _ParseSection_MAP(string line);
 	void _ParseSection_CAMERA(string line);
-	DWORD waitEndScene_start;
 	bool isEndGame = false;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> earseobjects;

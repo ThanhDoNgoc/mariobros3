@@ -21,13 +21,12 @@ enum WMMarioState {
 };
 class WorldMapMario :public CGameObject
 {
-	int level;
 	int curentNode;
 	NodeMap* map;
 	WMMarioState wmmstate;
 public:
 	WorldMapMario();
-
+	int level;
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt);
 	virtual void Render();

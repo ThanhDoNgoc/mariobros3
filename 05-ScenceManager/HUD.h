@@ -17,9 +17,9 @@
 #define CARD_WIDTH	72
 class HUD
 {
-	float startTime;
-	float hudX;
-	float hudY;
+	float startTime=0;
+	float hudX=0;
+	float hudY=0;
 public:
 	HUD();
 	void Load();

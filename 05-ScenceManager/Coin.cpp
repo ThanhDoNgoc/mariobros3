@@ -24,7 +24,7 @@ void Coin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CalcPotentialCollisions(coObjects, coEvents);
 	if (isSprouting)
 	{
-		vy += 0.0015 * dt;
+		vy += (float) (0.0015 * dt);
 		if (this->y > this->startY)
 		{
 				CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);

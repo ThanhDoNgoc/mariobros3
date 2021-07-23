@@ -62,8 +62,8 @@ Cell* Grid::getCell(int x, int y)
 
 Cell* Grid::getCellByObjectPosition(float x, float y)
 {
-	int cellX = x / CELL_WIDTH;
-	int cellY = y / CELL_HEIGHT;
+	int cellX =(int) x / CELL_WIDTH;
+	int cellY = (int) y / CELL_HEIGHT;
 	return getCell(cellX, cellY);
 }
 
@@ -164,7 +164,7 @@ void Grid::LoadGridFromFile(std::vector<CGameObject*> objects, std::string gridf
 				object->QueryIntAttribute("spany", &spany);
 
 				CGameObject* obj = NULL;
-				for (int i = 0; i < objects.size(); i++)
+				for (size_t  i = 0; i < objects.size(); i++)
 				{
 					int u = objects[i]->getId();
 					if (objects[i]->getId() == id)

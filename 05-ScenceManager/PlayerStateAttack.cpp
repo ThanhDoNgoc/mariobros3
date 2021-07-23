@@ -25,7 +25,7 @@ PlayerStateAttack::PlayerStateAttack()
 	}
 	case MARIO_LEVEL_RACCOON:
 		this->attack_time = MARIO_RACCOON_ATTACK_TIME;
-		this->raccoonAttackDelay = GetTickCount();
+		this->raccoonAttackDelay = GetTickCount64();
 		this->cantailattack = true;
 		if (__Mario->direction.x >= 1)
 		{
@@ -45,13 +45,13 @@ PlayerStateAttack::PlayerStateAttack()
 void PlayerStateAttack::Update()
 {
 	
-	if (GetTickCount() - attackTimeStart > attack_time)
+	if ((GetTickCount64() - attackTimeStart) > (attack_time))
 	{
 		__Mario->SetState(new PlayerStateIdle);
 	}
 	if (__Mario->level == MARIO_LEVEL_RACCOON)
 	{
-		if (GetTickCount() - raccoonAttackDelay > RACCOON_ATTACK_DELAY && cantailattack)
+		if (GetTickCount64() - raccoonAttackDelay > RACCOON_ATTACK_DELAY && cantailattack)
 		{
 			cantailattack = false;
 			if (__Mario->direction.x >= 1)

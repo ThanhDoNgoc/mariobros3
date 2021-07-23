@@ -44,8 +44,8 @@ void AniMaganer::_ParseSection_SPRITES(string line)
 	int t = atoi(tokens[2].c_str());
 	int r = l + atoi(tokens[3].c_str());
 	int b = t + atoi(tokens[4].c_str());
-	float cx = atoi(tokens[5].c_str());
-	float cy = atof(tokens[6].c_str());
+	float cx = (float)atoi(tokens[5].c_str());
+	float cy = (float)atof(tokens[6].c_str());
 	int texID = atoi(tokens[7].c_str());
 
 	LPDIRECT3DTEXTURE9 tex = CTextures::GetInstance()->Get(texID);
@@ -69,7 +69,7 @@ void AniMaganer::_ParseSection_ANIMATIONS(string line)
 	LPANIMATION ani = new CAnimation();
 
 	int ani_id = atoi(tokens[0].c_str());
-	for (int i = 1; i < tokens.size(); i += 2)	// why i+=2 ?  sprite_id | frame_time  
+	for (size_t i = 1; i < tokens.size(); i += 2)	// why i+=2 ?  sprite_id | frame_time  
 	{
 		int sprite_id = atoi(tokens[i].c_str());
 		int frame_time = atoi(tokens[i + 1].c_str());

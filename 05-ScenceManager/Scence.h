@@ -17,6 +17,9 @@ protected:
 public: 
 	CScene(int id, LPCWSTR filePath);
 
+	bool isEndScene = false;
+	bool isPlayScene = false;
+
 	virtual void Load() = 0;
 	virtual void Unload() = 0;
 	virtual void Update(DWORD dt) = 0;

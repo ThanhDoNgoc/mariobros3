@@ -12,13 +12,13 @@
 
 class Map
 {
-	int tileWidth;
-	int tileHeight;
+	int tileWidth=0;
+	int tileHeight=0;
 
-	int mapWidth;
-	int mapHeight;
+	int mapWidth=0;
+	int mapHeight=0;
 
-	LPTILESET tileSets;
+	LPTILESET tileSets=0;
 	std::vector<LPTILEMAP> tileMaps;
 public:
 	Map();

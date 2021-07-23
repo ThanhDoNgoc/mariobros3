@@ -24,6 +24,7 @@ MarioLevelRaccoon::MarioLevelRaccoon()
 	__Mario->height = MARIO_BIG_BBOX_HEIGHT;
 
 	__Mario->level = MARIO_LEVEL_RACCOON;
+	CGame::GetInstance()->mariolvl = MARIO_LEVEL_RACCOON;
 }
 
 void MarioLevelRaccoon::LevelDown()

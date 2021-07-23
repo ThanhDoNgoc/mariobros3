@@ -101,7 +101,7 @@ void CGame::Draw(float x, float y, float cx, float cy, LPDIRECT3DTEXTURE9 textur
 void CGame::DrawTileMap(float x, float y, int width, int height, LPDIRECT3DTEXTURE9 texture, RECT* Rect)
 {
 	D3DXVECTOR3 p(x + width/2, y + height/2, 0);
-	D3DXVECTOR3 center(width/2, height/2, 0);
+	D3DXVECTOR3 center((float)(width/2), (float)(height/2), 0);
 	spriteHandler->Draw(texture, Rect, &center, &p, D3DCOLOR_XRGB(255, 255, 255));
 }
 

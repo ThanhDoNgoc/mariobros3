@@ -13,6 +13,10 @@ using namespace std;
 CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 	CScene(id, filePath)
 {
+	this->camB = 0;
+	this->camL = 0;
+	this->camR = 0;
+	this->camT = 0;
 }
 
 /*
@@ -53,8 +57,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	if (tokens.size() < 3) return; // skip invalid lines - an object set must have at least id, x, y
 
 	int object_type = atoi(tokens[0].c_str());
-	float x = atof(tokens[1].c_str());
-	float y = atof(tokens[2].c_str());
+	float x =(float) atof(tokens[1].c_str());
+	float y = (float) atof(tokens[2].c_str());
 
 	int ani_set_id = atoi(tokens[3].c_str());
 
@@ -101,10 +105,10 @@ void CPlayScene::_ParseSection_CAMERA(string line)
 {
 	vector<string> tokens = split(line);
 	if (tokens.size() < 4) return;
-	this->camL = atof(tokens[0].c_str());
-	this->camT = atof(tokens[1].c_str());
-	this->camR = atof(tokens[2].c_str());
-	this->camB = atof(tokens[3].c_str());
+	this->camL = (float)atof(tokens[0].c_str());
+	this->camT = (float)atof(tokens[1].c_str());
+	this->camR = (float)atof(tokens[2].c_str());
+	this->camB = (float)atof(tokens[3].c_str());
 }
 
 void CPlayScene::_ParseSection_GRID(string line)
@@ -170,7 +174,26 @@ void CPlayScene::Load()
 	this->camera->SetCamLimit(camL, camT, camR, camB);
 	this->camera->SetCamTarget(player);
 	this->isEndGame = false;
+	this->isEndScene = false;
+	this->isPlayScene = true;
 	this->waitEndScene_start = 0;
+
+	switch (CGame::GetInstance()->mariolvl)
+	{
+	case MARIO_LEVEL_SMALL:
+		player->_marioLevel = new MarioLevelSmall();
+		break;
+	case MARIO_LEVEL_BIG:
+		player->_marioLevel = new MarioLevelBig();
+		break;
+	case MARIO_LEVEL_FIRE:
+		player->_marioLevel = new MarioLevelFire();
+		break;
+	case MARIO_LEVEL_RACCOON:
+		player->_marioLevel = new MarioLevelRaccoon();
+		break;
+	}
+
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 	GlobalVariables::GetInstance()->StartGameTime();
 }
@@ -238,11 +261,11 @@ void CPlayScene::Update(DWORD dt)
 	{
 		if (!isEndGame)
 		{
-			this->waitEndScene_start = GetTickCount();
+			this->waitEndScene_start = GetTickCount64();
 			isEndGame = true;
 			camera->setIsFollow(false);
 		}
-		if (GetTickCount() - this->waitEndScene_start >= END_GAME_TIME)
+		if (GetTickCount64() - this->waitEndScene_start >= END_GAME_TIME)
 		{
 			EndScene();
 		}
@@ -260,7 +283,7 @@ void CPlayScene::Render()
 
 	for (int j = 0; j < 3; j++)
 	{
-		for (int i = 0; i < activegameobject.size(); i++)
+		for (size_t  i = 0; i < activegameobject.size(); i++)
 		{
 			if (activegameobject[i]->objectLayer == j)
 				activegameobject[i]->Render();
@@ -275,7 +298,7 @@ void CPlayScene::Render()
 */
 void CPlayScene::Unload()
 {
-	for (int i = 0; i < objects.size(); i++)
+	for (size_t  i = 0; i < objects.size(); i++)
 		delete objects[i];
 
 	objects.clear();
@@ -306,5 +329,4 @@ void CPlayScene::OnKeyDown(int KeyCode)
 void CPlayScene::EndScene()
 {
 	CGame::GetInstance()->SwitchScene(1);
-	__Mario->isEndScene = false;
 }

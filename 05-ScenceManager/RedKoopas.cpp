@@ -18,7 +18,16 @@ void RedKoopas::GetBoundingBox(float& left, float& top, float& right, float& bot
 void RedKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGame* game = CGame::GetInstance();
-
+	if (koopaState == RedKoopaState::shell)
+	{
+		if (GetTickCount64() - this->startShellTime > TIME_RESTORE_MOVE)
+		{
+			this->y -= KOOPAS_BBOX_HEIGHT - KOOPAS_SHELL_BBOX_HEIGHT;
+			this->SetState(RedKoopaState::walk);
+			if (isBeingHold)
+				isBeingHold = false;
+		}
+	}
 	if (isBeingHold)
 	{
 		if (__Mario->direction.x < 0)
@@ -177,14 +186,15 @@ void RedKoopas::SetState(RedKoopaState state)
 		this->ObjectGroup = Group::enemy;
 		break;
 	case RedKoopaState::shell:
+		this->startShellTime = GetTickCount64();
 		this->velocity = 0;
 		this->ObjectGroup = Group::shell;
-		this->y -= 0.4;
+		this->y -= (float)0.4;
 		break;
 	case RedKoopaState::slide:
 		this->velocity = KOOPAS_SHELL_MOVING_SPEED;
 		this->ObjectGroup = Group::projectile;
-		this->y -= 0.4;
+		this->y -= (float)0.4;
 		break;
 	case RedKoopaState::die:
 		break;

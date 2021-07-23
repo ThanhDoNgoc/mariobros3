@@ -33,5 +33,6 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
 	virtual void TakeDamage();
+	virtual void OnOverLap(CGameObject* obj);
 };
 

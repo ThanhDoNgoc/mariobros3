@@ -13,15 +13,14 @@
 
 class WorldMapScene : public CScene
 {
-	WorldMapMario* player;
-	Map* maps;
-	HUD* hud;
+	WorldMapMario* player =0;
+	Map* maps =0 ;
+	HUD* hud = 0;
 	float camL, camT, camR, camB;
 
 	void _ParseSection_OBJECTS(string line);
 	void _ParseSection_MAP(string line);
 	void _ParseSection_CAMERA(string line);
-	DWORD waitEndScene_start;
 	bool isEndGame = false;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> earseobjects;

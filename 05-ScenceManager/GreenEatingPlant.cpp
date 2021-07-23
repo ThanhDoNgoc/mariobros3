@@ -4,6 +4,8 @@
 GreenEatingPlant::GreenEatingPlant()
 {
 	AddAnimation(ID_ANI_GREEN_EATING_PLANT);
+	this->ObjectGroup = Group::projectile;
+	this->collision = Collision2D::Full;
 }
 
 void GreenEatingPlant::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -110,4 +112,10 @@ void GreenEatingPlant::Render()
 void GreenEatingPlant::TakeDamage()
 {
 	CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
+}
+
+void GreenEatingPlant::OnOverLap(CGameObject* obj)
+{
+	if (obj->ObjectGroup == Group::marioprojectile)
+		this->TakeDamage();
 }

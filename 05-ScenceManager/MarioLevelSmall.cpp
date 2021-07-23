@@ -24,6 +24,7 @@ MarioLevelSmall::MarioLevelSmall()
 	__Mario->height = MARIO_SMALL_BBOX_HEIGHT;
 
 	__Mario->level = MARIO_LEVEL_SMALL;
+	CGame::GetInstance()->mariolvl = MARIO_LEVEL_SMALL;
 
 }
 

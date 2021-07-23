@@ -1,4 +1,5 @@
 #pragma once
+#pragma warning (disable : 4005)
 #include "GameObject.h"
 #include "KeyHanler.h"
 #include "defineAni.h"
@@ -21,7 +22,7 @@
 class CMario : public CGameObject
 {
 	int untouchable;
-	DWORD untouchable_start, on_max_charge_start, kickStart;
+	ULONGLONG untouchable_start, on_max_charge_start, kickStart;
 	static CMario* __instance;
 
 	float start_x;			// initial position of Mario at scene
@@ -41,7 +42,7 @@ public:
 	bool isEndScene;
 	bool isDebuff;
 	int jumpCount = 0;
-	DWORD removePoop_start;
+	ULONGLONG removePoop_start;
 	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f, 1.0f);
 	float abilytiBar;
 	PlayerState* _playerState;
@@ -57,9 +58,9 @@ public:
 	//void SetState(int state);
 	void SetState(PlayerState* newState);
 	void SetLevel(int lvl);
-	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
-	void StartOnMaxCharge() { this->isMaxCharge = true; on_max_charge_start = GetTickCount(); }
-	void StartKick() { this->isKicking = true; kickStart = GetTickCount(); }
+	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
+	void StartOnMaxCharge() { this->isMaxCharge = true; on_max_charge_start = GetTickCount64(); }
+	void StartKick() { this->isKicking = true; kickStart = GetTickCount64(); }
 	void TakeDamage();
 	void Reset();
 	void GetAnimation(int new_ani);

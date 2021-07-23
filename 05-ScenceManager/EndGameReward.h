@@ -17,7 +17,7 @@
 class EndGameReward : public CGameObject
 {
 	bool isCollected;
-	DWORD switchTime;
+	ULONGLONG switchTime;
 	int state;
 	bool isAddCard;
 public:

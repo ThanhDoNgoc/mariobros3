@@ -6,7 +6,7 @@ EndGameReward::EndGameReward()
 {
 	this->isCollected = false;
 	this->isAddCard = false;
-	this->switchTime = GetTickCount();
+	this->switchTime = GetTickCount64();
 	this->state = REWARD_STATE_MUSHROOM;
 	this->ObjectGroup = Group::item;
 	this->collision = Collision2D::None;
@@ -52,7 +52,7 @@ void EndGameReward::OnOverLap(CGameObject* obj)
 		{
 			this->isCollected = true;
 			__Mario->SetState(new PlayerStateEndGame());
-			int point = GlobalVariables::GetInstance()->GameTimeLeft() / 1000;
+			int point = (int)(GlobalVariables::GetInstance()->GameTimeLeft() / 1000);
 			GlobalVariables::GetInstance()->AddScore(point * 50);
 			if (!isAddCard)
 			{
@@ -77,23 +77,23 @@ void EndGameReward::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		switch (state)
 		{
 		case REWARD_STATE_MUSHROOM:
-			if (GetTickCount() - switchTime > SWITCH_TIME)
+			if (GetTickCount64() - switchTime > SWITCH_TIME)
 			{
-				this->switchTime = GetTickCount();
+				this->switchTime = GetTickCount64();
 				this->state = REWARD_STATE_FLOWER;
 			}
 			break;
 		case REWARD_STATE_FLOWER:
-			if (GetTickCount() - switchTime > SWITCH_TIME)
+			if (GetTickCount64() - switchTime > SWITCH_TIME)
 			{
-				this->switchTime = GetTickCount();
+				this->switchTime = GetTickCount64();
 				this->state = REWARD_STATE_STAR;
 			}
 			break;
 		case REWARD_STATE_STAR:
-			if (GetTickCount() - switchTime > SWITCH_TIME)
+			if (GetTickCount64() - switchTime > SWITCH_TIME)
 			{
-				this->switchTime = GetTickCount();
+				this->switchTime = GetTickCount64();
 				this->state = REWARD_STATE_MUSHROOM;
 			}
 			break;

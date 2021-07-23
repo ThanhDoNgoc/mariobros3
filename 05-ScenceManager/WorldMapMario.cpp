@@ -2,7 +2,7 @@
 
 WorldMapMario::WorldMapMario()
 {
-	this->level = __Mario->level;
+	this->level = CGame::GetInstance()->mariolvl;
 	AddAnimation(ID_ANI_WORLDMAP_MARIO_SMALL);
 	AddAnimation(ID_ANI_WORLDMAP_MARIO_BIG);
 	AddAnimation(ID_ANI_WORLDMAP_MARIO_FIRE);

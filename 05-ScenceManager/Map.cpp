@@ -31,6 +31,11 @@
 #include "FlyGoomba.h"
 Map::Map()
 {
+	this->tileHeight = 0;
+	this->tileWidth = 0;
+	this->mapWidth = 0;
+	this->mapHeight = 0;
+	this->tileSets = 0;
 }
 
 Map::~Map()
@@ -102,7 +107,7 @@ void Map::AddObject(TiXmlElement* RootElement)
 				TMXObject->QueryFloatAttribute("y", &y);
 				TMXObject->QueryFloatAttribute("width", &width);
 				TMXObject->QueryFloatAttribute("height", &height);
-				Ground* ground = new Ground(width, height);
+				Ground* ground = new Ground((int)width,(int) height);
 				ground->SetPosition(x, y);
 				ground->setId(id);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(ground);
@@ -116,7 +121,7 @@ void Map::AddObject(TiXmlElement* RootElement)
 				TMXObject->QueryFloatAttribute("y", &y);
 				TMXObject->QueryFloatAttribute("width", &width);
 				TMXObject->QueryFloatAttribute("height", &height);
-				Pipe* pipe = new Pipe(width, height);
+				Pipe* pipe = new Pipe((int)width, (int)height);
 				pipe->SetPosition(x, y);
 				pipe->setId(id);
 				std::string type;
@@ -158,7 +163,7 @@ void Map::AddObject(TiXmlElement* RootElement)
 				TMXObject->QueryFloatAttribute("y", &y);
 				TMXObject->QueryFloatAttribute("width", &width);
 				TMXObject->QueryFloatAttribute("height", &height);
-				Deadblock* deadblock = new Deadblock(width, height);
+				Deadblock* deadblock = new Deadblock((int)width, (int)height);
 				deadblock->SetPosition(x, y);
 				deadblock->setId(id);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(deadblock);
@@ -172,7 +177,7 @@ void Map::AddObject(TiXmlElement* RootElement)
 				TMXObject->QueryFloatAttribute("y", &y);
 				TMXObject->QueryFloatAttribute("width", &width);
 				TMXObject->QueryFloatAttribute("height", &height);
-				GhostPlatform* ghost = new GhostPlatform(width, height);
+				GhostPlatform* ghost = new GhostPlatform((int)width, (int)height);
 				ghost->SetPosition(x, y);
 				ghost->setId(id);
 				CGame::GetInstance()->GetCurrentScene()->AddObject(ghost);
@@ -424,7 +429,7 @@ void Map::AddObject(TiXmlElement* RootElement)
 				node->setId(id);
 				auto adjacentlist = node->getAdjacentList();
 
-				for (int i = 0; i < adlist.size(); i++)
+				for (size_t  i = 0; i < adlist.size(); i++)
 				{
 					auto id = std::stoi(adlist[i]);
 
@@ -473,13 +478,13 @@ void Map::AddObject(TiXmlElement* RootElement)
 				TMXObject->QueryFloatAttribute("y", &y);
 				TMXObject->QueryFloatAttribute("width", &width);
 				TMXObject->QueryFloatAttribute("height", &height);
-				PSPortal* portal = new PSPortal(width, height);
+				PSPortal* portal = new PSPortal((int)width,(int) height);
 				portal->SetPosition(x, y);
 				portal->setId(id);
 
 				bool isstatic = false, isfollow = false, scrollx = false, scrolly = false;
-				float camL, camR, camT, camB;
-				float posX, posY;
+				float camL =0, camR=0, camT=0, camB=0;
+				float posX=0, posY=0;
 
 				TiXmlElement* TMXproperties = TMXObject->FirstChildElement("properties");
 
@@ -575,7 +580,7 @@ void Map::Render(Camera* camera)
 				int id = tile->GetMapData(i, j);
 				if (id != 0)
 				{
-					tileSets->Draw(id, x, y);
+					tileSets->Draw(id, (float)x,(float) y);
 				}
 			}
 		}

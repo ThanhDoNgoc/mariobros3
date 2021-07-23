@@ -19,17 +19,17 @@
 class CPlayScene: public CScene
 {
 protected: 
-	CMario *player;					// A play scene has to have player, right? 
-	Map* maps;
-	HUD* hud;
-	Grid* grid;
-	float camL, camT, camR, camB;
+	CMario *player=0;					// A play scene has to have player, right? 
+	Map* maps=0;
+	HUD* hud=0;
+	Grid* grid=0;
+	float camL=0, camT=0, camR=0, camB=0;
 
 	void _ParseSection_OBJECTS(string line);
 	void _ParseSection_MAP(string line);
 	void _ParseSection_CAMERA(string line);
 	void _ParseSection_GRID(string line);
-	DWORD waitEndScene_start;
+	ULONGLONG waitEndScene_start=0;
 	bool isEndGame=false;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> earseobjects;

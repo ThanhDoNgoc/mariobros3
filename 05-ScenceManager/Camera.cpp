@@ -12,12 +12,21 @@ Camera::Camera()
 
 	this->CamWidth = CAMERA_WIDTH;
 	this->CamHeight = CAMERA_HEIGHT;
+
+	this->CamPosX = 0;
+	this->CamPosY = 0;
+	this->limidRight = 0;
+	this->limitLeft = 0;
+	this->limitTop = 0;
+	this->limitBottom = 0;
+
+	this->target = 0;
 }
 
 void Camera::SetCamPos(int CamPosX, int CamPosY)
 {
-	this->CamPosX = CamPosX;
-	this->CamPosY = CamPosY;
+	this->CamPosX = (float)CamPosX;
+	this->CamPosY = (float)CamPosY;
 }
 
 void Camera::SetCamSize(float CamWidth, float CamHeight)
@@ -34,12 +43,12 @@ void Camera::SetCamTarget(CGameObject* target)
 
 int Camera::GetCamPosX()
 {
-	return CamPosX;
+	return (int)CamPosX;
 }
 
 int Camera::GetCamPosY()
 {
-	return CamPosY;
+	return (int)CamPosY;
 }
 
 float Camera::GetCamWidth()
@@ -101,8 +110,8 @@ void Camera::Update()
 	if (isFollow)
 	{
 		//update cam pos -> player (1:1)
-		CamPosX = cx;
-		CamPosY = cy;
+		CamPosX = (float)cx;
+		CamPosY = (float)cy;
 		/*if (__Mario->state == MARIO_STATE_FLY || __Mario->state == MARIO_STATE_SLOW_FALL)
 		{
 			if (__Mario->y < this->CamPosY - CamHeight/2)

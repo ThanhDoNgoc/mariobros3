@@ -10,7 +10,10 @@ void PlayerStateEndGame::Update()
 {
 	__Mario->vx = MARIO_MAX_WALKING_SPEED ;
 	if (GetTickCount() - startEndScene > WAIT_END_TIME)
+	{
+		CGame::GetInstance()->GetCurrentScene()->isEndScene = true;
 		__Mario->isEndScene = true;
+	}
 }
 
 void PlayerStateEndGame::SetAnimation()
