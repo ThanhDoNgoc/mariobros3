@@ -14,7 +14,7 @@
 class CBrick : public CGameObject
 {
 	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f, 1.0f);
-	DWORD coinTime;
+	ULONGLONG coinTime;
 public:
 	CBrick();
 	virtual void Render();

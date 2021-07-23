@@ -12,7 +12,7 @@
 #define POOP_DIE_FALL_SPEED	0.2f;
 class GoombaPoop : public CGameObject
 {
-	DWORD cycleTime;
+	ULONGLONG cycleTime;
 	bool isDead;
 	bool isOnMario;
 	float movingX, movingY;

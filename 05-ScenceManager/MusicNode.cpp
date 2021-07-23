@@ -93,7 +93,7 @@ void MusicNode::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 	this->y += vy * dt;
-	DebugOut(L" velocity y: %f \n ", vy);
+	//DebugOut(L" velocity y: %f \n ", vy);
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }

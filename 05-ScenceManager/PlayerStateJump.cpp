@@ -22,7 +22,7 @@ PlayerStateJump::PlayerStateJump()
 		else
 		{
 			__Mario->jumpCount = 0;
-			__Mario->removePoop_start = GetTickCount();
+			__Mario->removePoop_start = GetTickCount64();
 		}
 	}
 	else __Mario->jumpCount = 0;
@@ -48,7 +48,7 @@ void PlayerStateJump::Update()
 			__Mario->vx = MARIO_MAX_RUNNING_SPEED * __Mario->direction.x;
 	}
 
-	if (!KeyHanler::GetInstance()->IsKeyDown(DIK_S) || GetTickCount() - jumpTimeStart > MARIO_JUMP_TIME || __Mario->isDebuff == true)
+	if (!KeyHanler::GetInstance()->IsKeyDown(DIK_S) || GetTickCount64() - jumpTimeStart > MARIO_JUMP_TIME || __Mario->isDebuff == true)
 		isJumping = false;
 
 

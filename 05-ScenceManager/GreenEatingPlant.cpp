@@ -6,6 +6,11 @@ GreenEatingPlant::GreenEatingPlant()
 	AddAnimation(ID_ANI_GREEN_EATING_PLANT);
 	this->ObjectGroup = Group::projectile;
 	this->collision = Collision2D::Full;
+	this->waitTime_start = 0;
+	this->state = GreeneatingState::idledown;
+	this->distance = 0;
+	this->hideTime_start = 0;
+	this->waitTime_start = 0;
 }
 
 void GreenEatingPlant::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -57,7 +62,7 @@ void GreenEatingPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		this->vy = 0;
 		distance = 0;
-		if (GetTickCount() - hideTime_start > GREENEATING_HIDE)
+		if (GetTickCount64() - hideTime_start > GREENEATING_HIDE)
 		{
 			state = GreeneatingState::slideup;
 		}
@@ -70,7 +75,7 @@ void GreenEatingPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (abs(this->y - this->startY) > GREENEATING_HEIGHT)
 		{
 			this->y = this->startY - GREENEATING_HEIGHT;
-			this->waitTime_start = GetTickCount();
+			this->waitTime_start = GetTickCount64();
 			state = GreeneatingState::idleup;
 		}
 		break;
@@ -78,7 +83,7 @@ void GreenEatingPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	case GreeneatingState::idleup:
 	{
 		this->vy = 0;
-		if (GetTickCount() - waitTime_start > GREENEATING_WAIT)
+		if (GetTickCount64() - waitTime_start > GREENEATING_WAIT)
 		{
 			distance = 0;
 			state = GreeneatingState::slidedown;
@@ -91,7 +96,7 @@ void GreenEatingPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (this->y > this->startY)
 		{
 			this->y = this->startY;
-			this->hideTime_start = GetTickCount();
+			this->hideTime_start = GetTickCount64();
 			state = GreeneatingState::idledown;
 		}
 		break;

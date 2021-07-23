@@ -8,7 +8,7 @@ GoombaPoop::GoombaPoop()
 	this->ObjectGroup = Group::poop;
 	this->collision = Collision2D::None;
 	this->vy = POOP_FALL_SPEED;
-	this->cycleTime = GetTickCount();
+	this->cycleTime = GetTickCount64();
 	this->vx = POOP_FALL_SPEEDX;
 	this->isDead = false;
 	this->isOnMario = false;
@@ -32,10 +32,10 @@ void GoombaPoop::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		this->x += dx * direction.x;
 		this->y += dy * direction.y;
-		if (GetTickCount() - cycleTime > POOP_CYCLE_TIME)
+		if (GetTickCount64() - cycleTime > POOP_CYCLE_TIME)
 		{
 			direction.x = -direction.x;
-			cycleTime = GetTickCount();
+			cycleTime = GetTickCount64();
 		}
 	}
 	else if (isOnMario && !isDead)

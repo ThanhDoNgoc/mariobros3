@@ -18,8 +18,8 @@
 class Leaf:public CGameObject
 {
 	bool isClaimed;
-	DWORD timeClaimed;
-	DWORD leafRevealTime, cycleTime;
+	ULONGLONG timeClaimed;
+	ULONGLONG leafRevealTime, cycleTime;
 	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f, 1.0f);
 	int state;
 public:

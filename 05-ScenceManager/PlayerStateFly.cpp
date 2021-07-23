@@ -22,7 +22,7 @@ void PlayerStateFly::Update()
 		__Mario->direction.x = -1.0f;
 		__Mario->vx = MARIO_MAX_WALKING_SPEED * __Mario->direction.x;
 	}
-	if (GetTickCount() - flyTimeStart > MARIO_FLY_TIME)
+	if (GetTickCount64() - flyTimeStart > MARIO_FLY_TIME)
 		__Mario->SetState(new PlayerStateFall());
 }
 

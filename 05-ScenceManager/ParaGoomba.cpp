@@ -114,7 +114,7 @@ void ParaGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (goombaState == ParaGoombaState::die)
 	{
-		if (GetTickCount() - this->die_time > GOOMBA_DIE_TIME)
+		if (GetTickCount64() - this->die_time > GOOMBA_DIE_TIME)
 		{
 			CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
 			GlobalVariables::GetInstance()->AddScore(100);
@@ -122,7 +122,7 @@ void ParaGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if (goombaState == ParaGoombaState::instancedead)
 	{
-		if (GetTickCount() - this->die_time > GOOMBA_INSTANCE_DIE_TIME)
+		if (GetTickCount64() - this->die_time > GOOMBA_INSTANCE_DIE_TIME)
 		{
 			CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
 			GlobalVariables::GetInstance()->AddScore(100);
@@ -211,13 +211,13 @@ void ParaGoomba::TakeDamage()
 	else
 	{
 		this->SetState(ParaGoombaState::die);
-		this->die_time = GetTickCount();
+		this->die_time = GetTickCount64();
 	}
 }
 
 void ParaGoomba::InstanceDead()
 {
-	this->die_time = GetTickCount();
+	this->die_time = GetTickCount64();
 	this->SetState(ParaGoombaState::instancedead);
 	this->width = 0;
 	this->height = 0;

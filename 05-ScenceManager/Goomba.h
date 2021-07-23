@@ -44,7 +44,7 @@ enum class GoombaState
 
 class CGoomba : public CGameObject
 {
-	DWORD die_time;
+	ULONGLONG die_time;
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
 	virtual void Render();
@@ -53,9 +53,9 @@ class CGoomba : public CGameObject
 	GoombaState goombaState;
 	float velocity;
 
-	DWORD waitFlyTime;
-	DWORD flyTime;
-	DWORD poopTime;
+	ULONGLONG waitFlyTime;
+	ULONGLONG flyTime;
+	ULONGLONG poopTime;
 public: 	
 	CGoomba();
 	virtual void SetState(GoombaState state);

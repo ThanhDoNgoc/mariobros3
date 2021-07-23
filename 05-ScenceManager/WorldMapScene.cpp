@@ -94,7 +94,7 @@ void WorldMapScene::Load()
 	this->camera->SetCamPos(0, 0);
 	this->camera->SetCamLimit(camL, camT, camR, camB);
 
-	this->player->level = CGame::GetInstance()->mariolvl;
+	//this->player->level = CGame::GetInstance()->mariolvl;
 
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }

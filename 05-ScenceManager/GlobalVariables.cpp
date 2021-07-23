@@ -10,7 +10,9 @@ GlobalVariables::GlobalVariables()
 	this->time = 0;
 
 	this->__instance = this;
-	this->Game_time_start = GetTickCount();
+	this->Game_time_start = GetTickCount64();
+	this->Ptime_start = 0;
+	this->mariolvl = 0;
 }
 
 void GlobalVariables::MinusLife()

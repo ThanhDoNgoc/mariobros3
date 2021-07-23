@@ -27,6 +27,11 @@
 #define PLAY_STATE_LOSE		1
 #define PLAY_STATE_VICTORY	2
 
+#define	MARIO_LEVEL_SMALL	0
+#define	MARIO_LEVEL_BIG		1
+#define MARIO_LEVEL_FIRE	2
+#define MARIO_LEVEL_RACCOON	3
+
 class GlobalVariables
 {
 	static GlobalVariables* __instance;
@@ -34,7 +39,6 @@ class GlobalVariables
 	int life, coin;
 	int time;
 	int plevel;
-	int mariolevel;
 	int playstate = 0;
 	int cardCollected[3] = { 0,0,0 };
 	ULONGLONG Ptime_start;
@@ -42,6 +46,7 @@ class GlobalVariables
 	ULONGLONG Game_time_start;
 
 public:
+	int mariolvl = 0;;
 	GlobalVariables();
 	void ResetScore() { this->score = 0; }
 	void AddScore(long s) { this->score += s; }

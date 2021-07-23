@@ -3,7 +3,7 @@
 #define WAIT_END_TIME 1500
 class PlayerStateEndGame : public PlayerState
 {
-	DWORD startEndScene;
+	ULONGLONG startEndScene;
 public:
 	PlayerStateEndGame();
 	virtual void Update();

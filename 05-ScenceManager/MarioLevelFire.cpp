@@ -23,7 +23,7 @@ MarioLevelFire::MarioLevelFire()
 	__Mario->height = MARIO_BIG_BBOX_HEIGHT;
 
 	__Mario->level = MARIO_LEVEL_FIRE;
-	CGame::GetInstance()->mariolvl = MARIO_LEVEL_FIRE;
+	GlobalVariables::GetInstance()->mariolvl = MARIO_LEVEL_FIRE;
 }
 
 void MarioLevelFire::LevelDown()

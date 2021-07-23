@@ -1,3 +1,4 @@
+#pragma warning (disable : 6011)
 #include "BoomerangBro.h"
 #include "Camera.h"
 #include "Game.h"
@@ -11,8 +12,11 @@ BoomerangBro::BoomerangBro()
 	this->isDead = false;
 	this->ObjectGroup = Group::enemy;
 	this->collision = Collision2D::Full;
-	this->startAttackTime = GetTickCount();
+	this->startAttackTime = GetTickCount64();
 	this->bbroAtkState = BBroAttackSate::NoneAttack1;
+	this->idleTime = 0;
+	this->waitAttack = 0;
+	this->waitAttackTime = 0;
 }
 
 void BoomerangBro::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -86,7 +90,7 @@ void BoomerangBro::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	case BBroState::idleright:
 	{
 		this->vx = 0;
-		if (GetTickCount() - idleTime > BBRO_IDLE_TIME)
+		if (GetTickCount64() - idleTime > BBRO_IDLE_TIME)
 		{
 			bbroState = BBroState::walkleft;
 		}
@@ -99,7 +103,7 @@ void BoomerangBro::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (abs(this->x - this->startX) > BBRO_WALKING_DISTANCE)
 		{
 			this->x = this->startX - BBRO_WALKING_DISTANCE;
-			this->idleTime = GetTickCount();
+			this->idleTime = GetTickCount64();
 			bbroState = BBroState::idleleft;
 		}
 		break;
@@ -107,7 +111,7 @@ void BoomerangBro::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	case BBroState::idleleft:
 	{
 		this->vx = 0;
-		if (GetTickCount() - idleTime > BBRO_IDLE_TIME)
+		if (GetTickCount64() - idleTime > BBRO_IDLE_TIME)
 		{
 			bbroState = BBroState::walkright;
 		}
@@ -119,7 +123,7 @@ void BoomerangBro::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (this->x > this->startX)
 		{
 			this->x = this->startX;
-			this->idleTime = GetTickCount();
+			this->idleTime = GetTickCount64();
 			bbroState = BBroState::idleright;
 		}
 		break;
@@ -130,12 +134,12 @@ void BoomerangBro::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	switch (bbroAtkState)
 	{
 	case BBroAttackSate::NoneAttack1:
-		this->startAttackTime = GetTickCount();
+		this->startAttackTime = GetTickCount64();
 		this->waitAttack = true;
 		this->bbroAtkState = BBroAttackSate::WaitAttack1;
 		break;
 	case BBroAttackSate::WaitAttack1:
-		if (GetTickCount() - startAttackTime > BBRO_ATTACK_WAIT_TIME)
+		if (GetTickCount64() - startAttackTime > BBRO_ATTACK_WAIT_TIME)
 		{
 			this->waitAttack = false;
 			Boomerang* bmr = new Boomerang(this->x, this->y-24, -this->direction.x);
@@ -144,14 +148,14 @@ void BoomerangBro::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		break;
 	case BBroAttackSate::NoneAttack2:
-		if (GetTickCount() - startAttackTime > BBRO_SECOND_ATTACK_TIME)
+		if (GetTickCount64() - startAttackTime > BBRO_SECOND_ATTACK_TIME)
 		{
 			this->waitAttack = true;
 			this->bbroAtkState = BBroAttackSate::WaitAttack2;
 		}
 		break;
 	case BBroAttackSate::WaitAttack2:
-		if (GetTickCount() - startAttackTime > BBRO_SECOND_ATTACK_TIME + BBRO_ATTACK_WAIT_TIME)
+		if (GetTickCount64() - startAttackTime > BBRO_SECOND_ATTACK_TIME + BBRO_ATTACK_WAIT_TIME)
 		{
 			this->waitAttack = false;
 			Boomerang* bmr = new Boomerang(this->x, this->y-24, -this->direction.x);
@@ -160,7 +164,7 @@ void BoomerangBro::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		break;
 	case BBroAttackSate::NoneAttack3:
-		if (GetTickCount() - startAttackTime > BBRO_ATTACK_TIME)
+		if (GetTickCount64() - startAttackTime > BBRO_ATTACK_TIME)
 		{
 			this->bbroAtkState = BBroAttackSate::NoneAttack1;
 		}

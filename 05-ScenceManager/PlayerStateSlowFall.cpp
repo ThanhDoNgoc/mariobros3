@@ -22,7 +22,7 @@ void PlayerStateSlowFall::Update()
 		__Mario->vx = MARIO_MAX_WALKING_SPEED * __Mario->direction.x;
 	}
 
-	if (GetTickCount() - slowFallTimeStart > MARIO_FLY_TIME)
+	if (GetTickCount64() - slowFallTimeStart > MARIO_FLY_TIME)
 		__Mario->SetState(new PlayerStateFall());
 
 	if (__Mario->isOnGround)

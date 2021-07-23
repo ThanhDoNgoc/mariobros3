@@ -23,7 +23,7 @@ enum class GreeneatingState
 
 class GreenEatingPlant : public CGameObject
 {
-	DWORD waitTime_start, hideTime_start;
+	ULONGLONG waitTime_start, hideTime_start;
 	float distance;
 	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f, 1.0f);
 	GreeneatingState state;

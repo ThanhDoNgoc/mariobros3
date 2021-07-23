@@ -57,7 +57,7 @@ void EndGameReward::OnOverLap(CGameObject* obj)
 			if (!isAddCard)
 			{
 				GlobalVariables::GetInstance()->AddCard(this->state + 1);
-				DebugOut(L" endgamecard: %d \n ", this->state + 1);
+				//DebugOut(L" endgamecard: %d \n ", this->state + 1);
 				this->isAddCard = true;
 			}
 		}

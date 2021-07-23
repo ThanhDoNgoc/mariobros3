@@ -64,7 +64,8 @@ enum class Group
 	none,
 	musicblock,
 	hiddenmusicblock,
-	poop
+	poop,
+	effect
 };
 enum class Collision2D
 {

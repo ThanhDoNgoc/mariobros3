@@ -9,10 +9,13 @@ Leaf::Leaf()
 	this->ObjectGroup = Group::item;
 	this->collision = Collision2D::None;
 
-	leafRevealTime = GetTickCount();
+	leafRevealTime = GetTickCount64();
 
 	this -> state = 1;
 	this->objectLayer = 0;
+	this->cycleTime = 0;
+	this->isClaimed = false;
+	this->timeClaimed = 0;
 
 }
 
@@ -33,9 +36,9 @@ void Leaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 	case 1:
 	{
-		if (GetTickCount() - leafRevealTime > LEAF_REVEAL_TIME)
+		if (GetTickCount64() - leafRevealTime > LEAF_REVEAL_TIME)
 		{
-			cycleTime = GetTickCount();
+			cycleTime = GetTickCount64();
 			vy = 0;
 			state = 2;
 		}
@@ -53,10 +56,10 @@ void Leaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	break;
 	}
 
-	if (GetTickCount() - cycleTime > LEAF_CYCLE_TIME)
+	if (GetTickCount64() - cycleTime > LEAF_CYCLE_TIME)
 	{
 		direction.x = -direction.x;
-		cycleTime = GetTickCount();
+		cycleTime = GetTickCount64();
 	}
 }
 

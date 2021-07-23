@@ -12,7 +12,7 @@
 #define WORLD_MAP_MARIO_WIDTH	48
 #define WORLD_MAP_MARIO_HEIGHT	48
 
-enum WMMarioState {
+enum class WMMarioState {
 	idle,
 	up,
 	down,
@@ -22,7 +22,7 @@ enum WMMarioState {
 class WorldMapMario :public CGameObject
 {
 	int curentNode;
-	NodeMap* map;
+	NodeMap* map ;
 	WMMarioState wmmstate;
 public:
 	WorldMapMario();

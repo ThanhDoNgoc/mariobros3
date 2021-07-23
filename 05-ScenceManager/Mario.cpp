@@ -54,7 +54,7 @@ CMario::CMario(float x, float y) : CGameObject()
 
 	this->fireball = 2;
 
-	switch (CGame::GetInstance()->mariolvl)
+	switch (GlobalVariables::GetInstance()->mariolvl)
 	{
 	case MARIO_LEVEL_SMALL:
 		this->_marioLevel = new MarioLevelSmall();
@@ -408,12 +408,12 @@ void CMario::OnKeyDown(int KeyCode)
 			this->y -= MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT;
 		this->_marioLevel = new MarioLevelBig();
 		break;
-	case DIK_3:
+	case DIK_4:
 		if (this->level == MARIO_LEVEL_SMALL)
 			this->y -= MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT;
 		this->_marioLevel = new MarioLevelFire();
 		break;
-	case DIK_4:
+	case DIK_3:
 		if (this->level == MARIO_LEVEL_SMALL)
 			this->y -= MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT;
 		this->_marioLevel = new MarioLevelRaccoon();

@@ -45,7 +45,6 @@ class CGame
 	void _ParseSection_ANIMATIONS(string line);
 
 public:
-	int mariolvl = 0;
 	void Init(HWND hWnd);
 	void Draw(float x, float y, float cx, float cy, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, D3DXVECTOR2 flip = D3DXVECTOR2(1.0f, 1.0f) , int alpha = 255);
 	void DrawTileMap(float x, float y,int width, int height, LPDIRECT3DTEXTURE9 texture, RECT* Rect);

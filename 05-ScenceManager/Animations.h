@@ -23,7 +23,7 @@ typedef CAnimationFrame *LPANIMATION_FRAME;
 
 class CAnimation
 {
-	DWORD lastFrameTime;
+	ULONGLONG lastFrameTime;
 	int currentFrame;
 	int defaultTime;
 	vector<LPANIMATION_FRAME> frames;

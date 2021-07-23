@@ -2,7 +2,7 @@
 #include "Game.h"
 MarioRaccoonTail::MarioRaccoonTail(float x, float y)
 {
-	this->deleteTime = GetTickCount();
+	this->deleteTime = GetTickCount64();
 	this->ObjectGroup = Group::marioprojectile;
 	this->collision = Collision2D::None;
 	this->x = x;
@@ -22,7 +22,7 @@ void MarioRaccoonTail::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vector<LPCOLLISIONEVENT> coEvents;
 	coEvents.clear();
 	CalcPotentialCollisions(coObjects, coEvents);
-	if (GetTickCount() - deleteTime > ATTACK_TIME)
+	if (GetTickCount64() - deleteTime > ATTACK_TIME)
 	{
 		this->TakeDamage();
 	}

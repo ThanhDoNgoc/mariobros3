@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Camera.h"
 #include "Mario.h"
+#include "BreakBrick.h"
 CBrick::CBrick()
 {
 	AddAnimation(ID_ANI_BRICK);
@@ -36,6 +37,15 @@ void CBrick::TakeDamage()
 {
 	if (state == STATE_BRICK)
 	{
+		BreakBrick* br1 = new BreakBrick(this->x, this->y, true, false);
+		BreakBrick* br2 = new BreakBrick(this->x + 24, this->y, true, true);
+		BreakBrick* br3 = new BreakBrick(this->x, this->y + 24, false, false);
+		BreakBrick* br4 = new BreakBrick(this->x + 24, this->y + 24, false, true);
+
+		CGame::GetInstance()->GetCurrentScene()->AddObjectInGame(br1);
+		CGame::GetInstance()->GetCurrentScene()->AddObjectInGame(br2);
+		CGame::GetInstance()->GetCurrentScene()->AddObjectInGame(br3);
+		CGame::GetInstance()->GetCurrentScene()->AddObjectInGame(br4);
 		CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
 	}
 }
@@ -89,7 +99,7 @@ void CBrick::OnOverLap(CGameObject* obj)
 	{
 		if (obj->ObjectGroup == Group::marioprojectile)
 		{
-			CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
+			this->TakeDamage();
 			obj->TakeDamage();
 		}
 		break;

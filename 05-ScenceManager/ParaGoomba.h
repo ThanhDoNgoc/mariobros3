@@ -28,7 +28,7 @@ enum class ParaGoombaState
 };
 class ParaGoomba : public CGameObject
 {
-	DWORD die_time;
+	ULONGLONG die_time;
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();

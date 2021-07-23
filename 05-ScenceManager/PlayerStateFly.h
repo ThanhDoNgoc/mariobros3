@@ -2,12 +2,12 @@
 #include "PlayerState.h"
 class PlayerStateFly : public PlayerState
 {
-	DWORD flyTimeStart;
+	ULONGLONG flyTimeStart;
 public:
 	PlayerStateFly();
 	void Update();
 	void SetAnimation();
 	void OnKeyDown(int KeyCode);
-	void StartFly() { flyTimeStart = GetTickCount(); }
+	void StartFly() { flyTimeStart = GetTickCount64(); }
 };
 

@@ -34,10 +34,10 @@ class BoomerangBro : public CGameObject
 {
 	D3DXVECTOR2 direction = D3DXVECTOR2(1.0f, 1.0f);
 	BBroState bbroState;
-	DWORD idleTime;
+	ULONGLONG idleTime;
 	bool isDead = false;
-	DWORD startAttackTime;
-	DWORD waitAttackTime;
+	ULONGLONG startAttackTime;
+	ULONGLONG waitAttackTime;
 	bool waitAttack;
 	BBroAttackSate bbroAtkState;
 	

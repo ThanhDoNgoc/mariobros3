@@ -83,7 +83,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			if (goombaState == GoombaState::flydown)
 			{
 				goombaState = GoombaState::walkfly;
-				this->waitFlyTime = GetTickCount();
+				this->waitFlyTime = GetTickCount64();
 			}
 		}
 		// Collision logic with other objects
@@ -114,7 +114,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	if (goombaState == GoombaState::die)
 	{
-		if (GetTickCount() - this->die_time > GOOMBA_DIE_TIME)
+		if (GetTickCount64() - this->die_time > GOOMBA_DIE_TIME)
 		{
 			CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
 			GlobalVariables::GetInstance()->AddScore(100);
@@ -122,7 +122,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 	if (goombaState == GoombaState::instancedead)
 	{
-		if (GetTickCount() - this->die_time > GOOMBA_INSTANCE_DIE_TIME)
+		if (GetTickCount64() - this->die_time > GOOMBA_INSTANCE_DIE_TIME)
 		{
 			CGame::GetInstance()->GetCurrentScene()->DeleteObject(this);
 			GlobalVariables::GetInstance()->AddScore(100);
@@ -136,8 +136,8 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		this->vy = -GOOMBA_FLY_SPEED;
 		if (this->y < CMario::GetInstance()->y - GOOMBA_HIGH_DISTANCE)
 		{
-			flyTime = GetTickCount();
-			poopTime = GetTickCount();
+			flyTime = GetTickCount64();
+			poopTime = GetTickCount64();
 			goombaState = GoombaState::fly;
 		}
 		break;
@@ -157,13 +157,13 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			this->vy = GOOMBA_FLOAT_SPEED;
 		else this->vy = -GOOMBA_FLOAT_SPEED;
 
-		if (GetTickCount() - flyTime > GOOBA_FLY_TIME)
+		if (GetTickCount64() - flyTime > GOOBA_FLY_TIME)
 		{
 			goombaState = GoombaState::flydown;
 		}
-		if (GetTickCount() - poopTime > GOOMBA_POOP_TIME)
+		if (GetTickCount64() - poopTime > GOOMBA_POOP_TIME)
 		{
-			poopTime = GetTickCount();
+			poopTime = GetTickCount64();
 			GoombaPoop* poop = new GoombaPoop();
 			poop->SetPosition(this->x + GOOMBA_BBOX_WIDTH/2, this->y + GOOMBA_BBOX_HEIGHT);
 			CGame::GetInstance()->GetCurrentScene()->AddObjectInGame(poop);
@@ -183,7 +183,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			direction.x = -1.0f;
 		}
-		if (GetTickCount() - waitFlyTime > GOOMBA_WALK_TIME)
+		if (GetTickCount64() - waitFlyTime > GOOMBA_WALK_TIME)
 			goombaState = GoombaState::flyup;
 		break;
 		
@@ -255,13 +255,13 @@ void CGoomba::TakeDamage()
 	else
 	{
 		this->SetState(GoombaState::die);
-		this->die_time = GetTickCount();
+		this->die_time = GetTickCount64();
 	}
 }
 
 void CGoomba::InstanceDead()
 {
-	this->die_time = GetTickCount();
+	this->die_time = GetTickCount64();
 	this->SetState(GoombaState::instancedead);
 	this->width = 0;
 	this->height = 0;

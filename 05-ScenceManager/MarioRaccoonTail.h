@@ -5,7 +5,7 @@
 #define ATTACK_TIME	200
 class MarioRaccoonTail : public CGameObject
 {
-	DWORD deleteTime;
+	ULONGLONG deleteTime;
 public:
 	MarioRaccoonTail(float x, float y);
 

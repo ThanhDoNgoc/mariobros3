@@ -178,7 +178,7 @@ void CPlayScene::Load()
 	this->isPlayScene = true;
 	this->waitEndScene_start = 0;
 
-	switch (CGame::GetInstance()->mariolvl)
+	/*switch (CGame::GetInstance()->mariolvl)
 	{
 	case MARIO_LEVEL_SMALL:
 		player->_marioLevel = new MarioLevelSmall();
@@ -192,7 +192,7 @@ void CPlayScene::Load()
 	case MARIO_LEVEL_RACCOON:
 		player->_marioLevel = new MarioLevelRaccoon();
 		break;
-	}
+	}*/
 
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 	GlobalVariables::GetInstance()->StartGameTime();
@@ -317,11 +317,8 @@ void CPlayScene::OnKeyDown(int KeyCode)
 	player->OnKeyDown(KeyCode);
 	switch (KeyCode)
 	{
-	case DIK_O:
+	case DIK_6:
 		EndScene();
-		break;
-	case DIK_I:
-		CGame::GetInstance()->SwitchScene(1);
 		break;
 	}
 }

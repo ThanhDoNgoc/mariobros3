@@ -205,7 +205,7 @@ void CKoopas::SetState(KoopaState state)
 	case KoopaState::die:
 		break;
 	}
-	DebugOut(L" velocity x: %f \n ", this->vx);
+	//DebugOut(L" velocity x: %f \n ", this->vx);
 }
 
 void CKoopas::TakeDamage()

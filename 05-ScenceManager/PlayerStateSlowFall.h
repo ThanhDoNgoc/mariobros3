@@ -2,12 +2,12 @@
 #include "PlayerState.h"
 class PlayerStateSlowFall : public PlayerState
 {
-	DWORD slowFallTimeStart;
+	ULONGLONG slowFallTimeStart;
 public:
 	PlayerStateSlowFall();
 	void Update();
 	void SetAnimation();
 	void OnKeyDown(int KeyCode);
-	void StartSlowFall() { slowFallTimeStart = GetTickCount(); }
+	void StartSlowFall() { slowFallTimeStart = GetTickCount64(); }
 };
 
