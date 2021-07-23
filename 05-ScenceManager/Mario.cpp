@@ -424,6 +424,10 @@ void CMario::OnKeyDown(int KeyCode)
 	case DIK_5:
 		this->SetPosition(6744, 330);
 		break;
+	case DIK_8:
+		this->SetPosition(1584, 1680);
+		this->state = MARIO_STATE_WARP;
+		break;
 	}
 }
 

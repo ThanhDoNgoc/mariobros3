@@ -18,6 +18,7 @@ GoombaPoop::GoombaPoop()
 
 void GoombaPoop::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
+	if (isDead) return;
 	left = this->x;
 	top = this->y;
 	right = left + POOP_BBOX_WIDTH;
